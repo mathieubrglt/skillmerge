@@ -38,6 +38,17 @@ skillmerge compose "our nightly job produced silently wrong totals for days and 
 You get a complete `SKILL.md`: each item an obligation, each with the specific knowledge under it,
 labelled with the skill it came from.
 
+Ask it something the corpus does not cover and it declines rather than guessing:
+
+```bash
+skillmerge compose "review this pull request before I merge it"
+# No skill in the library matches this task with enough confidence.
+```
+
+The demo corpus is about satellite-derived commodity indicators, so that is the right answer. The
+floor is calibrated on in-corpus probes against out-of-corpus ones and catches 14 of 15 negatives
+while keeping 95% of positives.
+
 ## Point it at your own library
 
 ```bash
