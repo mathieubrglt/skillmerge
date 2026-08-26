@@ -5973,39 +5973,6 @@
   ]
  },
  {
-  "name": "worker-classification-review",
-  "domain": "accounting, audit and tax",
-  "description": "Evaluates whether workers are properly treated as employees or independent contractors and quantifies payroll tax exposure. Use it when contractors have been engaged full time for long periods, when a worker files for unemployment or files a determination request, when an agency notice arrives, or when someone asks how to bring misclassified workers onto payroll without triggering a full assessment.",
-  "expansions": [
-   "contractor has worked full time for two years",
-   "former contractor filed for unemployment",
-   "state agency sent a classification notice",
-   "should this consultant be on payroll",
-   "we issue 1099s to twenty developers",
-   "workers use our equipment and our hours",
-   "voluntary classification settlement question",
-   "remote worker in a state where we are not registered"
-  ],
-  "atoms": [
-   {
-    "obligation": "Apply the relevant control test to the actual working relationship and weigh behavioral control, financial control, and the parties' relationship.",
-    "lesson": "Behavioral control looks at instructions on when, where, and how work is done, and at training provided. Financial control looks at unreimbursed investment, opportunity for profit or loss, availability of services to the market, and method of payment, since hourly pay suggests employment while a fixed project fee suggests independence. Relationship factors include written contracts, benefits, permanency, and whether the services are a key activity of the business. Several states apply a stricter three-part test where the worker must perform work outside the hiring entity's usual course of business."
-   },
-   {
-    "obligation": "Quantify exposure separately for federal employment taxes, state unemployment and withholding, and benefit plan consequences before choosing a remediation path.",
-    "lesson": "Federal exposure includes the employer and employee shares of social security and medicare, federal unemployment tax, and income tax withholding, with reduced statutory rates available where information returns were filed and the treatment was not intentional. State exposure runs separately by jurisdiction with its own lookback and penalty regime, and unemployment claims often trigger the audit. Do not overlook benefit plan effects, since reclassified workers may become eligible participants retroactively, threatening plan qualification, and workers compensation premiums are recalculated too."
-   },
-   {
-    "obligation": "Preserve any available relief position by checking whether consistent treatment and a reasonable basis existed from the beginning of the engagement.",
-    "lesson": "Statutory relief can bar reclassification where the entity never treated the worker or any substantially similar worker as an employee, filed all required information returns consistently, and had a reasonable basis such as judicial precedent, a prior audit, or long-standing industry practice. The relief fails entirely if any similarly situated worker was ever on payroll, so a hybrid arrangement where some developers are employees and identical ones are contractors destroys the defense. Assess this before making prospective changes that create the inconsistency."
-   },
-   {
-    "obligation": "Document the classification decision for each engagement at the outset with a written analysis and matching contract terms and operational practice.",
-    "lesson": "Contracts stating that the worker is an independent contractor carry little weight if daily practice contradicts them. Align the paperwork with reality: a scope of work with deliverables rather than hours, no company email or equipment where practical, no set schedule, no supervision of method, and evidence the worker serves other clients such as their business registration and insurance. Collect the taxpayer identification certification before the first payment, since backup withholding obligations arise when it is missing, and file the annual information returns on time."
-   }
-  ]
- },
- {
   "name": "partnership-allocation-k1",
   "domain": "accounting, audit and tax",
   "description": "Handles partnership and LLC income allocations, capital account maintenance, and the partner schedules that come out of them. Use it when a new partner is admitted mid-year, when the operating agreement has a waterfall or preferred return, when capital accounts go negative, or when someone asks why a partner's taxable income does not match their cash distributions.",

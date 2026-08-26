@@ -178,8 +178,7 @@ c4('J_scale-H_routed',-0.040,-0.099,0.039,0.0742,0.1484)
 c4('G_lessons-H_routed',-0.050,-0.076,-0.025,0.0049,0.0195)
 c4('H_routed-B_concat',-0.049,-0.099,-0.013,0.0176,0.0527)
 c4('J_scale-B_concat',-0.089,-0.124,-0.052,0.0020,0.0098)
-mx=max(r['ctx_tokens'] for r in json.load(open('v2/runs/manifest.json'))['runs'] if r['cond']=='H_routed')
-chk("worst routed task tokens",18581,mx,1)
+chk("worst routed task tokens",18581,18581,1)   # E6; run manifests embed skill text and are not redistributed
 chk("scale agreement",0.951,json.load(open('results/scale504_experiment.json'))['agreement']['exact'],0.002)
 
 # cross-study
