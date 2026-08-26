@@ -1,0 +1,187 @@
+{
+  "skill": "pipeline-incident-response",
+  "atoms": [
+    {
+      "obligation": "Confirm the reported symptom against what is actually served to consumers before trusting any internal log.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nStep (1) of the triage order: confirm the symptom against the serving layer, not the build logs. The build logs can look clean while the served values are wrong, and they can look alarming while nothing consumers see is affected.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Incident and triage"
+    },
+    {
+      "obligation": "Classify severity by who is consuming the bad output right now, not by how broken the code looks.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nStep (2) of the triage order: classify severity by who is consuming the bad data right now, not by how broken the code looks. Severity follows live consumption, not the ugliness of the defect.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Incident and triage"
+    },
+    {
+      "obligation": "Stop the spread before diagnosing, and only look for the cause once the bleeding has stopped.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nSteps (3) and (4) of the triage order: stop the bleeding — pause the schedule or freeze the served partition — before diagnosing; only then look for cause. Freezing a wrong number in place is almost always better than letting it propagate while you think.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Incident and triage"
+    },
+    {
+      "obligation": "Before any change reaches a shared environment, write down how to undo it, how long that takes, and what is lost.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nBefore any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. All three facts are needed before the change lands, not after.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Have a rollback path before you change anything"
+    },
+    {
+      "obligation": "Test the recovery procedure yourself before relying on it as your way back.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nIf the undo is 'restore from backup', test the restore first. An untested restore is not a rollback path.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Have a rollback path before you change anything"
+    },
+    {
+      "obligation": "Give every irreversible step a named approver and a scheduled time; never improvise one.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nIrreversible steps get a named approver and are scheduled, never improvised.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Have a rollback path before you change anything"
+    },
+    {
+      "obligation": "Record the outcome of this step in the running incident record.",
+      "lesson": "Record the outcome of this step in the incident notes. This applies to the rollback path: the undo procedure, its duration, what it costs, and any named approver for irreversible steps belong in the incident notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Have a rollback path before you change anything"
+    },
+    {
+      "obligation": "Set the investigation budget before you start and escalate the moment it expires, even mid-thought.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nSet the investigation budget before you start and escalate when it expires, even mid-thought. The budget is set in advance precisely so that expiry is not a judgement call made while you are absorbed in the problem.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Timebox: what is required"
+    },
+    {
+      "obligation": "When you escalate, state what you tried, what you ruled out and what you would try next.",
+      "lesson": "Skipping this is the most common way a incident goes wrong.\n\nState what you tried, what you ruled out and what you would try next — an escalation with those three things costs the next person minutes, not hours.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Timebox: what is required"
+    },
+    {
+      "obligation": "Record the outcome of this step in the running incident record.",
+      "lesson": "Record the outcome of this step in the incident notes. This applies to the timebox: the budget you set, when it expired, and the escalation content (tried / ruled out / next) belong in the incident notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Timebox: what is required"
+    },
+    {
+      "obligation": "Ship the monitoring for a system at the same time as the system itself, not afterwards.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nMonitors for freshness, volume and null rate go in with the pipeline. Those three signals are the baseline set, and they are installed with the pipeline rather than retrofitted after the first failure.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Instrument before you need the signal"
+    },
+    {
+      "obligation": "Make alerts fire on symptoms the users would notice, and give each one an owner and a runbook.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nAlerts fire on symptoms users would notice and carry an owner plus a runbook. An alert with no owner and no runbook is a notification, not an alert.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Instrument before you need the signal"
+    },
+    {
+      "obligation": "If you cannot meet this requirement, stop and escalate rather than proceeding.",
+      "lesson": "If you cannot satisfy this, stop and escalate. This applies to instrumentation: if monitors for freshness, volume and null rate cannot be put in place, or alerts cannot be given an owner and a runbook, the work stops and escalates rather than continuing uninstrumented.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Instrument before you need the signal"
+    },
+    {
+      "obligation": "Never let personal or confidential fields propagate into anything shared beyond the originating team.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nNever propagate personal or client-confidential fields into shared artefacts. This is marked non-negotiable in the heading of this section.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Flag and pause the work if restricted material turns up in the inputs you were given.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nFlag and pause if they turn up in inputs — that is, if personal or client-confidential fields appear in the inputs, the response is to raise it and stop, not to filter them out quietly and carry on.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Publish only aggregates whose identifiers cannot be linked back to the underlying individuals.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nPublish aggregates with non-relinkable identifiers.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Write the completion criteria as checkable statements before starting the work.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nWrite the completion criteria before starting, as checkable statements. Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Definition of done: what is required"
+    },
+    {
+      "obligation": "Close the work by walking each completion criterion one by one with evidence attached to each.",
+      "lesson": "Apply this before the incident leaves your hands.\n\nClose the work by walking them one by one with evidence attached to each — every criterion gets its own evidence, not a single blanket claim that the work is done.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Definition of done: what is required"
+    },
+    {
+      "obligation": "Build the dependency map from observed access records rather than documentation, and note how each consumer would detect a problem and how quickly.",
+      "lesson": "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted. Documentation misses the consumers nobody registered; the access logs are what surfaces them.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Map upstream and downstream dependencies"
+    },
+    {
+      "obligation": "If you cannot meet this requirement, stop and escalate rather than proceeding.",
+      "lesson": "If you cannot satisfy this, stop and escalate. This applies to dependency mapping: if the access logs are unavailable or the consumer set cannot be established, the work stops and escalates rather than proceeding on an assumed dependency map.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Map upstream and downstream dependencies"
+    },
+    {
+      "obligation": "Attach a record of origin to every output, covering input versions, coverage window, code revision and configuration.",
+      "lesson": "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Provenance and lineage"
+    },
+    {
+      "obligation": "Store the origin record alongside the output itself so the two cannot drift apart.",
+      "lesson": "Co-locate it with the artefact so the two cannot drift apart. A lineage record kept somewhere else eventually describes a different version of the output than the one in hand.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Provenance and lineage"
+    },
+    {
+      "obligation": "Do not let any output leave the team unless its origin can be reconstructed from the record.",
+      "lesson": "Outputs without a reconstructable origin do not leave the team.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Provenance and lineage"
+    },
+    {
+      "obligation": "Lead every update with the consequence — who is affected, over what window, and what they must do — then the mechanism.",
+      "lesson": "This section applies to every incident without exception.\n\nLead with consequence — affected parties, affected window, required action — then explain the mechanism briefly underneath. The mechanism goes underneath and stays brief; the consequence is what the reader needs first.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Communication: what is required"
+    },
+    {
+      "obligation": "Commit to a time for the next update while anything remains unresolved.",
+      "lesson": "This section applies to every incident without exception.\n\nCommit to a next-update time while anything remains unresolved.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Communication: what is required"
+    },
+    {
+      "obligation": "Reach the affected parties before they discover the problem on their own.",
+      "lesson": "This section applies to every incident without exception.\n\nReach stakeholders before their dashboards do.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Communication: what is required"
+    }
+  ]
+}

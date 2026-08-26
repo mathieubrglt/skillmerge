@@ -1,0 +1,11 @@
+build/.token_cache.json
+build/jobs/
+__pycache__/
+*.pyc
+node_modules/
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+.DS_Store

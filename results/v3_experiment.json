@@ -1,0 +1,884 @@
+{
+ "per_run": [
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.8,
+   "rubric": 0.8875,
+   "overall": 8.0,
+   "ctx": 0,
+   "prompt": 152,
+   "out": 1279
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.9,
+   "rubric": 0.95,
+   "overall": 9.0,
+   "ctx": 1262,
+   "prompt": 1415,
+   "out": 1329
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.85,
+   "rubric": 0.925,
+   "overall": 8.0,
+   "ctx": 858,
+   "prompt": 1011,
+   "out": 1323
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.825,
+   "rubric": 0.8999999999999999,
+   "overall": 8.0,
+   "ctx": 582,
+   "prompt": 735,
+   "out": 1211
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.85,
+   "rubric": 0.875,
+   "overall": 9.0,
+   "ctx": 0,
+   "prompt": 130,
+   "out": 1201
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.75,
+   "skill_rubric": 1.0,
+   "rubric": 0.875,
+   "overall": 8.0,
+   "ctx": 2123,
+   "prompt": 2254,
+   "out": 1205
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.675,
+   "rubric": 0.7875000000000001,
+   "overall": 7.5,
+   "ctx": 592,
+   "prompt": 723,
+   "out": 1192
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.6,
+   "skill_rubric": 0.55,
+   "rubric": 0.575,
+   "overall": 4.0,
+   "ctx": 726,
+   "prompt": 857,
+   "out": 1344
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.825,
+   "rubric": 0.8875,
+   "overall": 8.0,
+   "ctx": 0,
+   "prompt": 130,
+   "out": 1325
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 1.0,
+   "rubric": 1.0,
+   "overall": 9.0,
+   "ctx": 976,
+   "prompt": 1107,
+   "out": 1530
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.875,
+   "rubric": 0.9375,
+   "overall": 8.0,
+   "ctx": 412,
+   "prompt": 543,
+   "out": 1227
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.9,
+   "rubric": 0.925,
+   "overall": 7.0,
+   "ctx": 589,
+   "prompt": 720,
+   "out": 1209
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.75,
+   "rubric": 0.8375,
+   "overall": 7.5,
+   "ctx": 0,
+   "prompt": 135,
+   "out": 1117
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.875,
+   "rubric": 0.8625,
+   "overall": 9.0,
+   "ctx": 919,
+   "prompt": 1055,
+   "out": 1298
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.65,
+   "skill_rubric": 0.8,
+   "rubric": 0.7250000000000001,
+   "overall": 6.5,
+   "ctx": 813,
+   "prompt": 949,
+   "out": 1232
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.7,
+   "skill_rubric": 0.8,
+   "rubric": 0.75,
+   "overall": 7.0,
+   "ctx": 1466,
+   "prompt": 1602,
+   "out": 1315
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.7,
+   "rubric": 0.7749999999999999,
+   "overall": 7.0,
+   "ctx": 0,
+   "prompt": 140,
+   "out": 1201
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.85,
+   "skill_rubric": 1.0,
+   "rubric": 0.925,
+   "overall": 8.5,
+   "ctx": 1038,
+   "prompt": 1179,
+   "out": 1388
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.875,
+   "skill_rubric": 0.875,
+   "rubric": 0.875,
+   "overall": 8.0,
+   "ctx": 394,
+   "prompt": 535,
+   "out": 1309
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.75,
+   "rubric": 0.8375,
+   "overall": 7.5,
+   "ctx": 1474,
+   "prompt": 1615,
+   "out": 1167
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.85,
+   "rubric": 0.875,
+   "overall": 7.5,
+   "ctx": 0,
+   "prompt": 131,
+   "out": 1155
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.9,
+   "rubric": 0.925,
+   "overall": 8.5,
+   "ctx": 2123,
+   "prompt": 2255,
+   "out": 1358
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.85,
+   "rubric": 0.8875,
+   "overall": 8.0,
+   "ctx": 1277,
+   "prompt": 1409,
+   "out": 1260
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.775,
+   "skill_rubric": 0.825,
+   "rubric": 0.8,
+   "overall": 7.0,
+   "ctx": 1463,
+   "prompt": 1595,
+   "out": 1314
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "A_none",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.85,
+   "rubric": 0.875,
+   "overall": 8.5,
+   "ctx": 0,
+   "prompt": 123,
+   "out": 1425
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.9,
+   "rubric": 0.875,
+   "overall": 7.5,
+   "ctx": 1678,
+   "prompt": 1802,
+   "out": 1570
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.85,
+   "rubric": 0.85,
+   "overall": 7.5,
+   "ctx": 346,
+   "prompt": 470,
+   "out": 1546
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.975,
+   "rubric": 0.8875,
+   "overall": 7.5,
+   "ctx": 1497,
+   "prompt": 1621,
+   "out": 1546
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "A_none",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.475,
+   "rubric": 0.725,
+   "overall": 7.5,
+   "ctx": 0,
+   "prompt": 158,
+   "out": 1471
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.8,
+   "skill_rubric": 1.0,
+   "rubric": 0.9,
+   "overall": 8.0,
+   "ctx": 1900,
+   "prompt": 2059,
+   "out": 1468
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.7,
+   "rubric": 0.75,
+   "overall": 7.0,
+   "ctx": 1434,
+   "prompt": 1593,
+   "out": 1448
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.875,
+   "skill_rubric": 0.65,
+   "rubric": 0.7625,
+   "overall": 8.0,
+   "ctx": 1416,
+   "prompt": 1575,
+   "out": 1451
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "A_none",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.325,
+   "rubric": 0.6375,
+   "overall": 7.0,
+   "ctx": 0,
+   "prompt": 144,
+   "out": 1399
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.85,
+   "skill_rubric": 1.0,
+   "rubric": 0.925,
+   "overall": 9.0,
+   "ctx": 7555,
+   "prompt": 7700,
+   "out": 1443
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.75,
+   "rubric": 0.775,
+   "overall": 8.0,
+   "ctx": 1297,
+   "prompt": 1442,
+   "out": 1549
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.65,
+   "rubric": 0.7875000000000001,
+   "overall": 7.0,
+   "ctx": 1241,
+   "prompt": 1386,
+   "out": 1346
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "A_none",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.3,
+   "rubric": 0.6375,
+   "overall": 7.0,
+   "ctx": 0,
+   "prompt": 167,
+   "out": 1496
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.925,
+   "rubric": 0.9625,
+   "overall": 9.0,
+   "ctx": 2242,
+   "prompt": 2410,
+   "out": 1391
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.9,
+   "rubric": 0.9375,
+   "overall": 8.5,
+   "ctx": 1512,
+   "prompt": 1680,
+   "out": 1171
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.6,
+   "rubric": 0.75,
+   "overall": 7.5,
+   "ctx": 1471,
+   "prompt": 1639,
+   "out": 1279
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "A_none",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.775,
+   "rubric": 0.8625,
+   "overall": 8.0,
+   "ctx": 0,
+   "prompt": 148,
+   "out": 1389
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.825,
+   "skill_rubric": 1.0,
+   "rubric": 0.9125,
+   "overall": 9.0,
+   "ctx": 4617,
+   "prompt": 4766,
+   "out": 1440
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.775,
+   "rubric": 0.8125,
+   "overall": 8.0,
+   "ctx": 1483,
+   "prompt": 1632,
+   "out": 1421
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.825,
+   "skill_rubric": 0.8,
+   "rubric": 0.8125,
+   "overall": 7.0,
+   "ctx": 1356,
+   "prompt": 1505,
+   "out": 1373
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "A_none",
+   "task_rubric": 0.875,
+   "skill_rubric": 0.75,
+   "rubric": 0.8125,
+   "overall": 7.5,
+   "ctx": 0,
+   "prompt": 133,
+   "out": 1314
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.825,
+   "skill_rubric": 0.975,
+   "rubric": 0.8999999999999999,
+   "overall": 7.5,
+   "ctx": 2535,
+   "prompt": 2669,
+   "out": 1329
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.8,
+   "rubric": 0.825,
+   "overall": 8.0,
+   "ctx": 1185,
+   "prompt": 1319,
+   "out": 1192
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.725,
+   "rubric": 0.7875,
+   "overall": 6.0,
+   "ctx": 1477,
+   "prompt": 1611,
+   "out": 1246
+  }
+ ],
+ "summary": {
+  "A_none": {
+   "task_rubric": 0.9270833333333334,
+   "skill_rubric": 0.6875,
+   "rubric": 0.8072916666666666,
+   "overall": 7.708333333333333,
+   "ctx": 0,
+   "out": 1314.3333333333333,
+   "prompt": 140.91666666666666,
+   "e2e": 1455.25
+  },
+  "B_concat": {
+   "task_rubric": 0.8791666666666667,
+   "skill_rubric": 0.95625,
+   "rubric": 0.9177083333333333,
+   "overall": 8.5,
+   "ctx": 2414,
+   "out": 1395.75,
+   "prompt": 2555.9166666666665,
+   "e2e": 3951.6666666666665
+  },
+  "C_composed": {
+   "task_rubric": 0.8729166666666667,
+   "skill_rubric": 0.8083333333333333,
+   "rubric": 0.840625,
+   "overall": 7.75,
+   "ctx": 966.9166666666666,
+   "out": 1322.5,
+   "prompt": 1108.8333333333333,
+   "e2e": 2431.333333333333
+  },
+  "F_v3": {
+   "task_rubric": 0.8416666666666667,
+   "skill_rubric": 0.7541666666666667,
+   "rubric": 0.7979166666666666,
+   "overall": 6.958333333333333,
+   "ctx": 1229.8333333333333,
+   "out": 1316.75,
+   "prompt": 1371.75,
+   "e2e": 2688.5
+  }
+ },
+ "contrasts": {
+  "rubric:F_v3-A_none": {
+   "delta": -0.009374999999999986,
+   "lo": -0.07708333333333335,
+   "hi": 0.0479166666666667,
+   "p": 0.8301,
+   "n": 12,
+   "wins": 7,
+   "losses": 5
+  },
+  "task_rubric:F_v3-A_none": {
+   "delta": -0.08541666666666665,
+   "lo": -0.14375000000000002,
+   "hi": -0.03124999999999999,
+   "p": 0.001,
+   "n": 12,
+   "wins": 1,
+   "losses": 9
+  },
+  "skill_rubric:F_v3-A_none": {
+   "delta": 0.06666666666666668,
+   "lo": -0.024999999999999984,
+   "hi": 0.15208333333333335,
+   "p": 0.1418,
+   "n": 12,
+   "wins": 9,
+   "losses": 3
+  },
+  "overall:F_v3-A_none": {
+   "delta": -0.75,
+   "lo": -1.6666666666666667,
+   "hi": -0.08333333333333333,
+   "p": 0.0258,
+   "n": 12,
+   "wins": 3,
+   "losses": 7
+  },
+  "rubric:F_v3-B_concat": {
+   "delta": -0.11979166666666667,
+   "lo": -0.16458333333333333,
+   "hi": -0.07916666666666669,
+   "p": 0.0,
+   "n": 12,
+   "wins": 1,
+   "losses": 11
+  },
+  "task_rubric:F_v3-B_concat": {
+   "delta": -0.037499999999999985,
+   "lo": -0.08749999999999998,
+   "hi": 0.010416666666666685,
+   "p": 0.1409,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "skill_rubric:F_v3-B_concat": {
+   "delta": -0.20208333333333334,
+   "lo": -0.2833333333333334,
+   "hi": -0.1166666666666667,
+   "p": 0.0,
+   "n": 12,
+   "wins": 1,
+   "losses": 11
+  },
+  "overall:F_v3-B_concat": {
+   "delta": -1.5416666666666667,
+   "lo": -2.125,
+   "hi": -1.0,
+   "p": 0.0,
+   "n": 12,
+   "wins": 0,
+   "losses": 10
+  },
+  "rubric:F_v3-C_composed": {
+   "delta": -0.04270833333333335,
+   "lo": -0.09062500000000005,
+   "hi": -0.003124999999999998,
+   "p": 0.0301,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "task_rubric:F_v3-C_composed": {
+   "delta": -0.03125000000000001,
+   "lo": -0.09583333333333337,
+   "hi": 0.024999999999999984,
+   "p": 0.3067,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "skill_rubric:F_v3-C_composed": {
+   "delta": -0.05416666666666667,
+   "lo": -0.11458333333333336,
+   "hi": 0.0,
+   "p": 0.0532,
+   "n": 12,
+   "wins": 3,
+   "losses": 8
+  },
+  "overall:F_v3-C_composed": {
+   "delta": -0.7916666666666666,
+   "lo": -1.4583333333333333,
+   "hi": -0.20833333333333334,
+   "p": 0.01,
+   "n": 12,
+   "wins": 2,
+   "losses": 8
+  },
+  "rubric:C_composed-A_none": {
+   "delta": 0.03333333333333336,
+   "lo": -0.02187499999999996,
+   "hi": 0.09687500000000004,
+   "p": 0.2627,
+   "n": 12,
+   "wins": 8,
+   "losses": 4
+  },
+  "task_rubric:C_composed-A_none": {
+   "delta": -0.05416666666666665,
+   "lo": -0.11041666666666665,
+   "hi": -0.004166666666666652,
+   "p": 0.0364,
+   "n": 12,
+   "wins": 4,
+   "losses": 6
+  },
+  "skill_rubric:C_composed-A_none": {
+   "delta": 0.12083333333333335,
+   "lo": 0.016666666666666673,
+   "hi": 0.24375000000000002,
+   "p": 0.0186,
+   "n": 12,
+   "wins": 8,
+   "losses": 1
+  },
+  "overall:C_composed-A_none": {
+   "delta": 0.041666666666666664,
+   "lo": -0.4583333333333333,
+   "hi": 0.5416666666666666,
+   "p": 0.918,
+   "n": 12,
+   "wins": 5,
+   "losses": 4
+  },
+  "rubric:C_composed-B_concat": {
+   "delta": -0.07708333333333332,
+   "lo": -0.10312499999999998,
+   "hi": -0.052083333333333315,
+   "p": 0.0,
+   "n": 12,
+   "wins": 0,
+   "losses": 12
+  },
+  "task_rubric:C_composed-B_concat": {
+   "delta": -0.006249999999999978,
+   "lo": -0.052083333333333294,
+   "hi": 0.03541666666666668,
+   "p": 0.8358,
+   "n": 12,
+   "wins": 4,
+   "losses": 4
+  },
+  "skill_rubric:C_composed-B_concat": {
+   "delta": -0.14791666666666667,
+   "lo": -0.20624999999999996,
+   "hi": -0.09166666666666669,
+   "p": 0.0,
+   "n": 12,
+   "wins": 0,
+   "losses": 12
+  },
+  "overall:C_composed-B_concat": {
+   "delta": -0.75,
+   "lo": -1.1666666666666667,
+   "hi": -0.375,
+   "p": 0.0,
+   "n": 12,
+   "wins": 1,
+   "losses": 10
+  },
+  "rubric:B_concat-A_none": {
+   "delta": 0.11041666666666669,
+   "lo": 0.056250000000000015,
+   "hi": 0.17187500000000008,
+   "p": 0.0,
+   "n": 12,
+   "wins": 10,
+   "losses": 0
+  },
+  "task_rubric:B_concat-A_none": {
+   "delta": -0.04791666666666667,
+   "lo": -0.08958333333333336,
+   "hi": -0.0062500000000000056,
+   "p": 0.0245,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "skill_rubric:B_concat-A_none": {
+   "delta": 0.26875000000000004,
+   "lo": 0.15833333333333333,
+   "hi": 0.39375000000000004,
+   "p": 0.0,
+   "n": 12,
+   "wins": 12,
+   "losses": 0
+  },
+  "overall:B_concat-A_none": {
+   "delta": 0.7916666666666666,
+   "lo": 0.20833333333333334,
+   "hi": 1.2916666666666667,
+   "p": 0.0101,
+   "n": 12,
+   "wins": 9,
+   "losses": 2
+  }
+ },
+ "by_genre": {
+  "engineering": {
+   "A_none": {
+    "rubric": 0.8589285714285714,
+    "ctx": 0
+   },
+   "B_concat": {
+    "rubric": 0.9160714285714285,
+    "ctx": 1445.5714285714287
+   },
+   "C_composed": {
+    "rubric": 0.8553571428571429,
+    "ctx": 670.2857142857143
+   },
+   "F_v3": {
+    "rubric": 0.8107142857142857,
+    "ctx": 1113.857142857143
+   }
+  },
+  "documents": {
+   "A_none": {
+    "rubric": 0.735,
+    "ctx": 0
+   },
+   "B_concat": {
+    "rubric": 0.92,
+    "ctx": 3769.8
+   },
+   "C_composed": {
+    "rubric": 0.82,
+    "ctx": 1382.2
+   },
+   "F_v3": {
+    "rubric": 0.78,
+    "ctx": 1392.2
+   }
+  }
+ },
+ "agreement": {
+  "items": 960,
+  "exact": 0.9427083333333334,
+  "within1": 1.0,
+  "r": 0.9234783037825931
+ }
+}

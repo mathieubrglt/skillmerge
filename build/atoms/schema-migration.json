@@ -1,0 +1,124 @@
+{
+  "skill": "schema-migration",
+  "atoms": [
+    {
+      "obligation": "Work through the process steps in the order given, treating each section as a requirement you can be held to.",
+      "lesson": "This skill guides the data engineer through a migration end to end. Work the sections in order; each one names an obligation you can be held to. The sections are: 1. Migration and schema change; 2. Dependencies and blast radius; 3. Staged rollout and canary; 4. Schema and compatibility; 5. Reproducibility: what is required; 6. Rollback: what is required; 7. Get the time-window arithmetic right — non-negotiable. The document closes with a checklist covering the same ground:\n\n- [ ] Schema migration execution\n- [ ] Map upstream and downstream dependencies\n- [ ] Roll out in stages with a kill switch\n- [ ] Preserve schema and API compatibility\n- [ ] Emit a reproducibility manifest\n- [ ] Have a rollback path before you change anything\n- [ ] Get the time-window arithmetic right",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Schema migration"
+    },
+    {
+      "obligation": "Add the new form alongside the old, move every reader across, and only then remove the old form.",
+      "lesson": "The data engineer owns this step.\n\nUse expand-and-contract: add the new shape, dual-write, backfill, move readers across, verify equivalence on live traffic, and only then remove the old shape — with a gap of at least one full business cycle before the contract step.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Migration and schema change"
+    },
+    {
+      "obligation": "Never combine a change of structure with a change of meaning in one step; rename anything whose meaning changes.",
+      "lesson": "Never combine a shape change and a semantic change in one migration; if a column's meaning changes, it gets a new name. The data engineer owns this step.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Migration and schema change"
+    },
+    {
+      "obligation": "Build the map of what depends on the thing you are changing from observed access records, not from documentation.",
+      "lesson": "This section applies to every migration without exception.\n\nBuild the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Dependencies and blast radius"
+    },
+    {
+      "obligation": "Record the outcome of each completed step in the written record that travels with the work.",
+      "lesson": "\"Record the outcome of this step in the migration notes.\" This instruction is repeated verbatim at the end of three sections, and applies to each of them: '2. Dependencies and blast radius' (the dependency map built from access logs), '5. Reproducibility: what is required' (the manifest and its verified fresh-environment run), and '6. Rollback: what is required' (the documented undo path, its duration, its losses, and any named approver). Sections 2 and 6 are also marked 'This section applies to every migration without exception.'",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Dependencies and blast radius"
+    },
+    {
+      "obligation": "Promote the change through each environment in order, giving every stage a pass criterion and a waiting period.",
+      "lesson": "Skipping this is the most common way a migration goes wrong.\n\nMove through the environments in order and give each stage a pass criterion and a soak period.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Staged rollout and canary"
+    },
+    {
+      "obligation": "Put the change behind a switch that can be turned off without a redeploy, and test the switch before real use.",
+      "lesson": "Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it. Skipping staged rollout and canary is the most common way a migration goes wrong. The closing checklist names this as \"Roll out in stages with a kill switch\".",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Staged rollout and canary"
+    },
+    {
+      "obligation": "Stop and escalate instead of proceeding when you cannot meet a required control.",
+      "lesson": "On staged rollout and canary: \"If you cannot satisfy this, stop and escalate.\" This applies to the whole of section 3 — the ordered environments with pass criteria and soak periods, and the flag that can be flipped off without a deploy. Skipping this section is the most common way a migration goes wrong, so an unsatisfiable requirement here is an escalation, not something to work around.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Staged rollout and canary"
+    },
+    {
+      "obligation": "Make only additive changes unless you are issuing a new major version.",
+      "lesson": "This section applies to every migration without exception.\n\nAdditive changes only, unless you are cutting a new major version. Adding an optional column is safe; renaming, retyping, tightening nullability or changing units is breaking, even when the tests pass.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Schema and compatibility"
+    },
+    {
+      "obligation": "List everyone who depends on the thing before you change it and give them the notice period you promised.",
+      "lesson": "Enumerate downstream consumers before the change and give them the deprecation window you promised. This section applies to every migration without exception. Note what counts as breaking and therefore triggers the window: renaming, retyping, tightening nullability or changing units is breaking, even when the tests pass; adding an optional column is safe.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Schema and compatibility"
+    },
+    {
+      "obligation": "Produce a record complete enough for someone else to repeat the run exactly, listing every input it needs.",
+      "lesson": "Apply this before the migration leaves your hands.\n\nProduce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Reproducibility: what is required"
+    },
+    {
+      "obligation": "Prove the reproduction record works by running it once from scratch in a clean environment.",
+      "lesson": "Prove it works by executing it once in a fresh environment; an unverified manifest is a guess. Apply this before the migration leaves your hands. The manifest under test is the one carrying the invocation command, image digest, locked dependency set, seeds, and run window.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Reproducibility: what is required"
+    },
+    {
+      "obligation": "Before any change reaches a shared environment, write down how to undo it, how long that takes, and what is lost.",
+      "lesson": "This section applies to every migration without exception.\n\nBefore any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Rollback: what is required"
+    },
+    {
+      "obligation": "Test the recovery procedure in advance whenever undoing the change depends on restoring from a saved copy.",
+      "lesson": "If the undo is 'restore from backup', test the restore first. This section applies to every migration without exception, and the restore is part of the written undo path — how to undo it, how long the undo takes, and what is lost if you use it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Rollback: what is required"
+    },
+    {
+      "obligation": "Give every irreversible step a named approver and a scheduled time; never improvise one.",
+      "lesson": "Irreversible steps get a named approver and are scheduled, never improvised. This section applies to every migration without exception. The closing checklist states the wider requirement as \"Have a rollback path before you change anything\".",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Rollback: what is required"
+    },
+    {
+      "obligation": "Write down the boundary convention for ranges and apply it identically everywhere a range appears.",
+      "lesson": "Time windows are half-open: [start, end). Write the boundary convention down and apply it in filenames, partition keys, SQL and API parameters alike. This section is marked non-negotiable.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Get the time-window arithmetic right — non-negotiable"
+    },
+    {
+      "obligation": "Re-derive the first and last boundary by hand and compare them against what the job actually produced.",
+      "lesson": "Re-derive the first and last partition by hand and compare against what the job produced — window off-by-ones are the single most common defect in temporal pipelines. The convention being checked is the half-open window [start, end). This section is marked non-negotiable.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Get the time-window arithmetic right — non-negotiable"
+    }
+  ]
+}

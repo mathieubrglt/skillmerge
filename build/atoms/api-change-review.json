@@ -1,0 +1,96 @@
+{
+  "skill": "api-change-review",
+  "atoms": [
+    {
+      "obligation": "Work through the review sections in order, treating each one as an obligation you can be held to.",
+      "lesson": "This skill guides the reviewer through a change end to end. Work the sections in order; each one names an obligation you can be held to. The sections are: 1. Public API change review checklist for this change, 2. Roll out in stages with a kill switch, 3. Surface assumptions and open questions for this change, 4. Schema and compatibility, 5. Definition of done and checklist, 6. Rollback and reversibility, 7. Dependencies and blast radius.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Public API change review"
+    },
+    {
+      "obligation": "Before releasing a change, review it as a permanent commitment covering naming, scale, error responses, and edge behaviour.",
+      "lesson": "Apply this before the change leaves your hands.\n\nReview the change as a permanent commitment: naming you will still defend in two years, pagination and filtering that work at the largest realistic response, error bodies that say what the caller should do differently, idempotency for anything that writes, and explicit behaviour at the edges — empty result, partial data, future date. Anything shipped publicly is effectively forever.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Public API change review checklist for this change"
+    },
+    {
+      "obligation": "Roll the change out in stages with per-stage pass criteria and soak windows, behind a switch you have already exercised.",
+      "lesson": "Skipping this is the most common way a change goes wrong.\n\nStage the rollout with per-stage pass criteria and soak windows, behind a deploy-free kill switch that you have already exercised.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Roll out in stages with a kill switch"
+    },
+    {
+      "obligation": "Keep a visible list of the assumptions and open questions, each with an owner and the cost of being wrong.",
+      "lesson": "The reviewer owns this step.\n\nKeep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Surface assumptions and open questions for this change"
+    },
+    {
+      "obligation": "Prefer additive changes; anything that breaks existing consumers requires a new major version instead.",
+      "lesson": "Apply this before the change leaves your hands.\n\nDefault to additive change; anything else needs a new major version. New optional fields are safe — renames, type changes, nullability tightening and unit changes are breaks regardless of green tests.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Schema and compatibility"
+    },
+    {
+      "obligation": "Identify every affected consumer before making a breaking change and honour the stated deprecation window.",
+      "lesson": "Apply this before the change leaves your hands.\n\nEnumerate consumers first and honour the stated deprecation window. This applies to any change that is not additive: renames, type changes, nullability tightening and unit changes are breaks regardless of green tests, and anything other than additive change needs a new major version.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Schema and compatibility"
+    },
+    {
+      "obligation": "Write the completion criteria before starting and verify each one with evidence before declaring the work done.",
+      "lesson": "The reviewer owns this step.\n\nCompletion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Definition of done and checklist"
+    },
+    {
+      "obligation": "Record the outcome of this step in the written record of the change.",
+      "lesson": "Record the outcome of this step in the change notes. This applies to the definition-of-done step, whose completion criteria are written first and verified last, item by item, each with its evidence.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Definition of done and checklist"
+    },
+    {
+      "obligation": "Before a change reaches a shared environment, write down how to undo it, how long that takes, and what is lost.",
+      "lesson": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Rollback and reversibility"
+    },
+    {
+      "obligation": "Give every irreversible step a named approver and a scheduled time rather than improvising it.",
+      "lesson": "Irreversible steps get a named approver and are scheduled, never improvised. This sits alongside the rule that before any change reaches a shared environment you write down how to undo it, how long the undo takes, and what is lost if you use it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Rollback and reversibility"
+    },
+    {
+      "obligation": "Build the dependency map from observed usage rather than documentation, noting each consumer's detection path and latency.",
+      "lesson": "Apply this before the change leaves your hands.\n\nBuild the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Dependencies and blast radius"
+    },
+    {
+      "obligation": "If you cannot satisfy this requirement, stop and escalate rather than proceeding.",
+      "lesson": "If you cannot satisfy this, stop and escalate. 'This' is the dependency mapping obligation: building the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Dependencies and blast radius"
+    },
+    {
+      "obligation": "Confirm every item on the closing checklist before treating the review as complete.",
+      "lesson": "- [ ] Public API change review checklist\n- [ ] Roll out in stages with a kill switch\n- [ ] Surface assumptions and open questions\n- [ ] Preserve schema and API compatibility\n- [ ] Close against an explicit definition of done\n- [ ] Have a rollback path before you change anything\n- [ ] Map upstream and downstream dependencies",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

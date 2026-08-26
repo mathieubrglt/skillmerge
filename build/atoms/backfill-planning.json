@@ -1,0 +1,187 @@
+{
+  "skill": "backfill-planning",
+  "atoms": [
+    {
+      "obligation": "Work through each stage of the procedure in the order given, treating every stage as a binding requirement.",
+      "lesson": "This skill guides the pipeline owner through a backfill end to end. Work the sections in order; each one names an obligation you can be held to.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Backfill planning"
+    },
+    {
+      "obligation": "Decide the processing order from what consumers need, and state which order you chose before starting.",
+      "lesson": "Backfill newest-first when consumers care about recency, oldest-first when they care about continuity — decide which and say so.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Backfill sequencing and idempotency"
+    },
+    {
+      "obligation": "Make every unit of work idempotent and independently retryable so repeating it leaves the same result.",
+      "lesson": "Every backfill task must be idempotent and independently retryable: write to a staging location, then swap partitions atomically.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Backfill sequencing and idempotency"
+    },
+    {
+      "obligation": "Limit the rate of background work so it never competes with scheduled production work for shared resources.",
+      "lesson": "Throttle so the backfill never competes with the live schedule.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Backfill sequencing and idempotency"
+    },
+    {
+      "obligation": "Checkpoint progress as you go so an interrupted run resumes where it stopped instead of restarting.",
+      "lesson": "Checkpoint progress so a killed run resumes rather than restarts.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Backfill sequencing and idempotency"
+    },
+    {
+      "obligation": "Adopt one boundary convention for ranges everywhere and state it explicitly.",
+      "lesson": "Adopt [start, end) everywhere and state it. The convention has to hold across the whole backfill, not per task.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Get the time-window arithmetic right"
+    },
+    {
+      "obligation": "Manually verify the boundary cases against the produced output before accepting the results.",
+      "lesson": "Manually verify the edge partitions against produced output — off-by-one at the window edges is the modal failure.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Get the time-window arithmetic right"
+    },
+    {
+      "obligation": "Stop and escalate whenever you cannot satisfy a stated requirement, rather than proceeding without it.",
+      "lesson": "If you cannot satisfy this, stop and escalate. This applies to the time-window arithmetic: adopting [start, end) everywhere and manually verifying the edge partitions against produced output.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Get the time-window arithmetic right"
+    },
+    {
+      "obligation": "Produce a record complete enough for an independent party to reproduce the run exactly.",
+      "lesson": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Emit a reproducibility manifest"
+    },
+    {
+      "obligation": "Verify the reproduction record by executing it once in a clean environment before relying on it.",
+      "lesson": "Prove it works by executing it once in a fresh environment; an unverified manifest is a guess.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Emit a reproducibility manifest"
+    },
+    {
+      "obligation": "Estimate the cost of a large run before launching it, covering every component of the total.",
+      "lesson": "Apply this before the backfill leaves your hands.\n\nEstimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Estimate compute and storage cost before running for this backfill"
+    },
+    {
+      "obligation": "Compare the estimate against the approved budget and obtain sign-off once it passes the agreed threshold.",
+      "lesson": "Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Estimate compute and storage cost before running for this backfill"
+    },
+    {
+      "obligation": "Write the completion criteria before starting the work, and never add criteria after the fact.",
+      "lesson": "Completion criteria are written first. No post-hoc criteria, no unverifiable ones — a criterion you cannot check is not a criterion.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Definition of done: what is required"
+    },
+    {
+      "obligation": "Verify each completion criterion at the end, item by item, with evidence for each one.",
+      "lesson": "Completion criteria are verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Definition of done: what is required"
+    },
+    {
+      "obligation": "Annotate the units, spatial reference and time zone of every value you store or pass on.",
+      "lesson": "Apply this before the backfill leaves your hands.\n\nAnnotate units, CRS and time zone everywhere.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Be explicit about units, CRS and time zones — non-negotiable"
+    },
+    {
+      "obligation": "Store values in the agreed standard units and reference systems, leaving local formats to the presentation layer.",
+      "lesson": "Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Be explicit about units, CRS and time zones — non-negotiable"
+    },
+    {
+      "obligation": "Record the outcome of this step in the notes kept for the work.",
+      "lesson": "Record the outcome of this step in the backfill notes — the annotation of units, CRS and time zone is not done until it is written down there.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Be explicit about units, CRS and time zones — non-negotiable"
+    },
+    {
+      "obligation": "Measure the current state before making any change, under the same conditions you will measure again later.",
+      "lesson": "This section applies to every backfill without exception.\n\nCapture the current numbers first — latency, cost, accuracy, coverage, whichever the change targets — under the conditions you will re-measure in later. Without a baseline taken under matched conditions, any improvement you report is a story.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Measure the current state before changing it — non-negotiable"
+    },
+    {
+      "obligation": "Write down how to undo a change, how long the undo takes and what it loses, before making it.",
+      "lesson": "Apply this before the backfill leaves your hands.\n\nBefore any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Have a rollback path before you change anything — non-negotiable"
+    },
+    {
+      "obligation": "Test the recovery procedure first whenever the undo path depends on restoring from a backup.",
+      "lesson": "If the undo is 'restore from backup', test the restore first.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Have a rollback path before you change anything — non-negotiable"
+    },
+    {
+      "obligation": "Give every irreversible step a named approver and a scheduled time instead of improvising it.",
+      "lesson": "Irreversible steps get a named approver and are scheduled, never improvised.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Have a rollback path before you change anything — non-negotiable"
+    },
+    {
+      "obligation": "Stop and escalate whenever you cannot satisfy a stated requirement, rather than proceeding without it.",
+      "lesson": "If you cannot satisfy this, stop and escalate. This applies to the rollback path: the written undo procedure, its duration and its losses, the tested restore, and the named approver for irreversible steps.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Have a rollback path before you change anything — non-negotiable"
+    },
+    {
+      "obligation": "Record for every output the inputs, versions, time window, code revision and configuration it came from.",
+      "lesson": "Apply this before the backfill leaves your hands.\n\nEvery artefact you produce must be traceable back to its inputs. Record, for each output: the source dataset identifiers and versions, the acquisition window, the processing code revision (git SHA), and the configuration hash.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Provenance: what is required"
+    },
+    {
+      "obligation": "Store the origin record alongside the output itself, not in a separate document that will drift.",
+      "lesson": "Store this beside the output, not in a separate wiki page that will drift.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Provenance: what is required"
+    },
+    {
+      "obligation": "Treat any output that cannot state where it came from as unfit to publish.",
+      "lesson": "If an output cannot state where it came from, treat it as unpublishable.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Provenance: what is required"
+    },
+    {
+      "obligation": "Confirm every required step is complete against the closing checklist before finishing the work.",
+      "lesson": "- [ ] Backfill sequencing and idempotency\n- [ ] Get the time-window arithmetic right\n- [ ] Emit a reproducibility manifest\n- [ ] Estimate compute and storage cost before running\n- [ ] Close against an explicit definition of done\n- [ ] Be explicit about units, CRS and time zones\n- [ ] Measure the current state before changing it\n- [ ] Have a rollback path before you change anything\n- [ ] Record provenance and lineage",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

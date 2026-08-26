@@ -1,0 +1,230 @@
+[
+ {
+  "name": "api-change-review",
+  "expansions": [
+   "adding a new field to the public endpoint",
+   "will this break downstream customers",
+   "deprecating a response attribute next quarter",
+   "renaming a json key clients parse",
+   "versioning our public feed",
+   "consumer integration might break silently",
+   "changing the units returned by the endpoint",
+   "someone asked to expose an extra column",
+   "backwards compatibility check before merge",
+   "notice period for external subscribers",
+   "swagger spec update for partners",
+   "our biggest account scripts against this route",
+   "altering nullability of an output field",
+   "rest payload restructure sign-off"
+  ]
+ },
+ {
+  "name": "backfill-planning",
+  "expansions": [
+   "rerun the last three years",
+   "vendor restated their historical numbers",
+   "new column is empty for old dates",
+   "recompute everything before 2023",
+   "how long will reprocessing take",
+   "the fix only applies going forward",
+   "history needs to match the new logic",
+   "catch-up job over archived partitions",
+   "restatement from the upstream provider",
+   "populate missing values retroactively",
+   "compute cost of replaying old data",
+   "chunking a huge historical rerun",
+   "do we republish corrected past figures",
+   "old periods still show the bug"
+  ]
+ },
+ {
+  "name": "benchmark-design",
+  "expansions": [
+   "which of these two approaches is better",
+   "comparing vendors before we commit",
+   "define pass fail thresholds",
+   "bake-off between model versions",
+   "our test set is too easy",
+   "how do we prove the new method wins",
+   "acceptance criteria for the new feature",
+   "picking a fair ground truth sample",
+   "real difference or just noise",
+   "scoring rubric for a trial",
+   "evaluate three providers side by side",
+   "we need a baseline to compare against",
+   "sample size for the comparison",
+   "avoiding a rigged evaluation setup"
+  ]
+ },
+ {
+  "name": "client-data-request",
+  "expansions": [
+   "customer wants a csv of last year",
+   "sales asked for a quick pull",
+   "ad hoc extract for an account",
+   "can you get me weekly totals",
+   "trader needs numbers by tomorrow",
+   "one-off query from the commercial team",
+   "aggregate by country for a prospect",
+   "someone emailed asking for a figure",
+   "pull the series for this client",
+   "custom slice for a pitch",
+   "quick answer straight from the database",
+   "account manager needs supporting numbers",
+   "export a subset for a meeting",
+   "bespoke cut of platform data"
+  ]
+ },
+ {
+  "name": "cost-optimization",
+  "expansions": [
+   "cloud bill went up this month",
+   "storage spend is out of control",
+   "our compute budget is blown",
+   "query charges keep climbing",
+   "this new job would be expensive",
+   "quarterly spend review coming up",
+   "can we shrink the warehouse footprint",
+   "too many full table scans daily",
+   "archiving old partitions to cheaper tiers",
+   "rightsizing the processing cluster",
+   "finops flagged our project",
+   "cheaper way to run this workload",
+   "cost per indicator is too high",
+   "trimming egress and duplication charges"
+  ]
+ },
+ {
+  "name": "data-license-compliance",
+  "expansions": [
+   "can we publish this externally",
+   "the contract restricts redistribution",
+   "derived product from purchased imagery",
+   "what can we show in the report",
+   "sharing an extract with a partner",
+   "attribution requirements for the source",
+   "new supplier agreement under negotiation",
+   "legal asked about usage rights",
+   "aggregation level allowed for resale",
+   "is this output derivative enough",
+   "terms of use for that feed",
+   "customer wants raw values not indices",
+   "non-commercial clause concerns",
+   "clearing publication before launch"
+  ]
+ },
+ {
+  "name": "model-retraining",
+  "expansions": [
+   "detection accuracy has slipped",
+   "new labelled examples just arrived",
+   "extend coverage to another region",
+   "false positives increased lately",
+   "swapping in a different sensor",
+   "performance dropped after the seasonal change",
+   "annotations from the labelling team are ready",
+   "retrain and compare against production",
+   "model is stale since last year",
+   "drift in the prediction distribution",
+   "expanding the algorithm to new basins",
+   "validation scores on held-out regions",
+   "rebuild the classifier with more data",
+   "promote a candidate checkpoint"
+  ]
+ },
+ {
+  "name": "pipeline-incident-response",
+  "expansions": [
+   "the nightly job failed again",
+   "numbers look wrong on the platform",
+   "client says the data is stale",
+   "dag has been red since this morning",
+   "values suddenly dropped to zero",
+   "who do we tell about bad output",
+   "freshness alert fired overnight",
+   "suspect figures served to customers",
+   "contain it before we investigate",
+   "pause publishing until we understand",
+   "upstream feed stopped delivering",
+   "duplicate rows appeared in the table",
+   "on-call page about ingestion",
+   "status update for affected consumers"
+  ]
+ },
+ {
+  "name": "qa-validation-report",
+  "expansions": [
+   "client is challenging our number",
+   "prove the indicator is accurate",
+   "write up the accuracy evidence",
+   "compare against officially reported statistics",
+   "defend the methodology in writing",
+   "back-test against published figures",
+   "error bars for the released series",
+   "documentation of our validation approach",
+   "reviewer wants evidence not assertions",
+   "how confident are we in this estimate",
+   "ground truth comparison writeup",
+   "credibility check before we publish claims",
+   "due diligence questionnaire on data quality",
+   "quantify bias against reference data"
+  ]
+ },
+ {
+  "name": "release-readiness",
+  "expansions": [
+   "are we ready to ship version two",
+   "sign off before customers see it",
+   "go no-go on the new indicator",
+   "checklist before the version bump",
+   "final review ahead of launch",
+   "who approves publishing this update",
+   "rollback plan if the release misbehaves",
+   "product surface goes live next week",
+   "gating criteria not all met",
+   "comms plan for the new version",
+   "staging looks fine can we ship",
+   "last checks before the announcement",
+   "release candidate awaiting a decision",
+   "launch blockers still open"
+  ]
+ },
+ {
+  "name": "schema-migration",
+  "expansions": [
+   "renaming a column that others read",
+   "change the type of this field",
+   "dropping an unused attribute",
+   "the table shape needs updating",
+   "downstream queries reference the old name",
+   "adding a nullable field safely",
+   "dual write during the transition",
+   "parquet layout change",
+   "who actually consumes this table",
+   "deprecation window for the old field",
+   "splitting one column into two",
+   "alter table without breaking dashboards",
+   "versioned dataset structure change",
+   "backwards compatible field addition"
+  ]
+ },
+ {
+  "name": "sensor-ingest-onboarding",
+  "expansions": [
+   "evaluating a new imagery provider",
+   "adding another constellation to the platform",
+   "replacing our current data source",
+   "trial feed from a vendor",
+   "assessing revisit rate and resolution",
+   "pilot ingestion of a new stream",
+   "new satellite mission worth integrating",
+   "how do we onboard this supplier",
+   "first ingestion of an unfamiliar format",
+   "coverage gaps a new sensor would fill",
+   "integrate radar alongside optical",
+   "vendor demo data arrived for testing",
+   "cataloguing and storing a new feed",
+   "switch providers before the contract ends"
+  ]
+ }
+]

@@ -1,0 +1,9 @@
+{
+ "skills": 11,
+ "instruction_coverage": 0.9880952380952381,
+ "code_coverage": 1.0,
+ "path_coverage": 0.9484536082474226,
+ "distortions": 49,
+ "skills_with_distortion": 9,
+ "total_instructions": 588
+}

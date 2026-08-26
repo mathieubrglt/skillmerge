@@ -1,0 +1,2304 @@
+{
+ "skills": [
+  {
+   "name": "api-change-review",
+   "description": "Review a proposed change to a customer-facing API or data contract. Use when adding or altering endpoints, fields, or response semantics that external consumers depend on.",
+   "path": "corpus/api-change-review.md",
+   "fragments": [
+    {
+     "skill": "api-change-review",
+     "heading": "Public API change review checklist for this change",
+     "order": 0,
+     "text": "Review the change as a permanent commitment: naming you will still defend in two years, pagination and filtering that work at the largest realistic response, error bodies that say what the caller should do differently, idempotency for anything that writes, and explicit behaviour at the edges \u2014 empty result, partial data, future date. Anything shipped publicly is effectively forever."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Roll out in stages with a kill switch",
+     "order": 1,
+     "text": "Stage the rollout with per-stage pass criteria and soak windows, behind a deploy-free kill switch that you have already exercised."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Surface assumptions and open questions for this change",
+     "order": 2,
+     "text": "Keep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Schema and compatibility",
+     "order": 3,
+     "text": "Default to additive change; anything else needs a new major version. New optional fields are safe \u2014 renames, type changes, nullability tightening and unit changes are breaks regardless of green tests. Enumerate consumers first and honour the stated deprecation window."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Definition of done and checklist",
+     "order": 4,
+     "text": "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Rollback and reversibility",
+     "order": 5,
+     "text": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised."
+    },
+    {
+     "skill": "api-change-review",
+     "heading": "Dependencies and blast radius",
+     "order": 6,
+     "text": "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted."
+    }
+   ]
+  },
+  {
+   "name": "backfill-planning",
+   "description": "Plan and execute a historical reprocessing run. Use when a fix must be applied to past periods, when a new field needs populating retroactively, or when a vendor restates upstream data.",
+   "path": "corpus/backfill-planning.md",
+   "fragments": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Backfill sequencing and idempotency",
+     "order": 0,
+     "text": "Backfill newest-first when consumers care about recency, oldest-first when they care about continuity \u2014 decide which and say so. Every backfill task must be idempotent and independently retryable: write to a staging location, then swap partitions atomically. Throttle so the backfill never competes with the live schedule, and checkpoint progress so a killed run resumes rather than restarts."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Get the time-window arithmetic right",
+     "order": 1,
+     "text": "Adopt [start, end) everywhere and state it. Manually verify the edge partitions against produced output \u2014 off-by-one at the window edges is the modal failure."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Emit a reproducibility manifest",
+     "order": 2,
+     "text": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Estimate compute and storage cost before running for this backfill",
+     "order": 3,
+     "text": "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Definition of done: what is required",
+     "order": 4,
+     "text": "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Be explicit about units, CRS and time zones \u2014 non-negotiable",
+     "order": 5,
+     "text": "Annotate units, CRS and time zone everywhere. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Measure the current state before changing it \u2014 non-negotiable",
+     "order": 6,
+     "text": "Capture the current numbers first \u2014 latency, cost, accuracy, coverage, whichever the change targets \u2014 under the conditions you will re-measure in later. Without a baseline taken under matched conditions, any improvement you report is a story."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Have a rollback path before you change anything \u2014 non-negotiable",
+     "order": 7,
+     "text": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised."
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Provenance: what is required",
+     "order": 8,
+     "text": "Every artefact you produce must be traceable back to its inputs. Record, for each output: the source dataset identifiers and versions, the acquisition window, the processing code revision (git SHA), and the configuration hash. Store this beside the output, not in a separate wiki page that will drift. If an output cannot state where it came from, treat it as unpublishable."
+    }
+   ]
+  },
+  {
+   "name": "benchmark-design",
+   "description": "Design an evaluation that can actually distinguish approaches. Use when comparing methods, vendors or model versions, or when defining acceptance criteria for a new capability.",
+   "path": "corpus/benchmark-design.md",
+   "fragments": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Benchmark: what is required",
+     "order": 0,
+     "text": "Design the benchmark around the decision it informs. Fix the metric and the acceptance threshold before seeing any results, include negative and adversarial cases rather than only the happy path, hold out a set nobody tunes against, and write down what result would make you abandon the approach. A benchmark you cannot fail teaches nothing."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Restate the request before acting on it \u2014 non-negotiable",
+     "order": 1,
+     "text": "Restate the ask \u2014 question, geography, period, granularity, format, deadline \u2014 and get confirmation before starting. Assumed granularity and assumed period are the usual causes of rework."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Emit a reproducibility manifest",
+     "order": 2,
+     "text": "Write a manifest that lets someone else re-run the work from scratch: the exact command line, the container image digest, pinned dependency versions, random seeds, and the wall-clock window of the run. Verify the manifest by re-running once in a clean environment before you call the work done."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Statistics and significance",
+     "order": 3,
+     "text": "Compare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Surface assumptions and open questions",
+     "order": 4,
+     "text": "List every load-bearing assumption and unresolved question with an owner and a blast radius. Anything unowned is a latent defect."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Golden set and regression",
+     "order": 5,
+     "text": "Diff every change against a frozen, code-versioned golden set. Golden updates are isolated commits carrying their justification."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Units: what is required",
+     "order": 6,
+     "text": "Units, CRS and time zone are never implied. Label them on each numeric field and axis. Store in SI, keep lon/lat in EPSG:4326, reproject to an equal-area CRS before computing areas, and persist timestamps in UTC; localise only for display."
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Report uncertainty honestly for this benchmark",
+     "order": 7,
+     "text": "Never publish a point estimate alone. Give an interval, say what it covers (sampling error, revision risk, sensor gaps), and name the dominant error source. Where the uncertainty is not quantifiable, say so explicitly rather than omitting it \u2014 a silent point estimate reads as certainty you do not have."
+    }
+   ]
+  },
+  {
+   "name": "client-data-request",
+   "description": "Answer a one-off data or analysis request from a client or commercial team. Use when someone asks for an extract, a custom aggregation, or a quick answer from platform data.",
+   "path": "corpus/client-data-request.md",
+   "fragments": [
+    {
+     "skill": "client-data-request",
+     "heading": "Ad-hoc client data request handling",
+     "order": 0,
+     "text": "Separate what the client asked for from what they are trying to learn, and answer both. Deliver in the format they will actually open, include a short methodology note in the same file, and state explicitly what the data does not support so it is not quoted beyond its range. Log the request so the third identical one becomes a product rather than a favour."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Restate the request before acting on it \u2014 non-negotiable",
+     "order": 1,
+     "text": "Echo the request back (question, area, period, granularity, format, deadline) and have it confirmed first; unconfirmed granularity and period drive most rework."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 2,
+     "text": "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Check data licensing and redistribution rights \u2014 non-negotiable",
+     "order": 3,
+     "text": "Confirm the redistribution terms of every input before its content, or anything derived closely from it, leaves the platform. Note the licence, whether derived products are covered, any attribution string, and any embargo. When the terms are ambiguous, escalate rather than assuming permissive intent."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Communication: what is required",
+     "order": 4,
+     "text": "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Units: what is required",
+     "order": 5,
+     "text": "State units, coordinate reference system and time zone on every numeric column and every chart axis. Default to SI units, EPSG:4326 for lon/lat storage, an equal- area projection for any area computation, and UTC for all timestamps. Convert to local conventions only at the presentation layer, never in storage."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Report uncertainty honestly for this request",
+     "order": 6,
+     "text": "A number without a band is a claim you cannot support. Publish an interval, state which error sources it does and does not include, and identify the largest one. If you cannot quantify the uncertainty, write that down instead of hiding it."
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Timebox: what is required",
+     "order": 7,
+     "text": "Time-box the dig, escalate on expiry regardless of momentum, and hand over what you tried, what you excluded and what comes next."
+    }
+   ]
+  },
+  {
+   "name": "cost-optimization",
+   "description": "Reduce infrastructure spend on data processing and storage. Use when a budget line is over, when a new large workload is proposed, or during a periodic cost review.",
+   "path": "corpus/cost-optimization.md",
+   "fragments": [
+    {
+     "skill": "cost-optimization",
+     "heading": "Cost reduction search order",
+     "order": 0,
+     "text": "Work the list in order of effort-to-saving: delete what nobody reads, apply lifecycle rules to cold storage, stop recomputing what has not changed, right-size the instances, and only then optimise the code. Attribute cost per pipeline before you start, because the intuition about which job is expensive is wrong more often than it is right."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Dependencies: what is required",
+     "order": 1,
+     "text": "Enumerate upstream feeds and downstream consumers, including unofficial ones \u2014 read the access logs, not the docs \u2014 and record how and how fast each consumer would detect a failure."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Roll out in stages with a kill switch \u2014 non-negotiable",
+     "order": 2,
+     "text": "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Cost and compute",
+     "order": 3,
+     "text": "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Measure the current state before changing it",
+     "order": 4,
+     "text": "Record the baseline under matched conditions before changing anything; otherwise the after-number means nothing."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Close against an explicit definition of done for this cost review",
+     "order": 5,
+     "text": "Define done up front as a list of verifiable statements. To close, walk the list and attach evidence per item. Retro-fitted criteria and uncheckable criteria both invalidate the closure."
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Communication and stakeholders",
+     "order": 6,
+     "text": "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first."
+    }
+   ]
+  },
+  {
+   "name": "data-license-compliance",
+   "description": "Determine what may be published from a licensed input. Use before releasing derived products, sharing extracts externally, or signing a new data agreement.",
+   "path": "corpus/data-license-compliance.md",
+   "fragments": [
+    {
+     "skill": "data-license-compliance",
+     "heading": "Licence review and derivative works",
+     "order": 0,
+     "text": "Assess each source separately: the licence text as signed (not the marketing page), whether the grant covers derivative and aggregated products, attribution wording and where it must appear, territorial and sectoral restrictions, and the survival clause after termination. Record the assessment per source with its date and the contract version, because vendors revise terms silently."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Communication: what is required",
+     "order": 1,
+     "text": "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Record provenance and lineage",
+     "order": 2,
+     "text": "Every artefact you produce must be traceable back to its inputs. Record, for each output: the source dataset identifiers and versions, the acquisition window, the processing code revision (git SHA), and the configuration hash. Store this beside the output, not in a separate wiki page that will drift. If an output cannot state where it came from, treat it as unpublishable."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Check data licensing and redistribution rights for this review",
+     "order": 3,
+     "text": "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Restate the request before acting on it",
+     "order": 4,
+     "text": "Play the request back in your own words: the exact question, the geography, the period, the granularity, the delivery format and the deadline. Confirm the playback before doing the work. Most rework traces to a granularity or period that was assumed rather than agreed."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Assumptions and open questions",
+     "order": 5,
+     "text": "Maintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode."
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 6,
+     "text": "Do not move personal data or client-identifying detail into shared repositories, tickets, logs or analysis notebooks. If such data appears in a sample you were given, stop, flag it, and ask for a redacted version. Aggregate before sharing, and prefer identifiers that cannot be re-linked to an individual or a named counterparty."
+    }
+   ]
+  },
+  {
+   "name": "model-retraining",
+   "description": "Retrain and evaluate a detection or estimation model. Use when accuracy drifts, when new labelled data arrives, or when extending a model to a new region or sensor.",
+   "path": "corpus/model-retraining.md",
+   "fragments": [
+    {
+     "skill": "model-retraining",
+     "heading": "Model retraining discipline for this retraining",
+     "order": 0,
+     "text": "Split by time and by site, never at random \u2014 random splits leak neighbouring pixels and adjacent dates into the test set and inflate every metric. Freeze the evaluation set before touching the training data. Compare the candidate against the incumbent on the same frozen set, and check the per-stratum deltas, since an aggregate gain frequently hides a regression in the segment a client actually watches."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Licensing: what is required",
+     "order": 1,
+     "text": "Verify redistribution rights for each input before publishing anything derived from it: licence, treatment of derivatives, required attribution, embargo period. Ambiguity is escalated, never resolved optimistically."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Validate against a frozen golden set",
+     "order": 2,
+     "text": "Keep a small frozen set of cases with known-correct outputs, versioned with the code, and diff against it on every change. When a golden case legitimately changes, update it in its own commit with the reason in the message \u2014 never in the same commit as the behaviour change."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Baseline: what is required",
+     "order": 3,
+     "text": "Take the pre-change measurement under exactly the conditions you will re-measure under. Improvement claims without a matched baseline are narrative, not evidence."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Report uncertainty honestly",
+     "order": 4,
+     "text": "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Close against an explicit definition of done",
+     "order": 5,
+     "text": "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Do not over-read small differences",
+     "order": 6,
+     "text": "Compare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Emit a reproducibility manifest \u2014 non-negotiable",
+     "order": 7,
+     "text": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Cost: what is required",
+     "order": 8,
+     "text": "Cost the job first \u2014 compute as unit-count times unit-cost, storage as volume times rate times retention, plus egress \u2014 and check it against the budget, with sign-off above the threshold. Budget overrun is a failure mode, not an externality."
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 9,
+     "text": "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers."
+    }
+   ]
+  },
+  {
+   "name": "pipeline-incident-response",
+   "description": "Triage, contain and communicate a broken or suspect data pipeline. Use when a scheduled job fails, when served values look wrong, or when a consumer reports stale or implausible data.",
+   "path": "corpus/pipeline-incident-response.md",
+   "fragments": [
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Incident and triage",
+     "order": 0,
+     "text": "Triage in this order: (1) confirm the symptom against the serving layer, not the build logs; (2) classify severity by who is consuming the bad data right now, not by how broken the code looks; (3) stop the bleeding \u2014 pause the schedule or freeze the served partition \u2014 before diagnosing; (4) only then look for cause. Freezing a wrong number in place is almost always better than letting it propagate while you think."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Have a rollback path before you change anything",
+     "order": 1,
+     "text": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Timebox: what is required",
+     "order": 2,
+     "text": "Set the investigation budget before you start and escalate when it expires, even mid- thought. State what you tried, what you ruled out and what you would try next \u2014 an escalation with those three things costs the next person minutes, not hours."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Instrument before you need the signal",
+     "order": 3,
+     "text": "Monitors for freshness, volume and null rate go in with the pipeline. Alerts fire on symptoms users would notice and carry an owner plus a runbook."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 4,
+     "text": "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Definition of done: what is required",
+     "order": 5,
+     "text": "Write the completion criteria before starting, as checkable statements, and close the work by walking them one by one with evidence attached to each. Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Map upstream and downstream dependencies",
+     "order": 6,
+     "text": "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Provenance and lineage",
+     "order": 7,
+     "text": "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart. Outputs without a reconstructable origin do not leave the team."
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Communication: what is required",
+     "order": 8,
+     "text": "Lead with consequence \u2014 affected parties, affected window, required action \u2014 then explain the mechanism briefly underneath. Commit to a next-update time while anything remains unresolved, and reach stakeholders before their dashboards do."
+    }
+   ]
+  },
+  {
+   "name": "qa-validation-report",
+   "description": "Produce a defensible validation of a derived indicator. Use when publishing accuracy claims, when a client questions a number, or before a new indicator version is released.",
+   "path": "corpus/qa-validation-report.md",
+   "fragments": [
+    {
+     "skill": "qa-validation-report",
+     "heading": "Validation report structure for a derived indicator",
+     "order": 0,
+     "text": "Structure the validation as: definition of the quantity, reference data and why it is a fair reference, agreement statistics stratified by the dimensions that matter (season, geography, magnitude), failure cases shown rather than described, and a stated domain of validity. A validation that reports only pooled agreement hides exactly the regimes where the indicator fails."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Be explicit about units, CRS and time zones",
+     "order": 1,
+     "text": "State units, coordinate reference system and time zone on every numeric column and every chart axis. Default to SI units, EPSG:4326 for lon/lat storage, an equal- area projection for any area computation, and UTC for all timestamps. Convert to local conventions only at the presentation layer, never in storage."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Do not over-read small differences",
+     "order": 2,
+     "text": "Before claiming a change is real, check that it exceeds the noise floor: compute the metric's run-to-run variance, use a paired comparison where the same units appear in both arms, and require the effect to survive a simple resampling test. Report the number of units, not just the mean."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Record provenance and lineage",
+     "order": 3,
+     "text": "Nothing ships without lineage. For each result, capture the upstream dataset IDs and their versions, the time window covered, the commit SHA of the code that ran, and a hash of the run configuration. Keep that record co-located with the artefact itself. An artefact whose origin cannot be reconstructed is not a deliverable."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Cloud mask: what is required",
+     "order": 4,
+     "text": "A missing observation is not a zero. Track observation count and cloud fraction per derived value, drop scenes exceeding the cloud threshold, and label any gap-fill you perform. Coverage is a headline metric."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Report uncertainty honestly \u2014 non-negotiable",
+     "order": 5,
+     "text": "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Time-box investigation and escalate on the clock",
+     "order": 6,
+     "text": "Set the investigation budget before you start and escalate when it expires, even mid- thought. State what you tried, what you ruled out and what you would try next \u2014 an escalation with those three things costs the next person minutes, not hours."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Reproducibility and manifest",
+     "order": 7,
+     "text": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Surface assumptions and open questions",
+     "order": 8,
+     "text": "Keep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently."
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Validate against a frozen golden set for this validation",
+     "order": 9,
+     "text": "Keep a small frozen set of cases with known-correct outputs, versioned with the code, and diff against it on every change. When a golden case legitimately changes, update it in its own commit with the reason in the message \u2014 never in the same commit as the behaviour change."
+    }
+   ]
+  },
+  {
+   "name": "release-readiness",
+   "description": "Decide whether a new or updated indicator is ready to publish. Use before a version bump reaches customers, or when signing off a new product surface.",
+   "path": "corpus/release-readiness.md",
+   "fragments": [
+    {
+     "skill": "release-readiness",
+     "heading": "Indicator release readiness for this release",
+     "order": 0,
+     "text": "Gate the release on: validation signed by someone who did not build it, documentation that a new user can follow unaided, a version number and a changelog entry that names the behavioural difference, migration guidance for consumers of the previous version, and a named owner for the first two weeks of questions."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Definition of done: what is required",
+     "order": 1,
+     "text": "Write the completion criteria before starting, as checkable statements, and close the work by walking them one by one with evidence attached to each. Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Communicate to stakeholders in their terms \u2014 non-negotiable",
+     "order": 2,
+     "text": "Structure updates as impact first, mechanism second, action third. State when the next update lands if the matter is open, and always notify before the affected party notices on their own."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Rollback and reversibility",
+     "order": 3,
+     "text": "Define the reversal path before touching a shared system: the exact undo, its duration, and its data loss. A backup-restore path counts only if the restore has been exercised. Irreversible actions need a named approver and a scheduled slot."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Staged rollout: what is required",
+     "order": 4,
+     "text": "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Monitoring: what is required",
+     "order": 5,
+     "text": "Add the freshness, volume and null-rate checks at the same time as the pipeline, not after the first incident. Alert on the user-visible symptom (stale or wrong data) rather than on an internal proxy, and route every alert to a named owner with a runbook link."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Licensing and compliance",
+     "order": 6,
+     "text": "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement."
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Report uncertainty honestly for this release",
+     "order": 7,
+     "text": "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted."
+    }
+   ]
+  },
+  {
+   "name": "schema-migration",
+   "description": "Change the shape of a stored dataset or table safely. Use when adding, renaming, retyping or removing fields in a dataset that has downstream readers.",
+   "path": "corpus/schema-migration.md",
+   "fragments": [
+    {
+     "skill": "schema-migration",
+     "heading": "Migration and schema change",
+     "order": 0,
+     "text": "Use expand-and-contract: add the new shape, dual-write, backfill, move readers across, verify equivalence on live traffic, and only then remove the old shape \u2014 with a gap of at least one full business cycle before the contract step. Never combine a shape change and a semantic change in one migration; if a column's meaning changes, it gets a new name."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Dependencies and blast radius",
+     "order": 1,
+     "text": "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Staged rollout and canary",
+     "order": 2,
+     "text": "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Schema and compatibility",
+     "order": 3,
+     "text": "Additive changes only, unless you are cutting a new major version. Adding an optional column is safe; renaming, retyping, tightening nullability or changing units is breaking, even when the tests pass. Enumerate downstream consumers before the change and give them the deprecation window you promised."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Reproducibility: what is required",
+     "order": 4,
+     "text": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Rollback: what is required",
+     "order": 5,
+     "text": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised."
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Get the time-window arithmetic right \u2014 non-negotiable",
+     "order": 6,
+     "text": "Time windows are half-open: [start, end). Write the boundary convention down and apply it in filenames, partition keys, SQL and API parameters alike. Re-derive the first and last partition by hand and compare against what the job produced \u2014 window off-by-ones are the single most common defect in temporal pipelines."
+    }
+   ]
+  },
+  {
+   "name": "sensor-ingest-onboarding",
+   "description": "Bring a new satellite or sensor feed into the platform. Use when evaluating a new data vendor, adding a constellation, or replacing an existing source.",
+   "path": "corpus/sensor-ingest-onboarding.md",
+   "fragments": [
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Onboarding: what is required",
+     "order": 0,
+     "text": "Characterise the feed before trusting it: revisit interval and actual latency distribution (not the advertised one), native resolution and resampling behaviour, radiometric calibration and known artefacts, the vendor's own quality flags, and their restatement policy. Run a parallel period against the incumbent source and quantify the level shift before any switchover."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Keep personal and client-confidential data out for this feed",
+     "order": 1,
+     "text": "Personal data and client-identifying detail stay out of shared repos, tickets, logs and notebooks. On encountering it in a supplied sample, halt and request a redacted copy. Share aggregates, and use identifiers that cannot be re-linked."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Check data licensing and redistribution rights for this feed",
+     "order": 2,
+     "text": "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Surface assumptions and open questions \u2014 non-negotiable",
+     "order": 3,
+     "text": "Maintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Provenance and lineage",
+     "order": 4,
+     "text": "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart. Outputs without a reconstructable origin do not leave the team."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Instrument before you need the signal for this feed",
+     "order": 5,
+     "text": "Monitors for freshness, volume and null rate go in with the pipeline. Alerts fire on symptoms users would notice and carry an owner plus a runbook."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Time window: what is required",
+     "order": 6,
+     "text": "Use half-open intervals [start, end) consistently across filenames, partitions, queries and API calls, and record the convention explicitly. Hand-check the first and last partition against the job's output; boundary errors dominate temporal bugs."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Handle cloud cover and missing observations",
+     "order": 7,
+     "text": "Separate absence of signal from absence of observation: carry per-value counts and cloud fraction, apply the cloud threshold, flag interpolated points, and publish coverage prominently."
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Be explicit about units, CRS and time zones for this feed",
+     "order": 8,
+     "text": "Annotate units, CRS and time zone everywhere. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone."
+    }
+   ]
+  }
+ ],
+ "fragments": [
+  {
+   "cid": "F000",
+   "text": "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+   "variants": [
+    "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+    "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+    "Define done up front as a list of verifiable statements. To close, walk the list and attach evidence per item. Retro-fitted criteria and uncheckable criteria both invalidate the closure.",
+    "Completion criteria are written first and verified last, item by item, each with its evidence. No post-hoc criteria, no unverifiable ones.",
+    "Write the completion criteria before starting, as checkable statements, and close the work by walking them one by one with evidence attached to each. Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes.",
+    "Write the completion criteria before starting, as checkable statements, and close the work by walking them one by one with evidence attached to each. Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes."
+   ],
+   "tags": [
+    "criteria",
+    "evidence",
+    "item",
+    "completion",
+    "written",
+    "verified",
+    "post-hoc",
+    "unverifiable"
+   ],
+   "headings": [
+    "Close against an explicit definition of done",
+    "Close against an explicit definition of done for this cost review",
+    "Definition of done and checklist",
+    "Definition of done: what is required"
+   ],
+   "skills": [
+    "api-change-review",
+    "backfill-planning",
+    "cost-optimization",
+    "model-retraining",
+    "pipeline-incident-response",
+    "release-readiness"
+   ],
+   "support": 6,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Definition of done and checklist",
+     "order": 4
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Definition of done: what is required",
+     "order": 4
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Close against an explicit definition of done for this cost review",
+     "order": 5
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Close against an explicit definition of done",
+     "order": 5
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Definition of done: what is required",
+     "order": 5
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Definition of done: what is required",
+     "order": 1
+    }
+   ],
+   "hash": "67914a594e"
+  },
+  {
+   "cid": "F001",
+   "text": "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised.",
+   "variants": [
+    "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised.",
+    "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised.",
+    "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised.",
+    "Define the reversal path before touching a shared system: the exact undo, its duration, and its data loss. A backup-restore path counts only if the restore has been exercised. Irreversible actions need a named approver and a scheduled slot.",
+    "Before any change reaches a shared environment, write down how to undo it, how long the undo takes, and what is lost if you use it. If the undo is 'restore from backup', test the restore first. Irreversible steps get a named approver and are scheduled, never improvised."
+   ],
+   "tags": [
+    "undo",
+    "restore",
+    "irreversible",
+    "approver",
+    "scheduled",
+    "named",
+    "long",
+    "takes"
+   ],
+   "headings": [
+    "Have a rollback path before you change anything",
+    "Have a rollback path before you change anything \u2014 non-negotiable",
+    "Rollback and reversibility",
+    "Rollback: what is required"
+   ],
+   "skills": [
+    "api-change-review",
+    "backfill-planning",
+    "pipeline-incident-response",
+    "release-readiness",
+    "schema-migration"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Rollback and reversibility",
+     "order": 5
+    },
+    {
+     "skill": "backfill-planning",
+     "heading": "Have a rollback path before you change anything \u2014 non-negotiable",
+     "order": 7
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Have a rollback path before you change anything",
+     "order": 1
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Rollback and reversibility",
+     "order": 3
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Rollback: what is required",
+     "order": 5
+    }
+   ],
+   "hash": "a56cc04adc"
+  },
+  {
+   "cid": "F002",
+   "text": "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess.",
+   "variants": [
+    "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess.",
+    "Write a manifest that lets someone else re-run the work from scratch: the exact command line, the container image digest, pinned dependency versions, random seeds, and the wall-clock window of the run. Verify the manifest by re-running once in a clean environment before you call the work done.",
+    "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess.",
+    "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess.",
+    "Produce a manifest sufficient for an independent re-run: invocation command, image digest, locked dependency set, seeds, and run window. Prove it works by executing it once in a fresh environment; an unverified manifest is a guess."
+   ],
+   "tags": [
+    "manifest",
+    "re-run",
+    "command",
+    "image",
+    "digest",
+    "seeds",
+    "dependency",
+    "sufficient"
+   ],
+   "headings": [
+    "Emit a reproducibility manifest",
+    "Emit a reproducibility manifest \u2014 non-negotiable",
+    "Reproducibility and manifest",
+    "Reproducibility: what is required"
+   ],
+   "skills": [
+    "backfill-planning",
+    "benchmark-design",
+    "model-retraining",
+    "qa-validation-report",
+    "schema-migration"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Emit a reproducibility manifest",
+     "order": 2
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Emit a reproducibility manifest",
+     "order": 2
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Emit a reproducibility manifest \u2014 non-negotiable",
+     "order": 7
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Reproducibility and manifest",
+     "order": 7
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Reproducibility: what is required",
+     "order": 4
+    }
+   ],
+   "hash": "608b4df52c"
+  },
+  {
+   "cid": "F003",
+   "text": "Annotate units, CRS and time zone everywhere. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone.",
+   "variants": [
+    "Annotate units, CRS and time zone everywhere. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone.",
+    "Units, CRS and time zone are never implied. Label them on each numeric field and axis. Store in SI, keep lon/lat in EPSG:4326, reproject to an equal-area CRS before computing areas, and persist timestamps in UTC; localise only for display.",
+    "State units, coordinate reference system and time zone on every numeric column and every chart axis. Default to SI units, EPSG:4326 for lon/lat storage, an equal- area projection for any area computation, and UTC for all timestamps. Convert to local conventions only at the presentation layer, never in storage.",
+    "State units, coordinate reference system and time zone on every numeric column and every chart axis. Default to SI units, EPSG:4326 for lon/lat storage, an equal- area projection for any area computation, and UTC for all timestamps. Convert to local conventions only at the presentation layer, never in storage.",
+    "Annotate units, CRS and time zone everywhere. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. Local formats belong to the presentation layer alone."
+   ],
+   "tags": [
+    "units",
+    "zone",
+    "epsg",
+    "4326",
+    "area",
+    "local",
+    "presentation",
+    "storage"
+   ],
+   "headings": [
+    "Be explicit about units, CRS and time zones",
+    "Be explicit about units, CRS and time zones for this feed",
+    "Be explicit about units, CRS and time zones \u2014 non-negotiable",
+    "Units: what is required"
+   ],
+   "skills": [
+    "backfill-planning",
+    "benchmark-design",
+    "client-data-request",
+    "qa-validation-report",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Be explicit about units, CRS and time zones \u2014 non-negotiable",
+     "order": 5
+    },
+    {
+     "skill": "benchmark-design",
+     "heading": "Units: what is required",
+     "order": 6
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Units: what is required",
+     "order": 5
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Be explicit about units, CRS and time zones",
+     "order": 1
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Be explicit about units, CRS and time zones for this feed",
+     "order": 8
+    }
+   ],
+   "hash": "b2d33af696"
+  },
+  {
+   "cid": "F004",
+   "text": "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart. Outputs without a reconstructable origin do not leave the team.",
+   "variants": [
+    "Every artefact you produce must be traceable back to its inputs. Record, for each output: the source dataset identifiers and versions, the acquisition window, the processing code revision (git SHA), and the configuration hash. Store this beside the output, not in a separate wiki page that will drift. If an output cannot state where it came from, treat it as unpublishable.",
+    "Every artefact you produce must be traceable back to its inputs. Record, for each output: the source dataset identifiers and versions, the acquisition window, the processing code revision (git SHA), and the configuration hash. Store this beside the output, not in a separate wiki page that will drift. If an output cannot state where it came from, treat it as unpublishable.",
+    "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart. Outputs without a reconstructable origin do not leave the team.",
+    "Nothing ships without lineage. For each result, capture the upstream dataset IDs and their versions, the time window covered, the commit SHA of the code that ran, and a hash of the run configuration. Keep that record co-located with the artefact itself. An artefact whose origin cannot be reconstructed is not a deliverable.",
+    "Attach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart. Outputs without a reconstructable origin do not leave the team."
+   ],
+   "tags": [
+    "artefact",
+    "dataset",
+    "hash",
+    "output",
+    "versions",
+    "drift",
+    "record",
+    "code"
+   ],
+   "headings": [
+    "Provenance and lineage",
+    "Provenance: what is required",
+    "Record provenance and lineage"
+   ],
+   "skills": [
+    "backfill-planning",
+    "data-license-compliance",
+    "pipeline-incident-response",
+    "qa-validation-report",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Provenance: what is required",
+     "order": 8
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Record provenance and lineage",
+     "order": 2
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Provenance and lineage",
+     "order": 7
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Record provenance and lineage",
+     "order": 3
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Provenance and lineage",
+     "order": 4
+    }
+   ],
+   "hash": "58fee90b10"
+  },
+  {
+   "cid": "F005",
+   "text": "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted.",
+   "variants": [
+    "Never publish a point estimate alone. Give an interval, say what it covers (sampling error, revision risk, sensor gaps), and name the dominant error source. Where the uncertainty is not quantifiable, say so explicitly rather than omitting it \u2014 a silent point estimate reads as certainty you do not have.",
+    "A number without a band is a claim you cannot support. Publish an interval, state which error sources it does and does not include, and identify the largest one. If you cannot quantify the uncertainty, write that down instead of hiding it.",
+    "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted.",
+    "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted.",
+    "Point estimates travel with an uncertainty band and a note on what the band covers and excludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in words, not omitted."
+   ],
+   "tags": [
+    "uncertainty",
+    "band",
+    "error",
+    "point",
+    "dominant",
+    "covers",
+    "estimates",
+    "travel"
+   ],
+   "headings": [
+    "Report uncertainty honestly",
+    "Report uncertainty honestly for this benchmark",
+    "Report uncertainty honestly for this release",
+    "Report uncertainty honestly for this request",
+    "Report uncertainty honestly \u2014 non-negotiable"
+   ],
+   "skills": [
+    "benchmark-design",
+    "client-data-request",
+    "model-retraining",
+    "qa-validation-report",
+    "release-readiness"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Report uncertainty honestly for this benchmark",
+     "order": 7
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Report uncertainty honestly for this request",
+     "order": 6
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Report uncertainty honestly",
+     "order": 4
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Report uncertainty honestly \u2014 non-negotiable",
+     "order": 5
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Report uncertainty honestly for this release",
+     "order": 7
+    }
+   ],
+   "hash": "435d5d8a54"
+  },
+  {
+   "cid": "F006",
+   "text": "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers.",
+   "variants": [
+    "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers.",
+    "Do not move personal data or client-identifying detail into shared repositories, tickets, logs or analysis notebooks. If such data appears in a sample you were given, stop, flag it, and ask for a redacted version. Aggregate before sharing, and prefer identifiers that cannot be re-linked to an individual or a named counterparty.",
+    "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers.",
+    "Never propagate personal or client-confidential fields into shared artefacts. Flag and pause if they turn up in inputs; publish aggregates with non-relinkable identifiers.",
+    "Personal data and client-identifying detail stay out of shared repos, tickets, logs and notebooks. On encountering it in a supplied sample, halt and request a redacted copy. Share aggregates, and use identifiers that cannot be re-linked."
+   ],
+   "tags": [
+    "personal",
+    "identifiers",
+    "aggregates",
+    "shared",
+    "flag",
+    "client-confidential",
+    "turn",
+    "non-relinkable"
+   ],
+   "headings": [
+    "Keep personal and client-confidential data out for this feed",
+    "Keep personal and client-confidential data out \u2014 non-negotiable"
+   ],
+   "skills": [
+    "client-data-request",
+    "data-license-compliance",
+    "model-retraining",
+    "pipeline-incident-response",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "client-data-request",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 2
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 6
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 9
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Keep personal and client-confidential data out \u2014 non-negotiable",
+     "order": 4
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Keep personal and client-confidential data out for this feed",
+     "order": 1
+    }
+   ],
+   "hash": "77f3e7d154"
+  },
+  {
+   "cid": "F007",
+   "text": "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement.",
+   "variants": [
+    "Confirm the redistribution terms of every input before its content, or anything derived closely from it, leaves the platform. Note the licence, whether derived products are covered, any attribution string, and any embargo. When the terms are ambiguous, escalate rather than assuming permissive intent.",
+    "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement.",
+    "Verify redistribution rights for each input before publishing anything derived from it: licence, treatment of derivatives, required attribution, embargo period. Ambiguity is escalated, never resolved optimistically.",
+    "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement.",
+    "Each input's licence is checked before derived content is released \u2014 scope over derivatives, attribution text, embargo. Unclear terms go to legal, not to your own judgement."
+   ],
+   "tags": [
+    "derived",
+    "embargo",
+    "licence",
+    "attribution",
+    "input",
+    "terms",
+    "content",
+    "derivatives"
+   ],
+   "headings": [
+    "Check data licensing and redistribution rights for this feed",
+    "Check data licensing and redistribution rights for this review",
+    "Check data licensing and redistribution rights \u2014 non-negotiable",
+    "Licensing and compliance",
+    "Licensing: what is required"
+   ],
+   "skills": [
+    "client-data-request",
+    "data-license-compliance",
+    "model-retraining",
+    "release-readiness",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 5,
+   "occurrences": [
+    {
+     "skill": "client-data-request",
+     "heading": "Check data licensing and redistribution rights \u2014 non-negotiable",
+     "order": 3
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Check data licensing and redistribution rights for this review",
+     "order": 3
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Licensing: what is required",
+     "order": 1
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Licensing and compliance",
+     "order": 6
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Check data licensing and redistribution rights for this feed",
+     "order": 2
+    }
+   ],
+   "hash": "20be531d82"
+  },
+  {
+   "cid": "F008",
+   "text": "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it.",
+   "variants": [
+    "Stage the rollout with per-stage pass criteria and soak windows, behind a deploy-free kill switch that you have already exercised.",
+    "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it.",
+    "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it.",
+    "Move through the environments in order and give each stage a pass criterion and a soak period. Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it."
+   ],
+   "tags": [
+    "stage",
+    "soak",
+    "behind",
+    "pass",
+    "through",
+    "environments",
+    "criterion",
+    "flipped"
+   ],
+   "headings": [
+    "Roll out in stages with a kill switch",
+    "Roll out in stages with a kill switch \u2014 non-negotiable",
+    "Staged rollout and canary",
+    "Staged rollout: what is required"
+   ],
+   "skills": [
+    "api-change-review",
+    "cost-optimization",
+    "release-readiness",
+    "schema-migration"
+   ],
+   "support": 4,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Roll out in stages with a kill switch",
+     "order": 1
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Roll out in stages with a kill switch \u2014 non-negotiable",
+     "order": 2
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Staged rollout: what is required",
+     "order": 4
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Staged rollout and canary",
+     "order": 2
+    }
+   ],
+   "hash": "c9fd9d4bc8"
+  },
+  {
+   "cid": "F009",
+   "text": "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+   "variants": [
+    "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+    "Enumerate upstream feeds and downstream consumers, including unofficial ones \u2014 read the access logs, not the docs \u2014 and record how and how fast each consumer would detect a failure.",
+    "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted.",
+    "Build the dependency map from access logs rather than documentation, covering unknown consumers, with each consumer's detection path and latency noted."
+   ],
+   "tags": [
+    "access",
+    "consumer",
+    "logs",
+    "consumers",
+    "covering",
+    "unknown",
+    "detection",
+    "noted"
+   ],
+   "headings": [
+    "Dependencies and blast radius",
+    "Dependencies: what is required",
+    "Map upstream and downstream dependencies"
+   ],
+   "skills": [
+    "api-change-review",
+    "cost-optimization",
+    "pipeline-incident-response",
+    "schema-migration"
+   ],
+   "support": 4,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Dependencies and blast radius",
+     "order": 6
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Dependencies: what is required",
+     "order": 1
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Map upstream and downstream dependencies",
+     "order": 6
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Dependencies and blast radius",
+     "order": 1
+    }
+   ],
+   "hash": "945e979faa"
+  },
+  {
+   "cid": "F010",
+   "text": "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first.",
+   "variants": [
+    "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first.",
+    "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first.",
+    "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph. Give a next- update time whenever the situation is still moving, and never let a stakeholder learn about a problem from their own dashboard first.",
+    "Structure updates as impact first, mechanism second, action third. State when the next update lands if the matter is open, and always notify before the affected party notices on their own."
+   ],
+   "tags": [
+    "mechanism",
+    "affected",
+    "impact",
+    "update",
+    "open",
+    "technical",
+    "explanation",
+    "paragraph"
+   ],
+   "headings": [
+    "Communicate to stakeholders in their terms \u2014 non-negotiable",
+    "Communication and stakeholders",
+    "Communication: what is required"
+   ],
+   "skills": [
+    "client-data-request",
+    "cost-optimization",
+    "data-license-compliance",
+    "release-readiness"
+   ],
+   "support": 4,
+   "occurrences": [
+    {
+     "skill": "client-data-request",
+     "heading": "Communication: what is required",
+     "order": 4
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Communication and stakeholders",
+     "order": 6
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Communication: what is required",
+     "order": 1
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Communicate to stakeholders in their terms \u2014 non-negotiable",
+     "order": 2
+    }
+   ],
+   "hash": "7d86f7bcd6"
+  },
+  {
+   "cid": "F011",
+   "text": "Keep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently.",
+   "variants": [
+    "Keep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently.",
+    "Work the list in order of effort-to-saving: delete what nobody reads, apply lifecycle rules to cold storage, stop recomputing what has not changed, right-size the instances, and only then optimise the code. Attribute cost per pipeline before you start, because the intuition about which job is expensive is wrong more often than it is right.",
+    "Keep a visible list of the assumptions the work rests on and the questions still open, each with the person who can settle it and the cost of being wrong. Assumptions that nobody owns are the ones that fail silently."
+   ],
+   "tags": [
+    "nobody",
+    "wrong",
+    "assumptions",
+    "list",
+    "cost",
+    "work",
+    "visible",
+    "rests"
+   ],
+   "headings": [
+    "Cost reduction search order",
+    "Surface assumptions and open questions",
+    "Surface assumptions and open questions for this change"
+   ],
+   "skills": [
+    "api-change-review",
+    "cost-optimization",
+    "qa-validation-report"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Surface assumptions and open questions for this change",
+     "order": 2
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Cost reduction search order",
+     "order": 0
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Surface assumptions and open questions",
+     "order": 8
+    }
+   ],
+   "hash": "7564716d74"
+  },
+  {
+   "cid": "F012",
+   "text": "Use half-open intervals [start, end) consistently across filenames, partitions, queries and API calls, and record the convention explicitly. Hand-check the first and last partition against the job's output; boundary errors dominate temporal bugs.",
+   "variants": [
+    "Adopt [start, end) everywhere and state it. Manually verify the edge partitions against produced output \u2014 off-by-one at the window edges is the modal failure.",
+    "Time windows are half-open: [start, end). Write the boundary convention down and apply it in filenames, partition keys, SQL and API parameters alike. Re-derive the first and last partition by hand and compare against what the job produced \u2014 window off-by-ones are the single most common defect in temporal pipelines.",
+    "Use half-open intervals [start, end) consistently across filenames, partitions, queries and API calls, and record the convention explicitly. Hand-check the first and last partition against the job's output; boundary errors dominate temporal bugs."
+   ],
+   "tags": [
+    "start",
+    "partition",
+    "produced",
+    "half-open",
+    "boundary",
+    "convention",
+    "filenames",
+    "temporal"
+   ],
+   "headings": [
+    "Get the time-window arithmetic right",
+    "Get the time-window arithmetic right \u2014 non-negotiable",
+    "Time window: what is required"
+   ],
+   "skills": [
+    "backfill-planning",
+    "schema-migration",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Get the time-window arithmetic right",
+     "order": 1
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Get the time-window arithmetic right \u2014 non-negotiable",
+     "order": 6
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Time window: what is required",
+     "order": 6
+    }
+   ],
+   "hash": "73019f0f04"
+  },
+  {
+   "cid": "F013",
+   "text": "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run.",
+   "variants": [
+    "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run.",
+    "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run.",
+    "Cost the job first \u2014 compute as unit-count times unit-cost, storage as volume times rate times retention, plus egress \u2014 and check it against the budget, with sign-off above the threshold. Budget overrun is a failure mode, not an externality."
+   ],
+   "tags": [
+    "budget",
+    "egress",
+    "sign-off",
+    "compute",
+    "rate",
+    "threshold",
+    "cost",
+    "storage"
+   ],
+   "headings": [
+    "Cost and compute",
+    "Cost: what is required",
+    "Estimate compute and storage cost before running for this backfill"
+   ],
+   "skills": [
+    "backfill-planning",
+    "cost-optimization",
+    "model-retraining"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Estimate compute and storage cost before running for this backfill",
+     "order": 3
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Cost and compute",
+     "order": 3
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Cost: what is required",
+     "order": 8
+    }
+   ],
+   "hash": "33a0bc7436"
+  },
+  {
+   "cid": "F014",
+   "text": "Take the pre-change measurement under exactly the conditions you will re-measure under. Improvement claims without a matched baseline are narrative, not evidence.",
+   "variants": [
+    "Capture the current numbers first \u2014 latency, cost, accuracy, coverage, whichever the change targets \u2014 under the conditions you will re-measure in later. Without a baseline taken under matched conditions, any improvement you report is a story.",
+    "Record the baseline under matched conditions before changing anything; otherwise the after-number means nothing.",
+    "Take the pre-change measurement under exactly the conditions you will re-measure under. Improvement claims without a matched baseline are narrative, not evidence."
+   ],
+   "tags": [
+    "conditions",
+    "baseline",
+    "matched",
+    "re-measure",
+    "improvement",
+    "current",
+    "numbers",
+    "accuracy"
+   ],
+   "headings": [
+    "Baseline: what is required",
+    "Measure the current state before changing it",
+    "Measure the current state before changing it \u2014 non-negotiable"
+   ],
+   "skills": [
+    "backfill-planning",
+    "cost-optimization",
+    "model-retraining"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Measure the current state before changing it \u2014 non-negotiable",
+     "order": 6
+    },
+    {
+     "skill": "cost-optimization",
+     "heading": "Measure the current state before changing it",
+     "order": 4
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Baseline: what is required",
+     "order": 3
+    }
+   ],
+   "hash": "926eb48d70"
+  },
+  {
+   "cid": "F015",
+   "text": "Echo the request back (question, area, period, granularity, format, deadline) and have it confirmed first; unconfirmed granularity and period drive most rework.",
+   "variants": [
+    "Restate the ask \u2014 question, geography, period, granularity, format, deadline \u2014 and get confirmation before starting. Assumed granularity and assumed period are the usual causes of rework.",
+    "Echo the request back (question, area, period, granularity, format, deadline) and have it confirmed first; unconfirmed granularity and period drive most rework.",
+    "Play the request back in your own words: the exact question, the geography, the period, the granularity, the delivery format and the deadline. Confirm the playback before doing the work. Most rework traces to a granularity or period that was assumed rather than agreed."
+   ],
+   "tags": [
+    "granularity",
+    "deadline",
+    "rework",
+    "question",
+    "format",
+    "period",
+    "assumed",
+    "geography"
+   ],
+   "headings": [
+    "Restate the request before acting on it",
+    "Restate the request before acting on it \u2014 non-negotiable"
+   ],
+   "skills": [
+    "benchmark-design",
+    "client-data-request",
+    "data-license-compliance"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Restate the request before acting on it \u2014 non-negotiable",
+     "order": 1
+    },
+    {
+     "skill": "client-data-request",
+     "heading": "Restate the request before acting on it \u2014 non-negotiable",
+     "order": 1
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Restate the request before acting on it",
+     "order": 4
+    }
+   ],
+   "hash": "9a9d7e9f32"
+  },
+  {
+   "cid": "F016",
+   "text": "Compare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean.",
+   "variants": [
+    "Compare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean.",
+    "Compare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean.",
+    "Before claiming a change is real, check that it exceeds the noise floor: compute the metric's run-to-run variance, use a paired comparison where the same units appear in both arms, and require the effect to survive a simple resampling test. Report the number of units, not just the mean."
+   ],
+   "tags": [
+    "noise",
+    "floor",
+    "claiming",
+    "effect",
+    "variance",
+    "paired",
+    "arms",
+    "mean"
+   ],
+   "headings": [
+    "Do not over-read small differences",
+    "Statistics and significance"
+   ],
+   "skills": [
+    "benchmark-design",
+    "model-retraining",
+    "qa-validation-report"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Statistics and significance",
+     "order": 3
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Do not over-read small differences",
+     "order": 6
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Do not over-read small differences",
+     "order": 2
+    }
+   ],
+   "hash": "5e32004fb9"
+  },
+  {
+   "cid": "F017",
+   "text": "Maintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode.",
+   "variants": [
+    "List every load-bearing assumption and unresolved question with an owner and a blast radius. Anything unowned is a latent defect.",
+    "Maintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode.",
+    "Maintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode."
+   ],
+   "tags": [
+    "unowned",
+    "list",
+    "owner",
+    "maintain",
+    "assumptions-and-open-questions",
+    "statement",
+    "resolve",
+    "false"
+   ],
+   "headings": [
+    "Assumptions and open questions",
+    "Surface assumptions and open questions",
+    "Surface assumptions and open questions \u2014 non-negotiable"
+   ],
+   "skills": [
+    "benchmark-design",
+    "data-license-compliance",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Surface assumptions and open questions",
+     "order": 4
+    },
+    {
+     "skill": "data-license-compliance",
+     "heading": "Assumptions and open questions",
+     "order": 5
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Surface assumptions and open questions \u2014 non-negotiable",
+     "order": 3
+    }
+   ],
+   "hash": "62da044a94"
+  },
+  {
+   "cid": "F018",
+   "text": "Keep a small frozen set of cases with known-correct outputs, versioned with the code, and diff against it on every change. When a golden case legitimately changes, update it in its own commit with the reason in the message \u2014 never in the same commit as the behaviour change.",
+   "variants": [
+    "Diff every change against a frozen, code-versioned golden set. Golden updates are isolated commits carrying their justification.",
+    "Keep a small frozen set of cases with known-correct outputs, versioned with the code, and diff against it on every change. When a golden case legitimately changes, update it in its own commit with the reason in the message \u2014 never in the same commit as the behaviour change.",
+    "Keep a small frozen set of cases with known-correct outputs, versioned with the code, and diff against it on every change. When a golden case legitimately changes, update it in its own commit with the reason in the message \u2014 never in the same commit as the behaviour change."
+   ],
+   "tags": [
+    "golden",
+    "diff",
+    "frozen",
+    "commit",
+    "change",
+    "small",
+    "known-correct",
+    "versioned"
+   ],
+   "headings": [
+    "Golden set and regression",
+    "Validate against a frozen golden set",
+    "Validate against a frozen golden set for this validation"
+   ],
+   "skills": [
+    "benchmark-design",
+    "model-retraining",
+    "qa-validation-report"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Golden set and regression",
+     "order": 5
+    },
+    {
+     "skill": "model-retraining",
+     "heading": "Validate against a frozen golden set",
+     "order": 2
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Validate against a frozen golden set for this validation",
+     "order": 9
+    }
+   ],
+   "hash": "f4281e291d"
+  },
+  {
+   "cid": "F019",
+   "text": "Set the investigation budget before you start and escalate when it expires, even mid- thought. State what you tried, what you ruled out and what you would try next \u2014 an escalation with those three things costs the next person minutes, not hours.",
+   "variants": [
+    "Time-box the dig, escalate on expiry regardless of momentum, and hand over what you tried, what you excluded and what comes next.",
+    "Set the investigation budget before you start and escalate when it expires, even mid- thought. State what you tried, what you ruled out and what you would try next \u2014 an escalation with those three things costs the next person minutes, not hours.",
+    "Set the investigation budget before you start and escalate when it expires, even mid- thought. State what you tried, what you ruled out and what you would try next \u2014 an escalation with those three things costs the next person minutes, not hours."
+   ],
+   "tags": [
+    "tried",
+    "escalate",
+    "next",
+    "investigation",
+    "expires",
+    "thought",
+    "ruled",
+    "escalation"
+   ],
+   "headings": [
+    "Time-box investigation and escalate on the clock",
+    "Timebox: what is required"
+   ],
+   "skills": [
+    "client-data-request",
+    "pipeline-incident-response",
+    "qa-validation-report"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "client-data-request",
+     "heading": "Timebox: what is required",
+     "order": 7
+    },
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Timebox: what is required",
+     "order": 2
+    },
+    {
+     "skill": "qa-validation-report",
+     "heading": "Time-box investigation and escalate on the clock",
+     "order": 6
+    }
+   ],
+   "hash": "4f5609e084"
+  },
+  {
+   "cid": "F020",
+   "text": "Monitors for freshness, volume and null rate go in with the pipeline. Alerts fire on symptoms users would notice and carry an owner plus a runbook.",
+   "variants": [
+    "Monitors for freshness, volume and null rate go in with the pipeline. Alerts fire on symptoms users would notice and carry an owner plus a runbook.",
+    "Add the freshness, volume and null-rate checks at the same time as the pipeline, not after the first incident. Alert on the user-visible symptom (stale or wrong data) rather than on an internal proxy, and route every alert to a named owner with a runbook link.",
+    "Monitors for freshness, volume and null rate go in with the pipeline. Alerts fire on symptoms users would notice and carry an owner plus a runbook."
+   ],
+   "tags": [
+    "freshness",
+    "runbook",
+    "volume",
+    "pipeline",
+    "owner",
+    "monitors",
+    "null",
+    "alerts"
+   ],
+   "headings": [
+    "Instrument before you need the signal",
+    "Instrument before you need the signal for this feed",
+    "Monitoring: what is required"
+   ],
+   "skills": [
+    "pipeline-incident-response",
+    "release-readiness",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 3,
+   "occurrences": [
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Instrument before you need the signal",
+     "order": 3
+    },
+    {
+     "skill": "release-readiness",
+     "heading": "Monitoring: what is required",
+     "order": 5
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Instrument before you need the signal for this feed",
+     "order": 5
+    }
+   ],
+   "hash": "1061dea42b"
+  },
+  {
+   "cid": "F021",
+   "text": "Default to additive change; anything else needs a new major version. New optional fields are safe \u2014 renames, type changes, nullability tightening and unit changes are breaks regardless of green tests. Enumerate consumers first and honour the stated deprecation window.",
+   "variants": [
+    "Default to additive change; anything else needs a new major version. New optional fields are safe \u2014 renames, type changes, nullability tightening and unit changes are breaks regardless of green tests. Enumerate consumers first and honour the stated deprecation window.",
+    "Additive changes only, unless you are cutting a new major version. Adding an optional column is safe; renaming, retyping, tightening nullability or changing units is breaking, even when the tests pass. Enumerate downstream consumers before the change and give them the deprecation window you promised."
+   ],
+   "tags": [
+    "additive",
+    "major",
+    "optional",
+    "safe",
+    "nullability",
+    "tightening",
+    "tests",
+    "deprecation"
+   ],
+   "headings": [
+    "Schema and compatibility"
+   ],
+   "skills": [
+    "api-change-review",
+    "schema-migration"
+   ],
+   "support": 2,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Schema and compatibility",
+     "order": 3
+    },
+    {
+     "skill": "schema-migration",
+     "heading": "Schema and compatibility",
+     "order": 3
+    }
+   ],
+   "hash": "7296622ffb"
+  },
+  {
+   "cid": "F022",
+   "text": "Separate absence of signal from absence of observation: carry per-value counts and cloud fraction, apply the cloud threshold, flag interpolated points, and publish coverage prominently.",
+   "variants": [
+    "A missing observation is not a zero. Track observation count and cloud fraction per derived value, drop scenes exceeding the cloud threshold, and label any gap-fill you perform. Coverage is a headline metric.",
+    "Separate absence of signal from absence of observation: carry per-value counts and cloud fraction, apply the cloud threshold, flag interpolated points, and publish coverage prominently."
+   ],
+   "tags": [
+    "cloud",
+    "observation",
+    "fraction",
+    "coverage",
+    "threshold",
+    "absence",
+    "missing",
+    "zero"
+   ],
+   "headings": [
+    "Cloud mask: what is required",
+    "Handle cloud cover and missing observations"
+   ],
+   "skills": [
+    "qa-validation-report",
+    "sensor-ingest-onboarding"
+   ],
+   "support": 2,
+   "occurrences": [
+    {
+     "skill": "qa-validation-report",
+     "heading": "Cloud mask: what is required",
+     "order": 4
+    },
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Handle cloud cover and missing observations",
+     "order": 7
+    }
+   ],
+   "hash": "24e2720935"
+  },
+  {
+   "cid": "F023",
+   "text": "Review the change as a permanent commitment: naming you will still defend in two years, pagination and filtering that work at the largest realistic response, error bodies that say what the caller should do differently, idempotency for anything that writes, and explicit behaviour at the edges \u2014 empty result, partial data, future date. Anything shipped publicly is effectively forever.",
+   "variants": [
+    "Review the change as a permanent commitment: naming you will still defend in two years, pagination and filtering that work at the largest realistic response, error bodies that say what the caller should do differently, idempotency for anything that writes, and explicit behaviour at the edges \u2014 empty result, partial data, future date. Anything shipped publicly is effectively forever."
+   ],
+   "tags": [
+    "review",
+    "permanent",
+    "commitment",
+    "naming",
+    "defend",
+    "years",
+    "pagination",
+    "filtering"
+   ],
+   "headings": [
+    "Public API change review checklist for this change"
+   ],
+   "skills": [
+    "api-change-review"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "api-change-review",
+     "heading": "Public API change review checklist for this change",
+     "order": 0
+    }
+   ],
+   "hash": "7c5080105e"
+  },
+  {
+   "cid": "F024",
+   "text": "Backfill newest-first when consumers care about recency, oldest-first when they care about continuity \u2014 decide which and say so. Every backfill task must be idempotent and independently retryable: write to a staging location, then swap partitions atomically. Throttle so the backfill never competes with the live schedule, and checkpoint progress so a killed run resumes rather than restarts.",
+   "variants": [
+    "Backfill newest-first when consumers care about recency, oldest-first when they care about continuity \u2014 decide which and say so. Every backfill task must be idempotent and independently retryable: write to a staging location, then swap partitions atomically. Throttle so the backfill never competes with the live schedule, and checkpoint progress so a killed run resumes rather than restarts."
+   ],
+   "tags": [
+    "backfill",
+    "care",
+    "newest-first",
+    "recency",
+    "oldest-first",
+    "continuity",
+    "decide",
+    "task"
+   ],
+   "headings": [
+    "Backfill sequencing and idempotency"
+   ],
+   "skills": [
+    "backfill-planning"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "backfill-planning",
+     "heading": "Backfill sequencing and idempotency",
+     "order": 0
+    }
+   ],
+   "hash": "8cb8b4753d"
+  },
+  {
+   "cid": "F025",
+   "text": "Design the benchmark around the decision it informs. Fix the metric and the acceptance threshold before seeing any results, include negative and adversarial cases rather than only the happy path, hold out a set nobody tunes against, and write down what result would make you abandon the approach. A benchmark you cannot fail teaches nothing.",
+   "variants": [
+    "Design the benchmark around the decision it informs. Fix the metric and the acceptance threshold before seeing any results, include negative and adversarial cases rather than only the happy path, hold out a set nobody tunes against, and write down what result would make you abandon the approach. A benchmark you cannot fail teaches nothing."
+   ],
+   "tags": [
+    "benchmark",
+    "design",
+    "around",
+    "decision",
+    "informs",
+    "acceptance",
+    "seeing",
+    "results"
+   ],
+   "headings": [
+    "Benchmark: what is required"
+   ],
+   "skills": [
+    "benchmark-design"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "benchmark-design",
+     "heading": "Benchmark: what is required",
+     "order": 0
+    }
+   ],
+   "hash": "a8bb3e6f1b"
+  },
+  {
+   "cid": "F026",
+   "text": "Separate what the client asked for from what they are trying to learn, and answer both. Deliver in the format they will actually open, include a short methodology note in the same file, and state explicitly what the data does not support so it is not quoted beyond its range. Log the request so the third identical one becomes a product rather than a favour.",
+   "variants": [
+    "Separate what the client asked for from what they are trying to learn, and answer both. Deliver in the format they will actually open, include a short methodology note in the same file, and state explicitly what the data does not support so it is not quoted beyond its range. Log the request so the third identical one becomes a product rather than a favour."
+   ],
+   "tags": [
+    "asked",
+    "trying",
+    "answer",
+    "deliver",
+    "methodology",
+    "file",
+    "quoted",
+    "beyond"
+   ],
+   "headings": [
+    "Ad-hoc client data request handling"
+   ],
+   "skills": [
+    "client-data-request"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "client-data-request",
+     "heading": "Ad-hoc client data request handling",
+     "order": 0
+    }
+   ],
+   "hash": "1f59217233"
+  },
+  {
+   "cid": "F027",
+   "text": "Assess each source separately: the licence text as signed (not the marketing page), whether the grant covers derivative and aggregated products, attribution wording and where it must appear, territorial and sectoral restrictions, and the survival clause after termination. Record the assessment per source with its date and the contract version, because vendors revise terms silently.",
+   "variants": [
+    "Assess each source separately: the licence text as signed (not the marketing page), whether the grant covers derivative and aggregated products, attribution wording and where it must appear, territorial and sectoral restrictions, and the survival clause after termination. Record the assessment per source with its date and the contract version, because vendors revise terms silently."
+   ],
+   "tags": [
+    "source",
+    "assess",
+    "separately",
+    "marketing",
+    "grant",
+    "derivative",
+    "aggregated",
+    "wording"
+   ],
+   "headings": [
+    "Licence review and derivative works"
+   ],
+   "skills": [
+    "data-license-compliance"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "data-license-compliance",
+     "heading": "Licence review and derivative works",
+     "order": 0
+    }
+   ],
+   "hash": "8ad25dcd58"
+  },
+  {
+   "cid": "F028",
+   "text": "Split by time and by site, never at random \u2014 random splits leak neighbouring pixels and adjacent dates into the test set and inflate every metric. Freeze the evaluation set before touching the training data. Compare the candidate against the incumbent on the same frozen set, and check the per-stratum deltas, since an aggregate gain frequently hides a regression in the segment a client actually watches.",
+   "variants": [
+    "Split by time and by site, never at random \u2014 random splits leak neighbouring pixels and adjacent dates into the test set and inflate every metric. Freeze the evaluation set before touching the training data. Compare the candidate against the incumbent on the same frozen set, and check the per-stratum deltas, since an aggregate gain frequently hides a regression in the segment a client actually watches."
+   ],
+   "tags": [
+    "random",
+    "split",
+    "site",
+    "splits",
+    "leak",
+    "neighbouring",
+    "pixels",
+    "adjacent"
+   ],
+   "headings": [
+    "Model retraining discipline for this retraining"
+   ],
+   "skills": [
+    "model-retraining"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "model-retraining",
+     "heading": "Model retraining discipline for this retraining",
+     "order": 0
+    }
+   ],
+   "hash": "e3f4958157"
+  },
+  {
+   "cid": "F029",
+   "text": "Triage in this order: (1) confirm the symptom against the serving layer, not the build logs; (2) classify severity by who is consuming the bad data right now, not by how broken the code looks; (3) stop the bleeding \u2014 pause the schedule or freeze the served partition \u2014 before diagnosing; (4) only then look for cause. Freezing a wrong number in place is almost always better than letting it propagate while you think.",
+   "variants": [
+    "Triage in this order: (1) confirm the symptom against the serving layer, not the build logs; (2) classify severity by who is consuming the bad data right now, not by how broken the code looks; (3) stop the bleeding \u2014 pause the schedule or freeze the served partition \u2014 before diagnosing; (4) only then look for cause. Freezing a wrong number in place is almost always better than letting it propagate while you think."
+   ],
+   "tags": [
+    "triage",
+    "serving",
+    "classify",
+    "severity",
+    "consuming",
+    "broken",
+    "looks",
+    "bleeding"
+   ],
+   "headings": [
+    "Incident and triage"
+   ],
+   "skills": [
+    "pipeline-incident-response"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Incident and triage",
+     "order": 0
+    }
+   ],
+   "hash": "00a23e98b4"
+  },
+  {
+   "cid": "F030",
+   "text": "Lead with consequence \u2014 affected parties, affected window, required action \u2014 then explain the mechanism briefly underneath. Commit to a next-update time while anything remains unresolved, and reach stakeholders before their dashboards do.",
+   "variants": [
+    "Lead with consequence \u2014 affected parties, affected window, required action \u2014 then explain the mechanism briefly underneath. Commit to a next-update time while anything remains unresolved, and reach stakeholders before their dashboards do."
+   ],
+   "tags": [
+    "affected",
+    "lead",
+    "consequence",
+    "parties",
+    "explain",
+    "briefly",
+    "underneath",
+    "next-update"
+   ],
+   "headings": [
+    "Communication: what is required"
+   ],
+   "skills": [
+    "pipeline-incident-response"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "pipeline-incident-response",
+     "heading": "Communication: what is required",
+     "order": 8
+    }
+   ],
+   "hash": "a1e10bd762"
+  },
+  {
+   "cid": "F031",
+   "text": "Structure the validation as: definition of the quantity, reference data and why it is a fair reference, agreement statistics stratified by the dimensions that matter (season, geography, magnitude), failure cases shown rather than described, and a stated domain of validity. A validation that reports only pooled agreement hides exactly the regimes where the indicator fails.",
+   "variants": [
+    "Structure the validation as: definition of the quantity, reference data and why it is a fair reference, agreement statistics stratified by the dimensions that matter (season, geography, magnitude), failure cases shown rather than described, and a stated domain of validity. A validation that reports only pooled agreement hides exactly the regimes where the indicator fails."
+   ],
+   "tags": [
+    "agreement",
+    "validation",
+    "reference",
+    "definition",
+    "quantity",
+    "fair",
+    "statistics",
+    "stratified"
+   ],
+   "headings": [
+    "Validation report structure for a derived indicator"
+   ],
+   "skills": [
+    "qa-validation-report"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "qa-validation-report",
+     "heading": "Validation report structure for a derived indicator",
+     "order": 0
+    }
+   ],
+   "hash": "a4846c6eca"
+  },
+  {
+   "cid": "F032",
+   "text": "Gate the release on: validation signed by someone who did not build it, documentation that a new user can follow unaided, a version number and a changelog entry that names the behavioural difference, migration guidance for consumers of the previous version, and a named owner for the first two weeks of questions.",
+   "variants": [
+    "Gate the release on: validation signed by someone who did not build it, documentation that a new user can follow unaided, a version number and a changelog entry that names the behavioural difference, migration guidance for consumers of the previous version, and a named owner for the first two weeks of questions."
+   ],
+   "tags": [
+    "version",
+    "gate",
+    "release",
+    "user",
+    "follow",
+    "unaided",
+    "changelog",
+    "entry"
+   ],
+   "headings": [
+    "Indicator release readiness for this release"
+   ],
+   "skills": [
+    "release-readiness"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "release-readiness",
+     "heading": "Indicator release readiness for this release",
+     "order": 0
+    }
+   ],
+   "hash": "87e888164d"
+  },
+  {
+   "cid": "F033",
+   "text": "Use expand-and-contract: add the new shape, dual-write, backfill, move readers across, verify equivalence on live traffic, and only then remove the old shape \u2014 with a gap of at least one full business cycle before the contract step. Never combine a shape change and a semantic change in one migration; if a column's meaning changes, it gets a new name.",
+   "variants": [
+    "Use expand-and-contract: add the new shape, dual-write, backfill, move readers across, verify equivalence on live traffic, and only then remove the old shape \u2014 with a gap of at least one full business cycle before the contract step. Never combine a shape change and a semantic change in one migration; if a column's meaning changes, it gets a new name."
+   ],
+   "tags": [
+    "shape",
+    "expand-and-contract",
+    "dual-write",
+    "readers",
+    "equivalence",
+    "remove",
+    "least",
+    "full"
+   ],
+   "headings": [
+    "Migration and schema change"
+   ],
+   "skills": [
+    "schema-migration"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "schema-migration",
+     "heading": "Migration and schema change",
+     "order": 0
+    }
+   ],
+   "hash": "4903be3c48"
+  },
+  {
+   "cid": "F034",
+   "text": "Characterise the feed before trusting it: revisit interval and actual latency distribution (not the advertised one), native resolution and resampling behaviour, radiometric calibration and known artefacts, the vendor's own quality flags, and their restatement policy. Run a parallel period against the incumbent source and quantify the level shift before any switchover.",
+   "variants": [
+    "Characterise the feed before trusting it: revisit interval and actual latency distribution (not the advertised one), native resolution and resampling behaviour, radiometric calibration and known artefacts, the vendor's own quality flags, and their restatement policy. Run a parallel period against the incumbent source and quantify the level shift before any switchover."
+   ],
+   "tags": [
+    "characterise",
+    "feed",
+    "trusting",
+    "revisit",
+    "actual",
+    "distribution",
+    "advertised",
+    "native"
+   ],
+   "headings": [
+    "Onboarding: what is required"
+   ],
+   "skills": [
+    "sensor-ingest-onboarding"
+   ],
+   "support": 1,
+   "occurrences": [
+    {
+     "skill": "sensor-ingest-onboarding",
+     "heading": "Onboarding: what is required",
+     "order": 0
+    }
+   ],
+   "hash": "8ba73186fc"
+  }
+ ],
+ "params": {
+  "sim_threshold": 0.14,
+  "top_tags": 8
+ }
+}

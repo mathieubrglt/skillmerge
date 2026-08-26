@@ -1,0 +1,848 @@
+{
+ "per_run": [
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.9,
+   "rubric": 0.95,
+   "overall": 9.0,
+   "ctx": 1262,
+   "prompt": 1415,
+   "out": 1329
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.85,
+   "rubric": 0.925,
+   "overall": 9.0,
+   "ctx": 858,
+   "prompt": 1011,
+   "out": 1323
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.85,
+   "rubric": 0.9125,
+   "overall": 8.0,
+   "ctx": 582,
+   "prompt": 735,
+   "out": 1211
+  },
+  {
+   "task": "E1",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.775,
+   "rubric": 0.8625,
+   "overall": 8.0,
+   "ctx": 759,
+   "prompt": 912,
+   "out": 1170
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.75,
+   "skill_rubric": 1.0,
+   "rubric": 0.875,
+   "overall": 8.0,
+   "ctx": 2123,
+   "prompt": 2254,
+   "out": 1205
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.725,
+   "rubric": 0.7875,
+   "overall": 7.5,
+   "ctx": 592,
+   "prompt": 723,
+   "out": 1192
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.575,
+   "skill_rubric": 0.55,
+   "rubric": 0.5625,
+   "overall": 3.0,
+   "ctx": 726,
+   "prompt": 857,
+   "out": 1344
+  },
+  {
+   "task": "E2",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.7,
+   "skill_rubric": 0.5,
+   "rubric": 0.6,
+   "overall": 6.5,
+   "ctx": 1208,
+   "prompt": 1339,
+   "out": 1198
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 1.0,
+   "rubric": 1.0,
+   "overall": 9.0,
+   "ctx": 976,
+   "prompt": 1107,
+   "out": 1530
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.975,
+   "skill_rubric": 0.9,
+   "rubric": 0.9375,
+   "overall": 7.5,
+   "ctx": 412,
+   "prompt": 543,
+   "out": 1227
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.9,
+   "rubric": 0.9125000000000001,
+   "overall": 7.5,
+   "ctx": 589,
+   "prompt": 720,
+   "out": 1209
+  },
+  {
+   "task": "E3",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.85,
+   "rubric": 0.8999999999999999,
+   "overall": 8.0,
+   "ctx": 721,
+   "prompt": 852,
+   "out": 1235
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.9,
+   "rubric": 0.875,
+   "overall": 9.0,
+   "ctx": 919,
+   "prompt": 1055,
+   "out": 1298
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.675,
+   "skill_rubric": 0.825,
+   "rubric": 0.75,
+   "overall": 7.0,
+   "ctx": 813,
+   "prompt": 949,
+   "out": 1232
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.7,
+   "skill_rubric": 0.825,
+   "rubric": 0.7625,
+   "overall": 7.0,
+   "ctx": 1466,
+   "prompt": 1602,
+   "out": 1315
+  },
+  {
+   "task": "E4",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.825,
+   "skill_rubric": 0.875,
+   "rubric": 0.85,
+   "overall": 8.0,
+   "ctx": 1501,
+   "prompt": 1637,
+   "out": 1160
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.925,
+   "rubric": 0.9125000000000001,
+   "overall": 8.5,
+   "ctx": 1038,
+   "prompt": 1179,
+   "out": 1388
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.925,
+   "skill_rubric": 0.85,
+   "rubric": 0.8875,
+   "overall": 8.5,
+   "ctx": 394,
+   "prompt": 535,
+   "out": 1309
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.7,
+   "rubric": 0.8,
+   "overall": 7.0,
+   "ctx": 1474,
+   "prompt": 1615,
+   "out": 1167
+  },
+  {
+   "task": "E5",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.75,
+   "skill_rubric": 0.8,
+   "rubric": 0.775,
+   "overall": 7.5,
+   "ctx": 1511,
+   "prompt": 1652,
+   "out": 1249
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.9,
+   "rubric": 0.925,
+   "overall": 8.0,
+   "ctx": 2123,
+   "prompt": 2255,
+   "out": 1358
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.85,
+   "rubric": 0.875,
+   "overall": 8.0,
+   "ctx": 1277,
+   "prompt": 1409,
+   "out": 1260
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.825,
+   "rubric": 0.8125,
+   "overall": 7.0,
+   "ctx": 1463,
+   "prompt": 1595,
+   "out": 1314
+  },
+  {
+   "task": "E6",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.75,
+   "rubric": 0.8,
+   "overall": 6.5,
+   "ctx": 1388,
+   "prompt": 1520,
+   "out": 1126
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "B_concat",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.875,
+   "rubric": 0.8875,
+   "overall": 8.0,
+   "ctx": 1678,
+   "prompt": 1802,
+   "out": 1570
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "C_composed",
+   "task_rubric": 0.825,
+   "skill_rubric": 0.75,
+   "rubric": 0.7875,
+   "overall": 7.0,
+   "ctx": 346,
+   "prompt": 470,
+   "out": 1546
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "F_v3",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.95,
+   "rubric": 0.875,
+   "overall": 7.0,
+   "ctx": 1497,
+   "prompt": 1621,
+   "out": 1546
+  },
+  {
+   "task": "E7",
+   "genre": "engineering",
+   "cond": "G_lessons",
+   "task_rubric": 0.85,
+   "skill_rubric": 1.0,
+   "rubric": 0.925,
+   "overall": 6.0,
+   "ctx": 1448,
+   "prompt": 1572,
+   "out": 1502
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.775,
+   "skill_rubric": 0.95,
+   "rubric": 0.8625,
+   "overall": 8.0,
+   "ctx": 1900,
+   "prompt": 2059,
+   "out": 1468
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.75,
+   "skill_rubric": 0.675,
+   "rubric": 0.7125,
+   "overall": 6.5,
+   "ctx": 1434,
+   "prompt": 1593,
+   "out": 1448
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.875,
+   "skill_rubric": 0.65,
+   "rubric": 0.7625,
+   "overall": 8.0,
+   "ctx": 1416,
+   "prompt": 1575,
+   "out": 1451
+  },
+  {
+   "task": "D1",
+   "genre": "documents",
+   "cond": "G_lessons",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.6,
+   "rubric": 0.725,
+   "overall": 7.0,
+   "ctx": 1448,
+   "prompt": 1607,
+   "out": 1422
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.925,
+   "skill_rubric": 1.0,
+   "rubric": 0.9625,
+   "overall": 9.0,
+   "ctx": 7555,
+   "prompt": 7700,
+   "out": 1443
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.8,
+   "rubric": 0.825,
+   "overall": 8.0,
+   "ctx": 1297,
+   "prompt": 1442,
+   "out": 1549
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.65,
+   "rubric": 0.825,
+   "overall": 7.0,
+   "ctx": 1241,
+   "prompt": 1386,
+   "out": 1346
+  },
+  {
+   "task": "D2",
+   "genre": "documents",
+   "cond": "G_lessons",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.7,
+   "rubric": 0.825,
+   "overall": 7.0,
+   "ctx": 1391,
+   "prompt": 1536,
+   "out": 1415
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.95,
+   "rubric": 0.975,
+   "overall": 9.0,
+   "ctx": 2242,
+   "prompt": 2410,
+   "out": 1391
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.9,
+   "rubric": 0.95,
+   "overall": 8.0,
+   "ctx": 1512,
+   "prompt": 1680,
+   "out": 1171
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.9,
+   "skill_rubric": 0.575,
+   "rubric": 0.7375,
+   "overall": 6.5,
+   "ctx": 1471,
+   "prompt": 1639,
+   "out": 1279
+  },
+  {
+   "task": "D3",
+   "genre": "documents",
+   "cond": "G_lessons",
+   "task_rubric": 1.0,
+   "skill_rubric": 0.7,
+   "rubric": 0.85,
+   "overall": 7.5,
+   "ctx": 1415,
+   "prompt": 1583,
+   "out": 1232
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.825,
+   "skill_rubric": 1.0,
+   "rubric": 0.9125,
+   "overall": 9.0,
+   "ctx": 4617,
+   "prompt": 4766,
+   "out": 1440
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.8,
+   "rubric": 0.8,
+   "overall": 8.0,
+   "ctx": 1483,
+   "prompt": 1632,
+   "out": 1421
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.8,
+   "skill_rubric": 0.8,
+   "rubric": 0.8,
+   "overall": 7.0,
+   "ctx": 1356,
+   "prompt": 1505,
+   "out": 1373
+  },
+  {
+   "task": "D4",
+   "genre": "documents",
+   "cond": "G_lessons",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.8,
+   "rubric": 0.825,
+   "overall": 8.0,
+   "ctx": 1463,
+   "prompt": 1612,
+   "out": 1372
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "B_concat",
+   "task_rubric": 0.8,
+   "skill_rubric": 1.0,
+   "rubric": 0.9,
+   "overall": 7.0,
+   "ctx": 2535,
+   "prompt": 2669,
+   "out": 1329
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "C_composed",
+   "task_rubric": 0.85,
+   "skill_rubric": 0.775,
+   "rubric": 0.8125,
+   "overall": 8.0,
+   "ctx": 1185,
+   "prompt": 1319,
+   "out": 1192
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "F_v3",
+   "task_rubric": 0.875,
+   "skill_rubric": 0.725,
+   "rubric": 0.8,
+   "overall": 6.0,
+   "ctx": 1477,
+   "prompt": 1611,
+   "out": 1246
+  },
+  {
+   "task": "D5",
+   "genre": "documents",
+   "cond": "G_lessons",
+   "task_rubric": 0.95,
+   "skill_rubric": 0.8,
+   "rubric": 0.875,
+   "overall": 8.0,
+   "ctx": 1459,
+   "prompt": 1593,
+   "out": 1315
+  }
+ ],
+ "summary": {
+  "B_concat": {
+   "task_rubric": 0.8895833333333334,
+   "skill_rubric": 0.95,
+   "rubric": 0.9197916666666667,
+   "overall": 8.458333333333334,
+   "ctx": 2414,
+   "out": 1395.75,
+   "prompt": 2555.9166666666665,
+   "e2e": 3951.6666666666665
+  },
+  "C_composed": {
+   "task_rubric": 0.8666666666666667,
+   "skill_rubric": 0.8083333333333333,
+   "rubric": 0.8375,
+   "overall": 7.75,
+   "ctx": 966.9166666666666,
+   "out": 1322.5,
+   "prompt": 1108.8333333333333,
+   "e2e": 2431.333333333333
+  },
+  "F_v3": {
+   "task_rubric": 0.84375,
+   "skill_rubric": 0.75,
+   "rubric": 0.796875,
+   "overall": 6.75,
+   "ctx": 1229.8333333333333,
+   "out": 1316.75,
+   "prompt": 1371.75,
+   "e2e": 2688.5
+  },
+  "G_lessons": {
+   "task_rubric": 0.8729166666666667,
+   "skill_rubric": 0.7625,
+   "rubric": 0.8177083333333334,
+   "overall": 7.333333333333333,
+   "ctx": 1309.3333333333333,
+   "out": 1283,
+   "prompt": 1451.25,
+   "e2e": 2734.25
+  }
+ },
+ "contrasts": {
+  "rubric:G_lessons-F_v3": {
+   "delta": 0.020833333333333315,
+   "lo": -0.007291666666666641,
+   "hi": 0.04999999999999999,
+   "p": 0.153,
+   "n": 12,
+   "wins": 6,
+   "losses": 5
+  },
+  "task_rubric:G_lessons-F_v3": {
+   "delta": 0.02916666666666663,
+   "lo": -0.0166666666666667,
+   "hi": 0.07083333333333329,
+   "p": 0.2195,
+   "n": 12,
+   "wins": 8,
+   "losses": 4
+  },
+  "skill_rubric:G_lessons-F_v3": {
+   "delta": 0.012500000000000011,
+   "lo": -0.025000000000000005,
+   "hi": 0.052083333333333336,
+   "p": 0.522,
+   "n": 12,
+   "wins": 6,
+   "losses": 5
+  },
+  "overall:G_lessons-F_v3": {
+   "delta": 0.5833333333333334,
+   "lo": -0.08333333333333333,
+   "hi": 1.3333333333333333,
+   "p": 0.0972,
+   "n": 12,
+   "wins": 7,
+   "losses": 3
+  },
+  "rubric:G_lessons-C_composed": {
+   "delta": -0.01979166666666667,
+   "lo": -0.07083333333333333,
+   "hi": 0.03124999999999999,
+   "p": 0.4506,
+   "n": 12,
+   "wins": 5,
+   "losses": 6
+  },
+  "task_rubric:G_lessons-C_composed": {
+   "delta": 0.006249999999999968,
+   "lo": -0.05000000000000004,
+   "hi": 0.0583333333333333,
+   "p": 0.842,
+   "n": 12,
+   "wins": 6,
+   "losses": 5
+  },
+  "skill_rubric:G_lessons-C_composed": {
+   "delta": -0.04583333333333334,
+   "lo": -0.10833333333333338,
+   "hi": 0.025000000000000005,
+   "p": 0.1937,
+   "n": 12,
+   "wins": 3,
+   "losses": 8
+  },
+  "overall:G_lessons-C_composed": {
+   "delta": -0.4166666666666667,
+   "lo": -0.8333333333333334,
+   "hi": 0.0,
+   "p": 0.074,
+   "n": 12,
+   "wins": 3,
+   "losses": 7
+  },
+  "rubric:G_lessons-B_concat": {
+   "delta": -0.10208333333333335,
+   "lo": -0.14479166666666668,
+   "hi": -0.060416666666666674,
+   "p": 0.0,
+   "n": 12,
+   "wins": 1,
+   "losses": 11
+  },
+  "task_rubric:G_lessons-B_concat": {
+   "delta": -0.0166666666666667,
+   "lo": -0.058333333333333355,
+   "hi": 0.027083333333333303,
+   "p": 0.4086,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "skill_rubric:G_lessons-B_concat": {
+   "delta": -0.1875,
+   "lo": -0.27291666666666664,
+   "hi": -0.10000000000000002,
+   "p": 0.0001,
+   "n": 12,
+   "wins": 1,
+   "losses": 11
+  },
+  "overall:G_lessons-B_concat": {
+   "delta": -1.125,
+   "lo": -1.5,
+   "hi": -0.6666666666666666,
+   "p": 0.0,
+   "n": 12,
+   "wins": 1,
+   "losses": 11
+  },
+  "rubric:F_v3-C_composed": {
+   "delta": -0.04062499999999999,
+   "lo": -0.09583333333333328,
+   "hi": 0.00729166666666665,
+   "p": 0.1049,
+   "n": 12,
+   "wins": 3,
+   "losses": 7
+  },
+  "task_rubric:F_v3-C_composed": {
+   "delta": -0.022916666666666658,
+   "lo": -0.08541666666666665,
+   "hi": 0.03333333333333333,
+   "p": 0.4727,
+   "n": 12,
+   "wins": 4,
+   "losses": 7
+  },
+  "skill_rubric:F_v3-C_composed": {
+   "delta": -0.05833333333333335,
+   "lo": -0.12916666666666668,
+   "hi": 0.012499999999999975,
+   "p": 0.0944,
+   "n": 12,
+   "wins": 1,
+   "losses": 7
+  },
+  "overall:F_v3-C_composed": {
+   "delta": -1.0,
+   "lo": -1.8333333333333333,
+   "hi": -0.25,
+   "p": 0.0076,
+   "n": 12,
+   "wins": 1,
+   "losses": 8
+  },
+  "rubric:C_composed-B_concat": {
+   "delta": -0.08229166666666668,
+   "lo": -0.10625,
+   "hi": -0.05833333333333334,
+   "p": 0.0,
+   "n": 12,
+   "wins": 0,
+   "losses": 12
+  },
+  "task_rubric:C_composed-B_concat": {
+   "delta": -0.02291666666666667,
+   "lo": -0.06249999999999998,
+   "hi": 0.014583333333333318,
+   "p": 0.2295,
+   "n": 12,
+   "wins": 3,
+   "losses": 7
+  },
+  "skill_rubric:C_composed-B_concat": {
+   "delta": -0.14166666666666666,
+   "lo": -0.18958333333333333,
+   "hi": -0.09583333333333333,
+   "p": 0.0,
+   "n": 12,
+   "wins": 0,
+   "losses": 12
+  },
+  "overall:C_composed-B_concat": {
+   "delta": -0.7083333333333334,
+   "lo": -1.1666666666666667,
+   "hi": -0.25,
+   "p": 0.0054,
+   "n": 12,
+   "wins": 1,
+   "losses": 8
+  }
+ },
+ "by_genre": {
+  "engineering": {
+   "B_concat": {
+    "rubric": 0.9178571428571428,
+    "ctx": 1445.5714285714287
+   },
+   "C_composed": {
+    "rubric": 0.85,
+    "ctx": 670.2857142857143
+   },
+   "F_v3": {
+    "rubric": 0.8053571428571429,
+    "ctx": 1113.857142857143
+   },
+   "G_lessons": {
+    "rubric": 0.8160714285714286,
+    "ctx": 1219.4285714285713
+   }
+  },
+  "documents": {
+   "B_concat": {
+    "rubric": 0.9225,
+    "ctx": 3769.8
+   },
+   "C_composed": {
+    "rubric": 0.82,
+    "ctx": 1382.2
+   },
+   "F_v3": {
+    "rubric": 0.785,
+    "ctx": 1392.2
+   },
+   "G_lessons": {
+    "rubric": 0.82,
+    "ctx": 1435.2
+   }
+  }
+ },
+ "agreement": {
+  "items": 960,
+  "exact": 0.9510416666666667,
+  "within1": 1.0,
+  "r": 0.9350206918152992
+ }
+}

@@ -1,0 +1,50 @@
+[
+ {
+  "label": "full system",
+  "n_fragments": 35,
+  "coverage": 0.8209821428571429,
+  "tokens": 972.25,
+  "dup_concepts": 0.375,
+  "density": 0.8444146493773648
+ },
+ {
+  "label": "- cross-skill dedup",
+  "n_fragments": 99,
+  "coverage": 0.7715773809523809,
+  "tokens": 976.0,
+  "dup_concepts": 2.625,
+  "density": 0.7905505952380952
+ },
+ {
+  "label": "- offline query expansion",
+  "n_fragments": 35,
+  "coverage": 0.7443452380952381,
+  "tokens": 978.375,
+  "dup_concepts": 0.125,
+  "density": 0.760797483679814
+ },
+ {
+  "label": "- MMR diversity (lambda=1.0)",
+  "n_fragments": 35,
+  "coverage": 0.8459821428571429,
+  "tokens": 974.5,
+  "dup_concepts": 0.375,
+  "density": 0.8681191819980943
+ },
+ {
+  "label": "- support prior (w_support=0)",
+  "n_fragments": 35,
+  "coverage": 0.8459821428571429,
+  "tokens": 991.5,
+  "dup_concepts": 0.25,
+  "density": 0.8532346372739716
+ },
+ {
+  "label": "- dedup AND expansion",
+  "n_fragments": 99,
+  "coverage": 0.6394345238095239,
+  "tokens": 988.625,
+  "dup_concepts": 2.75,
+  "density": 0.6467917803105565
+ }
+]

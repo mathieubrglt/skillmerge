@@ -1,0 +1,27 @@
+[project]
+name = "skillmerge"
+version = "3.0.0"
+description = "Task-scoped composition of Agent Skills: index a library once, return one composite per task"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Mathieu Bourgault" }]
+keywords = ["agent-skills", "mcp", "retrieval", "prompt-context"]
+dependencies = ["pyyaml>=6.0"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0"]
+
+[project.scripts]
+skillmerge = "skillmerge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/mathieubrglt/skillmerge"
+Paper = "https://github.com/mathieubrglt/skillmerge/blob/main/paper/article.pdf"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

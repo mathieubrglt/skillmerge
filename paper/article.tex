@@ -1,0 +1,760 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor}
+\usepackage[expansion=false,protrusion=true]{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption,natbib,url,enumitem,titlesec,array}
+\captionsetup{font=small,labelfont=bf,width=.95\textwidth}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\setlist{nosep,leftmargin=1.2em}
+\newcommand{\sm}{\textsc{SkillMerge}}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.08}
+
+\title{\vspace{-1.6em}\textbf{Task-Scoped Composition of Agent Skills:\\ Three Strategies Measured Against Loading the Whole Skill}\vspace{-0.3em}}
+\author{Mathieu Bourgault\thanks{Code, the demo corpus, the results and the scripts that
+regenerate every number in this article: \url{https://github.com/mathieubrglt/skillmerge}. The
+production corpus is not redistributed; see Section~\ref{sec:avail}.}}
+\date{26 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent An agent that needs three skills loads three whole documents, most of which do not apply
+to the task in front of it. We built a service that indexes a skill library once and returns, per
+request, a single composite scoped to one task and capped at a token budget, and we tested three
+ways of representing the library inside it. On a corpus we generated, with redundancy planted by
+construction, composition matched whole-skill loading within measurement error at 42\% of the
+context ($\Delta = -0.022$ on a blind rubric, 95\% CI $[-0.061, +0.018]$, $p = 0.30$). On 45 real
+skills in the Agent Skills format the same method lost 7.5 rubric points and 11 of 12 tasks
+($p_{\text{Holm}} = 0.029$), and its cross-skill de-duplication was rejected by an independent
+adjudication panel on 56 of 60 sampled merges. Splitting each unit into a general \emph{obligation}
+and the specific \emph{lesson} that makes it actionable, and merging only the former while keeping
+every one of the latter, raised merge precision from 0.067 to 0.817 (difference $+0.750$, 95\% CI
+$[+0.634, +0.866]$, $p < 0.001$) without improving the deliverables. An ablation shows why: printing
+the obligations costs quality, because a capable model already holds them. We retain the third
+representation and reject its rendering. The case for composition rests on context cost and library
+hygiene; no variant matched whole-skill loading on output quality.
+\end{abstract}
+
+\section{Introduction}
+
+Skill composition does not improve the work an agent produces. Across three strategies, 12 tasks
+and 132 blind-graded deliverables, no composite came within 8 rubric points of loading the skills a
+practitioner would have chosen. It does reduce injected context by 46\% to 60\%, and one of the
+three strategies makes a skill library de-duplicable without losing content. Those two results, and
+the reasons the quality gap persists, are what this article reports.
+
+An agent skill is a document, typically a \texttt{SKILL.md}, that tells a model how a particular
+kind of work is done \citep{anthropic2025skills}. Skills are written to stand alone so they can be
+authored and shared independently. Two costs follow. A task drawing on three skills pays three
+times for whatever they share, and each skill is written for a class of situations, so most of what
+is loaded does not apply to the one at hand; models attend less reliably to material buried in long
+context \citep{liu2024lost}.
+
+We built \sm{}, a service exposed over the Model Context Protocol \citep{anthropic2024mcp} that
+indexes a library once and returns a task-scoped composite. All model-dependent work happens at
+index time, so the request path is deterministic and involves no model call. Section~\ref{sec:method}
+describes what is common to the three strategies and how they were evaluated.
+Sections~\ref{sec:s1} to \ref{sec:s3} report the strategies in the order they were built, because
+each was a response to a measured failure of the one before. Section~\ref{sec:retained} states what
+we keep.
+
+\section{Related work}
+
+Retrieval-augmented generation \citep{lewis2020rag} established retrieving passages rather than
+whole documents. The move here is the same one applied to procedural rather than factual context,
+with two differences: the corpus is small, curated and written by hand, and the retrieved units
+must be assembled into something an agent can follow as instructions, which makes ordering and
+de-duplication part of the problem.
+
+Prompt compression shrinks a prompt that already exists. LLMLingua \citep{jiang2023llmlingua} and
+its successors \citep{pan2024llmlingua2} drop low-information tokens with a small language model,
+below the semantic level and on the request path. \sm{} selects whole competencies above the
+semantic level and off the request path; a composite could then be compressed, so the two compose.
+
+Our offline generation of predicted trigger phrasing is document expansion by query prediction
+\citep{nogueira2019doc2query} applied to procedural fragments, and it is what makes a purely
+lexical request path workable. Ranking uses BM25 \citep{robertson2009bm25}. Diversity reranking
+\citep{carbonell1998mmr} appears in Strategy~1 and is removed in Section~\ref{sec:s1abl} because it
+did not earn its place.
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Two corpora}
+
+\textbf{Synthetic (Strategy~1).} Measuring de-duplication requires knowing what is duplicated, so we
+built a corpus from a ground-truth fragment library: 34 competencies in the earth-observation and
+commodity-intelligence domain, of which 10 were planted in five or six skills each, 12 in two to
+four, and 12 in one. Shared competencies were written in three paraphrases apiece, and 12 skills
+were rendered with per-skill headings, scaffolding prose and shuffled section order, so recovering
+the structure is an inference problem rather than an inversion of the generator. The result is 12
+skills, 99 fragment instances over 34 distinct competencies, 10,137 tokens.
+
+\textbf{Real (Strategies~2 and 3).} 45 skills exactly as their authors wrote them: 10 from an engineering plugin, 8
+document-production skills shipped as platform defaults, and 27 example skills covering consumer
+tasks, design and tooling. They total 85,905 tokens, median 999 and maximum 9,921. Twelve ship
+auxiliary files, 200 of them. None was written with composition in mind.
+
+\subsection{Tasks, rubrics and grading}
+
+Each study uses a 12-task suite of realistic work requests, with the skills a practitioner would
+load recorded as an oracle set. The synthetic study's tasks sit in its own domain. The real study's
+suite spans two genres: seven engineering tasks (review a pull request, work a partial-failure
+incident, write an architecture decision record, judge release readiness, prioritise technical debt,
+chase a silent data-corruption bug, write a runbook) and five document-production tasks (tracked
+changes in a long contract, a deck from a report against a template, cleaning a malformed export,
+extracting line items from scanned invoices, planning an MCP server).
+
+Every cell of every experiment was produced by an independent agent that saw only its prompt file,
+did not know which condition it was in or that other conditions existed, and received identical
+length guidance. Grading was blind: all candidates for a task were anonymised, shuffled and scored
+together on each rubric criterion at $\{0, 1, 2\}$, plus a 1 to 10 judgement of how useful the
+response would be to the person who has to act on it. Two independent panels graded every task.
+
+Rubric provenance differs by study, and the difference matters. The synthetic study derived its
+rubric criteria from the same ground-truth fragments the composer indexes, which flatters any
+condition carrying those fragments. The real studies use two independently authored families: a
+\emph{practitioner} rubric written by a panel that saw only the work request, and a \emph{guidance}
+rubric written by a panel that saw the request plus the oracle skills. Both are scored and both are
+reported.
+
+\subsection{Statistics}
+
+Task-level scores are paired across conditions, so all contrasts are within-task differences. We
+report the mean difference, a bias-corrected percentile bootstrap 95\% confidence interval over
+20,000 resamples, the exact two-sided Wilcoxon signed-rank $p$ computed over the full null
+distribution of sign assignments, Holm-corrected $p$ within each study's family of contrasts, the
+paired standardised effect size $d_z$, the rank-biserial correlation, and the win/loss count over
+the 12 tasks. Twelve tasks is a small sample and we resist reading unadjusted $p$ values.
+
+Panel reliability is reported as exact agreement, quadratically weighted Cohen's $\kappa$ and
+Krippendorff's $\alpha$ on the ordinal scale, all computed over the individual item scores. The
+merge-precision comparison in Section~\ref{sec:s3} is a two-proportion $z$ test on independent
+samples of 60 pairs each.
+
+Token counts use a byte-pair encoder; a second encoder agreed to within a fraction of a percent on
+sampled text. \emph{Injected context} is the guidance block alone. \emph{End to end} adds the task
+framing and the model's own output.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{llrrr}
+\toprule
+Study & Panels & Items & Weighted $\kappa$ & Krippendorff $\alpha$ \\
+\midrule
+1. Synthetic & 2 & 468 & 0.913 & 0.904 \\
+2. Real library & 2 & 1{,}200 & 0.940 & 0.923 \\
+3. Atoms & 2 & 960 & 0.934 & 0.916 \\
+\bottomrule
+\end{tabular}
+\caption{Grader panel reliability. Exact agreement was 0.947, 0.955 and 0.951; every disagreement
+in all three studies was within one point.}
+\label{tab:rel}
+\end{table}
+
+\section{Strategy 1: fragment composition on a synthetic corpus}
+\label{sec:s1}
+
+\subsection{The method}
+
+Skills are split at second-level headings into fragments; per-skill scaffolding sentences are
+stripped by pattern. Fragments are embedded as L2-normalised TF-IDF vectors and clustered by
+average-linkage agglomeration on cosine similarity. Each cluster is a competency, represented by
+its shortest near-medoid member, which prefers the tersest phrasing of a shared obligation. For
+each cluster a model is asked once, offline, for eight short phrasings of situations in which it
+applies, plus six tags; the same is done for each skill description with fourteen phrasings. These
+are indexed at double weight. The expansion model sees only the fragment text and was never shown
+the evaluation tasks.
+
+At request time, BM25 over skill descriptions and their expansions selects up to $k_{\max}$ skills
+scoring at least $\alpha$ times the top score. Each competency $f$ is scored
+\[
+s(f) \;=\; w_r\,\widehat{\text{BM25}}(q, f) \;+\; w_o\,a(f) \;+\; w_s\,\frac{\log(1 + \sigma_f)}{\log(1 + \sigma_{\max})},
+\]
+where $a(f)$ is the normalised routing score of the best skill containing $f$ and $\sigma_f$ is the
+number of skills it appears in. Competencies outside the routed set are kept at reduced weight, so
+a routing miss degrades rather than deletes. Selection is greedy under a hard budget on the rendered
+document.
+
+\subsection{Decomposition quality}
+
+The merging threshold was chosen on six skills and evaluated on the other six.
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lrrrrr}
+\toprule
+Split & $k$ & true $k$ & ARI & Precision & Recall \\
+\midrule
+Development (6 skills) & 28 & 24 & 0.967 & 1.000 & 0.938 \\
+Held out (6 skills) & 27 & 25 & 0.904 & 1.000 & 0.829 \\
+Full corpus & 35 & 34 & 0.956 & 0.985 & 0.930 \\
+\bottomrule
+\end{tabular}
+\caption{Cross-skill merging against ground truth at the development-selected threshold
+$\tau = 0.14$. Precision is over pairwise co-clustering decisions, so 1.000 means no two distinct
+competencies were ever merged.}
+\label{tab:s1cluster}
+\end{table}
+
+Errors are one-sided: the method under-merges. That is the safer failure, since an unmerged
+duplicate wastes budget while a false merge silently deletes an obligation.
+
+\subsection{Coverage per token}
+
+Before asking whether agents write better deliverables, a cheaper question is available: for a given
+spend, how many of the competencies a task needs are present? On the eight tasks not used for
+hyperparameter selection, the composite saturates at 98.2\% coverage for 1,272 tokens. Concatenating
+the oracle skills reaches 98.4\% for 1,739 tokens, concatenating the routed skills 94.3\% for 2,489,
+and loading the whole corpus 100\% for 10,137. At the 1,000-token operating point the composite
+carries 0.87 covered competencies per thousand tokens against 0.57 for oracle concatenation and 0.38
+for routed concatenation.
+
+\subsection{Deliverable quality}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Condition & Rubric & Useful & Ctx & E2E \\
+\midrule
+A. No skill & 0.711 & 7.00 & 0 & 1{,}370 \\
+D. Random fragments, token-matched & 0.820 & 7.58 & 1{,}074 & 2{,}496 \\
+C. \sm{} composite & \textbf{0.948} & 8.46 & 1{,}098 & 2{,}623 \\
+B. Whole skills, concatenated & 0.970 & 8.67 & 2{,}604 & 4{,}215 \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 1, synthetic corpus. Rubric is the fraction of the maximum; \emph{Useful} is the
+1 to 10 usefulness judgement; \emph{Ctx} is injected context tokens and \emph{E2E} adds task
+framing and model output. $n = 12$ tasks, two panels.}
+\label{tab:s1main}
+\end{table}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Contrast & $\Delta$ & 95\% CI & $d_z$ & $p$ & $p_{\text{Holm}}$ & W/L \\
+\midrule
+C $-$ A & $+0.237$ & $[+0.169, +0.303]$ & $+1.92$ & 0.0005 & 0.0024 & 12/0 \\
+C $-$ D & $+0.128$ & $[+0.069, +0.194]$ & $+1.12$ & 0.0020 & 0.0059 & 10/0 \\
+C $-$ B & $-0.022$ & $[-0.061, +0.018]$ & $-0.31$ & 0.3008 & 0.3008 & 2/7 \\
+B $-$ A & $+0.259$ & $[+0.195, +0.322]$ & $+2.23$ & 0.0005 & 0.0024 & 12/0 \\
+D $-$ A & $+0.109$ & $[+0.061, +0.159]$ & $+1.18$ & 0.0029 & 0.0059 & 10/1 \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 1 contrasts on the combined rubric. Exact Wilcoxon signed-rank, Holm-corrected
+within the family of five.}
+\label{tab:s1contrasts}
+\end{table}
+
+Three readings. The composite is not distinguishable from loading everything: the interval
+$[-0.061, +0.018]$ excludes any deficit larger than 6.1 rubric points at 42\% of the injected
+context. This is non-inferiority within that margin and not superiority, since B wins 7 of the 12
+tasks by small amounts. Second, selection rather than brevity is what works: the random control
+holds tokens constant and destroys only the mapping from task to content, and it loses 12.8 points
+while winning no tasks. Third, the saving is real end to end, since responses are also shorter
+(1,380 tokens against 1,467).
+
+\subsection{Ablations}
+\label{sec:s1abl}
+
+At a 1,000-token budget on the held-out tasks, removing offline expansion costs 0.077 of coverage
+and removing cross-skill merging costs 0.049; removing both costs 0.182, more than the sum, because
+without merging the budget fills with duplicates and without expansion the wrong fragments are
+ranked into it. The other two components fail. Removing the diversity rerank improves coverage by
+0.025 and removing the support prior improves it by the same amount. Merging has already removed
+the near-duplication the rerank exists to suppress, so its penalty only displaces relevant material;
+the support prior is redundant with the routing term. Both are set to zero in later strategies.
+
+\subsection{What Strategy 1 does not establish}
+
+The corpus was built to contain the redundancy the method removes, and the rubric criteria were
+derived from the same fragments the composer indexes. Both choices make the result measurable and
+both flatter it. Strategy~2 repeats the experiment without either.
+
+\section{Strategy 2: the same method on a production library}
+\label{sec:s2}
+
+\subsection{Reading real skills}
+
+A real \texttt{SKILL.md} is prose interleaved with fenced code, tables of script invocations, ASCII
+diagrams, argument placeholders such as \texttt{@\$1}, and links into \texttt{scripts/} and
+\texttt{references/} that mean nothing outside the skill's own directory. Fragments are therefore
+split into two classes at parse time. \emph{Guidance} fragments are prose obligations and are
+mergeable. \emph{Pinned} fragments are anything whose value depends on the skill it came from: a
+fenced block, a table, an invocation, or any text naming a file that ships with the skill. Pinned
+fragments are never merged, are offered only when their own skill is routed, and are carried
+verbatim with relative paths resolved to absolute ones.
+
+Pinned material is 29.5\% of fragments and 35.7\% of corpus tokens. A composer that treats a skill
+as a bag of sentences, which Strategy~1 did because its corpus contained nothing else, destroys a
+third of a real library. From Strategy~2 onwards the composite is emitted as a valid
+\texttt{SKILL.md}, so nothing downstream needs a bespoke format and the output can be re-indexed by
+the reader that produced it.
+
+\subsection{There is less redundancy than expected}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lrr}
+\toprule
+Merging policy & Clusters & Cross-skill \\
+\midrule
+None (raw fragments) & 344 & \\
+Within-skill, raw text & 200 & 0 \\
+Cross-skill, raw text & 186 & 24 \\
+Cross-skill, normalised obligations & 220 & 57 \\
+\bottomrule
+\end{tabular}
+\caption{Guidance fragments in the 45-skill library under each policy. Within-skill merging alone
+removes 42\% of fragments.}
+\label{tab:s2red}
+\end{table}
+
+Within-skill merging collapses 344 guidance fragments to 200, a factor of 1.72 that is real and
+worth harvesting. Cross-skill merging on raw text adds 24 clusters across the entire library, and 6
+inside the coherent ten-skill engineering sub-corpus. The synthetic corpus had a cross-skill
+redundancy factor of 2.91 because we put it there. Real skills mostly repeat themselves.
+
+\subsection{The normalisation trap}
+\label{sec:s2trap}
+
+Raw-text similarity misses semantic overlap. Two skills can both require a rehearsed reversal path
+and share almost no vocabulary saying so. The available fix is to ask a model, offline and once, to
+restate each fragment as a single domain-free obligation, then cluster those.
+
+Against ground truth this works. Calibrated on six skills of the synthetic corpus and evaluated on
+the other six, clustering normalised obligations reaches pairwise $F_1 = 0.953$ (ARI 0.952,
+precision 0.911, recall 1.000) against 0.907 for raw text, whose recall is 0.829. Every true
+co-clustering is recovered.
+
+On the real library it fails silently. We sampled 120 cross-skill pairs, 60 merged by the
+obligation clustering and 60 near-misses just below threshold, and gave them to eight independent
+judges who were told nothing about how the pairs were chosen and asked whether a single well-written
+instruction could replace both without losing anything a practitioner would act on differently.
+Four of 60 merges were endorsed, none of the 42 high-confidence judgements among them, and mean
+judge confidence was 4.43 of 5.
+
+Inspecting the rejects explains it. Normalisation was instructed to drop domain nouns, tool names
+and examples and keep the imperative. On a heterogeneous library that turns ``use the design
+philosophy as the foundation for a single highly visual page'' and ``connector results arrive inline,
+so search wide and keep deliberately'' into two generic sentences about being deliberate, which then
+cluster. The information that distinguished them is the information the normalisation removed.
+Fitting a conjunctive rule on obligation similarity and raw similarity together, selected on half
+the panel's labels and reported on the other half, reaches precision 0.111, because with four
+genuine duplicates in the sampled band no threshold can do better. Cross-skill merging is therefore
+off by default from Strategy~2 onwards, enabled only when a caller asserts a coherent single-domain
+corpus.
+
+\subsection{Routing is the ceiling}
+
+Skill routing over 45 skills reaches $F_1 = 0.674$ (precision 0.681, recall 0.667) against the
+oracle sets, close to the 0.662 the same router reached over 12. Three attempted improvements are
+worth recording because none worked. Aggregating each skill's best fragment scores into its routing
+score, a standard passage-evidence move, was neutral at every weight. Setting BM25's length
+normalisation $b$ toward zero, on the argument that description length in this format tracks scope
+rather than verbosity, fixed individual cases without moving aggregate $F_1$. Hedging the routing
+width, narrow when the score distribution is peaked and wide when it is flat, raised recall from
+0.667 to 0.708 at a precision cost, and we kept it because fragment selection filters afterwards.
+
+The residual failures are not tunable. One task describes a nightly job that ``produced silently
+wrong totals \dots{} runs fine, exits zero''. The \texttt{debug} skill carries the offline expansion
+``output is wrong and i dont know why'', which is semantically exact and lexically disjoint. No
+weighting of term statistics bridges that, and an embedding router is where the next gain lies.
+
+What we could add is a way to fail quietly. The top skill's raw combined score, calibrated only on
+in-corpus probes (each skill's own expansions, short and concatenated-long) against out-of-corpus
+probes about cooking, football and gardening, gives a floor at which the server returns nothing. It
+keeps 95\% of in-corpus queries and abstains on 14 of 15 out-of-corpus ones. All 12 evaluation tasks
+clear it, and the two lowest are the two the router gets wrong.
+
+\subsection{Deliverable quality}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrrr}
+\toprule
+Condition & Pract. & Guid. & Both & Ctx & Recov. \\
+\midrule
+A. No skill & 0.910 & 0.694 & 0.802 & 0 & \\
+D. Random, token-matched & 0.894 & 0.658 & 0.776 & 873 & $-23\%$ \\
+C. \sm{} composite & 0.871 & 0.808 & 0.840 & 967 & 33\% \\
+E. \sm{}, token-matched to B & 0.900 & 0.810 & 0.855 & 2{,}078 & 47\% \\
+B. Whole skills, oracle-selected & 0.873 & 0.956 & \textbf{0.915} & 2{,}414 & 100\% \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 2, real library. \emph{Pract.} is the practitioner rubric, \emph{Guid.} the
+guidance rubric. \emph{Recov.} is the share of B's improvement over A that the condition recovers.
+Condition B is given oracle skill selection, which the composite is not, so the comparison is
+conservative.}
+\label{tab:s2main}
+\end{table}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Contrast & $\Delta$ & 95\% CI & $d_z$ & $p$ & $p_{\text{Holm}}$ & W/L \\
+\midrule
+C $-$ B & $-0.075$ & $[-0.113, -0.033]$ & $-1.00$ & 0.0059 & 0.0293 & 1/11 \\
+E $-$ B & $-0.059$ & $[-0.106, -0.014]$ & $-0.70$ & 0.0293 & 0.1172 & 1/9 \\
+E $-$ C & $+0.016$ & $[-0.021, +0.051]$ & $+0.24$ & 0.4775 & 0.7607 & 6/5 \\
+C $-$ A & $+0.038$ & $[-0.029, +0.109]$ & $+0.29$ & 0.3804 & 0.7607 & 8/4 \\
+C $-$ D & $+0.064$ & $[-0.002, +0.132]$ & $+0.51$ & 0.0962 & 0.2886 & 9/3 \\
+B $-$ A & $+0.113$ & $[+0.056, +0.177]$ & $+1.00$ & 0.0020 & 0.0117 & 10/1 \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 2 contrasts, combined rubric. Only the two contrasts against whole skills survive
+Holm correction.}
+\label{tab:s2contrasts}
+\end{table}
+
+The Strategy~1 headline does not replicate. The composite gives up 7.5 rubric points and loses 11
+of 12 tasks. Condition E raises the ceiling to the baseline's own token cost and lifts the relevance
+floor; it gains $+0.016$, indistinguishable from zero, and still loses to whole skills. The deficit
+is in what gets selected, not in how much room it has.
+
+Where the two rubric families disagree is the informative part. On the practitioner rubric, written
+by a panel that saw only the request, \emph{no skill} scores highest at 0.910: a capable model
+already writes a competent pull-request review. Skills earn their place on the guidance rubric,
+where whole skills reach 0.956 against 0.694 for no skill, and the composite reaches 0.808, about
+half the distance. A skill's value sits in its specifics, and specifics are what fragment selection
+drops first. Strategy~1, whose rubrics were all of the guidance kind, saw only the flattering half
+of this picture.
+
+The genre split is usable. On document production, where skills carry script paths, library
+gotchas and format-specific procedure the model does not otherwise have, the composite recovers 51\%
+of the benefit at 37\% of the cost and beats both no guidance (0.833 against 0.733) and the random
+control (0.688). On engineering tasks it recovers nothing: 0.845 against 0.852 for no skill at all,
+because those skills largely restate practice the model already has and average 632 tokens, leaving
+nothing to save. Composition pays where a skill teaches and not where it reminds.
+
+The random control is also informative. It scores below no guidance at all, recovering $-23\%$ of
+the benefit, so irrelevant procedural text is worse than silence.
+
+\section{Strategy 3: obligation and lesson atoms}
+\label{sec:s3}
+
+\subsection{The representation}
+
+Strategy~2's merging failure had a precise shape. To compare guidance across skills it normalised
+each fragment to a domain-free obligation, and to keep the budget it then kept one fragment per
+cluster and dropped the rest. The first step made unlike things look alike; the second made that
+permanent.
+
+Strategy~3 stops conflating two things a fragment contains. An \textbf{obligation} is one imperative
+sentence: what the practitioner must do and when, in plain verbs with tool, product and file names
+stripped. It is the only field ever compared between skills. A \textbf{lesson} is the substance: the
+reason, the mechanism, the exact command, the failure it prevents, the names and numbers and paths,
+kept in the source's own words and verbatim where the source was verbatim. A lesson is never merged,
+never paraphrased, and never dropped when its obligation merges. A merged atom carries one obligation
+and every contributing lesson, each labelled with its source skill.
+
+The question ``can one instruction replace both?'', which Strategy~2 had to answer yes to and could
+not, becomes ``is this obligation a truthful heading for both lessons?'', which is weaker and far more
+often true.
+
+Skills cannot be used in this form as written, so Strategy~3 adds a reformatter: an offline pass in
+which a model reads one \texttt{SKILL.md} and emits its atoms, reproducing code blocks, command
+tables and paths exactly inside the lessons they belong to. Refactoring the 45 skills produced 1,134
+atoms, 393 of them pinned, 20,311 tokens of obligation and 90,726 of lesson. The atomised library is
+1.29 times the size of the source, an index-time cost paid once; obligations are 18\% of it.
+
+\subsection{What refactoring costs}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lr}
+\toprule
+Measure & Value \\
+\midrule
+Instructions preserved & 98.8\% of 588 \\
+Code blocks and command tables preserved & 100\% \\
+File paths preserved & 94.8\% \\
+Distortions (atoms state what the source does not) & 49 \\
+Skills showing at least one distortion & 9 of 11 \\
+\bottomrule
+\end{tabular}
+\caption{Reformatting fidelity, audited by independent agents reading the original and the atoms
+side by side.}
+\label{tab:s3fid}
+\end{table}
+
+Substance survives. Modality does not. Nearly every distortion was of one kind: the source's hedge
+became the atom's requirement. ``Prefer using the imperative form'' became ``Write every instruction in
+the imperative form''. A skill that says to ask when no mode is given acquired an atom demanding a
+mode. This is a predictable consequence of asking for imperatives, since obligations are
+grammatically mandatory and prose is not, so a rewrite into obligations is a rewrite into
+mandatoriness. A reformatter should be constrained to preserve must, should and may, and forbidden
+from introducing a requirement the source does not impose, and it should still be audited, because
+the pressure is structural.
+
+One class of distortion is removable without a model. The reformatter emitted a bare
+\texttt{recalc.py} where the skill ships \texttt{scripts/recalc.py}. An invented path reads as
+authoritative and fails only when someone runs it, so every reference is now checked against files
+that exist, resolved when unambiguous and dropped otherwise: 135 kept, 110 dropped. Many of the
+drops are patterns rather than paths, such as \texttt{ppt/slides/slideN.xml}, so this is a
+conservative filter rather than an error count.
+
+\subsection{Merging, re-adjudicated}
+
+Under the atom design nothing is replaced by merging, so the corrected question asks whether the
+shared obligation is a truthful heading for both lessons, telling the judge explicitly that the two
+lessons need not resemble each other and that both are kept. An independent panel of eight judges
+saw 120 pairs on the same sampling design as Strategy~2.
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lrr}
+\toprule
+& Strategy 2 & Strategy 3 \\
+\midrule
+Merged pairs endorsed & 4/60 & \textbf{49/60} \\
+Precision & 0.067 & \textbf{0.817} \\
+Precision, judge confidence $\geq 4$ & 0.000 & 0.808 \\
+Near-misses the panel would merge & 0/60 & 5/60 \\
+Band-limited recall & & 0.907 \\
+\bottomrule
+\end{tabular}
+\caption{Cross-skill merge quality on the same 45-skill library, independent panels, mean judge
+confidence 4.5 of 5. Difference in precision $+0.750$, 95\% CI $[+0.634, +0.866]$, $z = 8.3$,
+$p < 0.001$.}
+\label{tab:s3adj}
+\end{table}
+
+The merges are the ones a practitioner would want. \emph{Obtain the person's explicit approval
+before the final irreversible action} is stated once and carries the lessons of eight consumer-task
+skills. \emph{Assume the standard packages are installed and install one only after an import fails}
+carries the specific package, command and footgun list from \texttt{docx}, \texttt{pptx} and
+\texttt{xlsx}.
+
+\subsection{Deliverable quality, and the ablation that explains it}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Condition & Pract. & Guid. & Both & Ctx \\
+\midrule
+B. Whole skills, oracle-selected & 0.890 & 0.950 & \textbf{0.920} & 2{,}414 \\
+C. Strategy 2 fragment composite & 0.867 & 0.808 & 0.838 & 967 \\
+F. Strategy 3, obligation and lesson & 0.844 & 0.750 & 0.797 & 1{,}230 \\
+G. Strategy 3, lessons only & 0.873 & 0.762 & 0.818 & 1{,}309 \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 3. Condition F is worse than the fragment composite it was designed to replace,
+despite resting on merges twelve times more likely to be correct.}
+\label{tab:s3main}
+\end{table}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Contrast & $\Delta$ & 95\% CI & $d_z$ & $p$ & $p_{\text{Holm}}$ & W/L \\
+\midrule
+G $-$ F & $+0.021$ & $[-0.007, +0.050]$ & $+0.40$ & 0.2500 & 0.6094 & 6/5 \\
+G $-$ C & $-0.020$ & $[-0.071, +0.031]$ & $-0.21$ & 0.5049 & 0.6094 & 5/6 \\
+F $-$ C & $-0.041$ & $[-0.095, +0.007]$ & $-0.43$ & 0.2031 & 0.6094 & 3/7 \\
+G $-$ B & $-0.102$ & $[-0.147, -0.060]$ & $-1.31$ & 0.0024 & 0.0098 & 1/11 \\
+C $-$ B & $-0.082$ & $[-0.106, -0.058]$ & $-1.84$ & 0.0005 & 0.0024 & 0/12 \\
+\bottomrule
+\end{tabular}
+\caption{Strategy 3 contrasts, combined rubric. After Holm correction only the contrasts against
+whole skills are distinguishable; the three composites are not separable from one another.}
+\label{tab:s3contrasts}
+\end{table}
+
+Solving the representation problem did not move the outcome. Condition F loses 4.1 rubric points to
+the fragment composite and a full point of rated usefulness on the 1 to 10 scale
+($-1.000$, exact Wilcoxon $p = 0.008$ unadjusted), though on the combined rubric that difference
+does not survive correction.
+
+If the atoms are right and the composite is worse, the suspect is what the composite prints, so we
+rendered the identical selection with the obligation headings removed and the freed budget spent on
+further lessons. Condition G recovers $+0.021$ on the rubric and $+0.58$ on rated usefulness (7.33
+against 6.75), landing statistically level with the fragment composite. Printing the obligations
+was costing quality.
+
+The explanation is Strategy~2's genre result turned on this design. Composition pays where a skill
+teaches and not where it reminds, because a capable model already holds the reminders. An obligation
+is by construction the reminder half: it is what remains once the specifics are stripped. The atom
+design spends 18\% of the atomised library, and a comparable share of every composite's budget,
+restating in general terms things the model was going to do anyway, in the hardened modality of
+Table~\ref{tab:s3fid}, which displaces specifics with commands.
+
+We note the size of the effect honestly. $+0.021$ with an interval that includes zero is weak
+evidence on its own. It is supported by the direction being consistent across two measures, by the
+mechanism being independently motivated, and by G landing level with C while F does not.
+
+\section{The retained system}
+\label{sec:retained}
+
+We retain Strategy~3's representation and reject its rendering. The shipped configuration indexes
+the library as obligation and lesson atoms, merges across skills on obligations only, keeps every
+contributing lesson, and emits lessons alone, holding the obligation in the selection trace where a
+person debugging a composition can see it. Three guards from Strategy~2 stay, each of them the
+result of something that went wrong.
+
+\textbf{Abstention.} Out-of-corpus queries previously produced confident irrelevance. The server now
+returns nothing when no skill scores above the calibrated floor, which catches 14 of 15 negatives
+while keeping 95\% of positives.
+
+\textbf{Never worse than the source.} A composite is capped at 90\% of the cost of the skills it
+drew on, so composing cannot cost more than loading them. Without it, on small skills, the greedy
+selector filled a generous budget with unrelated material.
+
+\textbf{Pinned material carried verbatim.} Code, tables, invocations and file pointers are never
+merged or paraphrased, and relative paths are resolved and validated against files that exist.
+
+The composite is emitted as a valid \texttt{SKILL.md}, so no consumer needs a bespoke format and the
+output can be re-indexed by the reader that produced it. Composition on the request path stays
+deterministic and model-free: it is a pure function of the index, the query and the configuration,
+which makes it reproducible, auditable back to its source skills, and cheap enough to call before
+every task.
+
+We recommend this configuration on two grounds, and not on a third. It reduces injected context by
+46\% to 60\% at a quality cost that is real and bounded, and it makes a library de-duplicable and
+searchable: one obligation, every skill that imposes it, every lesson attached. It does not improve
+deliverables, and we found no configuration that did.
+
+\section{Availability}
+\label{sec:avail}
+
+The implementation, the twelve-skill synthetic corpus, every results file and the scripts that
+regenerate the tables in this article are at \url{https://github.com/mathieubrglt/skillmerge} under
+the MIT License. This article is available under CC BY 4.0. Running
+\texttt{tools/verify\_article.py} checks all 194 reported numbers against the stored results and
+exits non-zero on any mismatch; \texttt{tools/stats\_all.py} regenerates every contrast, effect size
+and reliability coefficient.
+
+The 45-skill production library is not redistributed. Seventeen of those skills carry their own
+licence header and six are marked proprietary, and the atoms are close derivatives of them by
+design, since a lesson reproduces its source verbatim. The repository instead carries
+\texttt{docs/SKILLS-MANIFEST.json}, which records every skill the study read with the SHA-256 of the
+document as it stood, so a reader with the same installation can confirm they are looking at the
+same corpus before rebuilding the index locally. The synthetic corpus is regenerated byte-identically
+from its seeded generator, so the calibration results in Sections~\ref{sec:s1} and \ref{sec:s2trap}
+can be reproduced with nothing else installed.
+
+\section{Threats to validity}
+
+\textbf{Sample size.} Twelve tasks per study. Confidence intervals are over tasks, not over corpora
+or domains, and after Holm correction the differences among composites in Strategy~3 are not
+distinguishable. We rest the retained recommendation on the merge-precision result, which is a
+two-proportion comparison on 120 independently judged pairs, rather than on the composite contrasts.
+
+\textbf{Rubric and judge provenance.} Both rubric families, both grader panels and both adjudication
+panels are language models. Reliability between panels is high (Table~\ref{tab:rel}) and the
+adjudication panels were independent of the systems they judged and blind to how pairs were
+selected, but agreement is not correctness, and graders may share blind spots with the systems they
+grade.
+
+\textbf{The adjudication sample is band-limited.} It covers pairs the clustering surfaced or nearly
+surfaced, so the recall figure of 0.907 is recall within reach of the lexical blocking rather than
+recall against all true duplicates in the library.
+
+\textbf{One reformatter, one prompt.} The modality hardening in Table~\ref{tab:s3fid} is a property
+of that prompt as much as of the idea, and a reformatter constrained to preserve modality might
+produce atoms that cost less quality. We did not test one.
+
+\textbf{Composition destroys order.} A skill's sequence carries meaning and the four-phase regrouping
+is a crude replacement. On procedural skills this should matter more than on checklist-shaped ones,
+and we do not separate the two.
+
+\textbf{Lexical retrieval throughout.} No embedding model was available in the environment, so
+routing is BM25 with offline query expansion. Routing recall of 0.71 caps every result here, and the
+one failure we can characterise precisely is a vocabulary gap that no term weighting closes.
+
+\section{Conclusion}
+
+The composition idea is sound on a corpus built to contain the redundancy it removes and does not
+survive contact with a library written by people who were not thinking about composition. What
+survives is narrower and still useful: obligations are a good index key and a poor payload. Split
+each unit into the imperative and the teaching, compare only the imperative, keep every piece of
+teaching, and a heterogeneous skill library becomes de-duplicable at 0.817 precision where the
+previous method managed 0.067. Then print only the teaching, because the model already has the
+imperatives.
+
+The practical consequence for anyone maintaining a skill library is that the obligation index is
+probably worth more at authoring time than at request time. It shows exactly where skills overlap,
+which is the question a maintainer has and cannot currently answer. The runtime case for composition
+rests on context cost and on abstention, and anyone promising quality parity with loading the skills
+outright should be asked for their rubric.
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[Anthropic(2024)]{anthropic2024mcp}
+Anthropic.
+\newblock Introducing the {M}odel {C}ontext {P}rotocol, 2024.
+\newblock \url{https://www.anthropic.com/news/model-context-protocol}.
+
+\bibitem[Anthropic(2025)]{anthropic2025skills}
+Anthropic.
+\newblock Agent {S}kills, 2025.
+\newblock \url{https://docs.claude.com/en/docs/agents-and-tools/agent-skills}.
+
+\bibitem[Carbonell and Goldstein(1998)]{carbonell1998mmr}
+J.~Carbonell and J.~Goldstein.
+\newblock The use of {MMR}, diversity-based reranking for reordering documents and producing
+  summaries.
+\newblock In \emph{SIGIR}, pages 335--336, 1998.
+
+\bibitem[Jiang et~al.(2023)]{jiang2023llmlingua}
+H.~Jiang, Q.~Wu, C.-Y. Lin, Y.~Yang, and L.~Qiu.
+\newblock {LLMLingua}: Compressing prompts for accelerated inference of large language models.
+\newblock In \emph{EMNLP}, 2023.
+\newblock \url{https://arxiv.org/abs/2310.05736}.
+
+\bibitem[Lewis et~al.(2020)]{lewis2020rag}
+P.~Lewis, E.~Perez, A.~Piktus, F.~Petroni, V.~Karpukhin, N.~Goyal, H.~K\"uttler, M.~Lewis,
+  W.~Yih, T.~Rockt\"aschel, S.~Riedel, and D.~Kiela.
+\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock In \emph{NeurIPS}, 2020.
+\newblock \url{https://arxiv.org/abs/2005.11401}.
+
+\bibitem[Liu et~al.(2024)]{liu2024lost}
+N.~F. Liu, K.~Lin, J.~Hewitt, A.~Paranjape, M.~Bevilacqua, F.~Petroni, and P.~Liang.
+\newblock Lost in the middle: How language models use long contexts.
+\newblock \emph{Transactions of the ACL}, 12:157--173, 2024.
+\newblock \url{https://arxiv.org/abs/2307.03172}.
+
+\bibitem[Nogueira et~al.(2019)]{nogueira2019doc2query}
+R.~Nogueira, W.~Yang, J.~Lin, and K.~Cho.
+\newblock Document expansion by query prediction, 2019.
+\newblock \url{https://arxiv.org/abs/1904.08375}.
+
+\bibitem[Pan et~al.(2024)]{pan2024llmlingua2}
+Z.~Pan, Q.~Wu, H.~Jiang, M.~Xia, X.~Luo, J.~Zhang, Q.~Lin, V.~R\"uhle, Y.~Yang, C.-Y. Lin,
+  H.~V. Zhao, L.~Qiu, and D.~Zhang.
+\newblock {LLMLingua-2}: Data distillation for efficient and faithful task-agnostic prompt
+  compression, 2024.
+\newblock \url{https://arxiv.org/abs/2403.12968}.
+
+\bibitem[Robertson and Zaragoza(2009)]{robertson2009bm25}
+S.~Robertson and H.~Zaragoza.
+\newblock The probabilistic relevance framework: {BM25} and beyond.
+\newblock \emph{Foundations and Trends in Information Retrieval}, 3\penalty0 (4):\penalty0
+  333--389, 2009.
+
+\end{thebibliography}
+
+\appendix
+\section{Reproducibility}
+
+Every artefact is deterministic given the seed. \texttt{tools/build\_corpus.py} regenerates the
+synthetic corpus and its ground truth from the fragment library. \texttt{tools/eval\_cluster\_split.py}
+reproduces Table~\ref{tab:s1cluster}, \texttt{tools/sweep\_budget.py} the coverage figures,
+\texttt{tools/ablations.py} Section~\ref{sec:s1abl}, \texttt{tools/calibrate\_v2.py} the calibration
+in Section~\ref{sec:s2trap}, \texttt{tools/analyze\_merges.py} and
+\texttt{tools/analyze\_v3\_merges.py} the two adjudications, \texttt{tools/analyze\_fidelity.py}
+Table~\ref{tab:s3fid}, and \texttt{tools/stats\_all.py} every contrast and reliability coefficient in
+this article. \texttt{tools/verify\_paper.py}, \texttt{verify\_paper2.py} and
+\texttt{verify\_paper3.py} check the reported numbers against the stored results and fail on
+mismatch.
+
+Selection protocol. The synthetic study's merging threshold was chosen on six skills and reported on
+the other six; its composition hyperparameters were chosen on four development tasks and its
+coverage and ablation figures reported on the remaining eight. The abstention floor was calibrated
+only on in-corpus and out-of-corpus probes, never on an evaluation task. The conjunctive merge rule
+of Section~\ref{sec:s2trap} was fitted on half the adjudication labels and reported on the other
+half. Offline expansions and atoms were generated by agents given only skill text, with instructions
+not to read anything else in the repository; they had no access to the task suites.
+
+\end{document}

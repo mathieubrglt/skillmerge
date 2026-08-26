@@ -1,0 +1,124 @@
+{
+  "skill": "cost-optimization",
+  "atoms": [
+    {
+      "obligation": "Work through the review's sections in the given order, completing each before starting the next.",
+      "lesson": "This skill guides the platform engineer through a cost review end to end. Work the sections in order; each one names an obligation you can be held to. The sections are, in order: (1) cost reduction search order, (2) dependencies, (3) staged rollout with a kill switch, (4) cost and compute, (5) measure the current state, (6) close against a definition of done, (7) communication and stakeholders.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Compute and storage cost reduction"
+    },
+    {
+      "obligation": "Attack the cheapest reductions first and optimise the implementation only after the easy savings are exhausted.",
+      "lesson": "The platform engineer owns this step.\n\nWork the list in order of effort-to-saving: delete what nobody reads, apply lifecycle rules to cold storage, stop recomputing what has not changed, right-size the instances, and only then optimise the code.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Cost reduction search order"
+    },
+    {
+      "obligation": "Attribute current spend to each workload before you start deciding what to change.",
+      "lesson": "Attribute cost per pipeline before you start, because the intuition about which job is expensive is wrong more often than it is right. The platform engineer owns this step.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Cost reduction search order"
+    },
+    {
+      "obligation": "Enumerate every upstream input and downstream consumer, including undocumented ones, before changing anything.",
+      "lesson": "The platform engineer owns this step.\n\nEnumerate upstream feeds and downstream consumers, including unofficial ones — read the access logs, not the docs — and record how and how fast each consumer would detect a failure.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Dependencies: what is required"
+    },
+    {
+      "obligation": "Write down the outcome of each completed step in the shared written record for this work.",
+      "lesson": "\"Record the outcome of this step in the cost review notes.\" The instruction is repeated verbatim at the end of three sections: 2. Dependencies: what is required; 3. Roll out in stages with a kill switch — non-negotiable; and 5. Measure the current state before changing it. The destination is the cost review notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Dependencies: what is required"
+    },
+    {
+      "obligation": "Promote the change through environments in sequence, giving each stage a pass criterion and a soak period.",
+      "lesson": "This section applies to every cost review without exception.\n\nMove through the environments in order and give each stage a pass criterion and a soak period.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Roll out in stages with a kill switch — non-negotiable"
+    },
+    {
+      "obligation": "Put the change behind a switch that disables it without a redeploy, and test that switch first.",
+      "lesson": "Put the change behind a flag that can be flipped off without a deploy, and confirm the flip works before the first real traffic reaches it. This section applies to every cost review without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Roll out in stages with a kill switch — non-negotiable"
+    },
+    {
+      "obligation": "Estimate the cost of any large run before you launch it.",
+      "lesson": "Estimate cost before launching anything large: scenes x cost-per-scene for compute, bytes x rate x months for storage, plus egress. A run that finishes and blows the quarter's budget is a failed run.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Cost and compute"
+    },
+    {
+      "obligation": "Compare the estimate against the budget and obtain sign-off once it passes the agreed threshold.",
+      "lesson": "Compare against the budget line and get sign-off past the agreed threshold. A run that finishes and blows the quarter's budget is a failed run.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Cost and compute"
+    },
+    {
+      "obligation": "Capture a baseline measurement under matched conditions before you change anything.",
+      "lesson": "Apply this before the cost review leaves your hands.\n\nRecord the baseline under matched conditions before changing anything; otherwise the after-number means nothing.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Measure the current state before changing it"
+    },
+    {
+      "obligation": "Define completion up front as a list of statements that someone else can verify.",
+      "lesson": "Define done up front as a list of verifiable statements. Retro-fitted criteria and uncheckable criteria both invalidate the closure. This section applies to every cost review without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Close against an explicit definition of done for this cost review"
+    },
+    {
+      "obligation": "Close the work only by walking the completion list and attaching evidence for every item.",
+      "lesson": "To close, walk the list and attach evidence per item. Retro-fitted criteria and uncheckable criteria both invalidate the closure.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Close against an explicit definition of done for this cost review"
+    },
+    {
+      "obligation": "Stop and escalate rather than proceeding when you cannot satisfy this requirement.",
+      "lesson": "If you cannot satisfy this, stop and escalate. This applies to closing against an explicit definition of done, which applies to every cost review without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Close against an explicit definition of done for this cost review"
+    },
+    {
+      "obligation": "Lead with who is affected and what they should do, keeping technical detail short and below that.",
+      "lesson": "Open with impact, not mechanism: who is affected, over what period, and what they should do. Keep the technical explanation below that, in one short paragraph.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Communication and stakeholders"
+    },
+    {
+      "obligation": "Give a time for the next update whenever the situation is still moving.",
+      "lesson": "Give a next-update time whenever the situation is still moving.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Communication and stakeholders"
+    },
+    {
+      "obligation": "Tell affected people about a problem before they can discover it through their own monitoring.",
+      "lesson": "Never let a stakeholder learn about a problem from their own dashboard first.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Communication and stakeholders"
+    },
+    {
+      "obligation": "Before finishing, check off every required step of the process against the closing list.",
+      "lesson": "- [ ] Cost reduction search order\n- [ ] Map upstream and downstream dependencies\n- [ ] Roll out in stages with a kill switch\n- [ ] Estimate compute and storage cost before running\n- [ ] Measure the current state before changing it\n- [ ] Close against an explicit definition of done\n- [ ] Communicate to stakeholders in their terms",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+ "config": {
+  "k_max": 4,
+  "alpha": 0.3,
+  "budget": 900,
+  "w_rel": 1.0,
+  "w_route": 0.45,
+  "w_support": 0.25,
+  "mmr": 0.85
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "n_adjudicated": 120,
+ "merged": 60,
+ "near": 60,
+ "tp": 4,
+ "fp": 56,
+ "fn": 0,
+ "tn": 60,
+ "precision": 0.06666666666666667,
+ "band_recall": 1.0
+}

@@ -1,0 +1,201 @@
+{
+  "skill": "release-readiness",
+  "atoms": [
+    {
+      "obligation": "Work through each required step in order, treating every one as a commitment you can be held to.",
+      "lesson": "This skill guides the product engineer through a release end to end. Work the sections\nin order; each one names an obligation you can be held to.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Indicator release readiness"
+    },
+    {
+      "obligation": "Do not ship until someone who did not build the work has validated and signed it off.",
+      "lesson": "This section applies to every release without exception.\n\nGate the release on: validation signed by someone who did not build it, documentation\nthat a new user can follow unaided, a version number and a changelog entry that names\nthe behavioural difference, migration guidance for consumers of the previous version,\nand a named owner for the first two weeks of questions.\n\nThe validation half of the gate: the sign-off must come from someone who did not build the thing being released. Self-validation does not clear this gate, and the section applies to every release without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Indicator release readiness for this release"
+    },
+    {
+      "obligation": "Do not ship until documentation exists that a new user can follow unaided.",
+      "lesson": "This section applies to every release without exception.\n\nGate the release on: validation signed by someone who did not build it, documentation\nthat a new user can follow unaided, a version number and a changelog entry that names\nthe behavioural difference, migration guidance for consumers of the previous version,\nand a named owner for the first two weeks of questions.\n\nThe documentation half of the gate: \"documentation that a new user can follow unaided\". The test is a new user working alone, not a colleague who already knows the system.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Indicator release readiness for this release"
+    },
+    {
+      "obligation": "Assign a version number and write a changelog entry naming the behavioural difference before shipping.",
+      "lesson": "This section applies to every release without exception.\n\nGate the release on: validation signed by someone who did not build it, documentation\nthat a new user can follow unaided, a version number and a changelog entry that names\nthe behavioural difference, migration guidance for consumers of the previous version,\nand a named owner for the first two weeks of questions.\n\nThe versioning half of the gate: \"a version number and a changelog entry that names the behavioural difference\". A changelog entry that does not name what behaves differently does not satisfy the gate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Indicator release readiness for this release"
+    },
+    {
+      "obligation": "Provide migration guidance for users of the previous version before releasing the new one.",
+      "lesson": "This section applies to every release without exception.\n\nGate the release on: validation signed by someone who did not build it, documentation\nthat a new user can follow unaided, a version number and a changelog entry that names\nthe behavioural difference, migration guidance for consumers of the previous version,\nand a named owner for the first two weeks of questions.\n\nThe migration half of the gate: \"migration guidance for consumers of the previous version\". Consumers already on the old version must be told how to move.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Indicator release readiness for this release"
+    },
+    {
+      "obligation": "Name an owner who will field questions for the first two weeks after release.",
+      "lesson": "This section applies to every release without exception.\n\nGate the release on: validation signed by someone who did not build it, documentation\nthat a new user can follow unaided, a version number and a changelog entry that names\nthe behavioural difference, migration guidance for consumers of the previous version,\nand a named owner for the first two weeks of questions.\n\nThe ownership half of the gate: \"a named owner for the first two weeks of questions\". The window is explicit — two weeks — and the owner is a named person, not a team or a rota.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Indicator release readiness for this release"
+    },
+    {
+      "obligation": "Write the completion criteria as checkable statements before starting the work.",
+      "lesson": "The product engineer owns this step.\n\nWrite the completion criteria before starting, as checkable statements, and close the\nwork by walking them one by one with evidence attached to each. Criteria added after the\nfact are rationalisation; criteria that cannot be checked are wishes.\n\nThe order matters: criteria come before the work starts. \"Criteria added after the fact are rationalisation; criteria that cannot be checked are wishes.\" The product engineer owns this step.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Definition of done: what is required"
+    },
+    {
+      "obligation": "Close the work by walking each completion criterion one by one with evidence attached to each.",
+      "lesson": "The product engineer owns this step.\n\nWrite the completion criteria before starting, as checkable statements, and close the\nwork by walking them one by one with evidence attached to each. Criteria added after the\nfact are rationalisation; criteria that cannot be checked are wishes.\n\nClosing is not a judgement call: walk the criteria one by one and attach evidence to each. A criterion that cannot be checked was a wish, not a criterion.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Definition of done: what is required"
+    },
+    {
+      "obligation": "Record the outcome of this step in the notes that accompany the release.",
+      "lesson": "The product engineer owns this step.\n\nWrite the completion criteria before starting, as checkable statements, and close the\nwork by walking them one by one with evidence attached to each. Criteria added after the\nfact are rationalisation; criteria that cannot be checked are wishes.\n\nRecord the outcome of this step in the release notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Definition of done: what is required"
+    },
+    {
+      "obligation": "Structure every update so impact comes first, mechanism second, and required action third.",
+      "lesson": "This section applies to every release without exception.\n\nStructure updates as impact first, mechanism second, action third. State when the next\nupdate lands if the matter is open, and always notify before the affected party notices\non their own.\n\nThe ordering is the point: the reader learns what it means for them before how it works, and what to do last. This section applies to every release without exception, and is marked non-negotiable.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Communicate to stakeholders in their terms — non-negotiable"
+    },
+    {
+      "obligation": "State when the next update will land whenever the matter is still open.",
+      "lesson": "This section applies to every release without exception.\n\nStructure updates as impact first, mechanism second, action third. State when the next\nupdate lands if the matter is open, and always notify before the affected party notices\non their own.\n\nAn open matter without a stated next-update time leaves the audience guessing; state when the next update lands.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Communicate to stakeholders in their terms — non-negotiable"
+    },
+    {
+      "obligation": "Notify affected people before they notice the problem or change on their own.",
+      "lesson": "This section applies to every release without exception.\n\nStructure updates as impact first, mechanism second, action third. State when the next\nupdate lands if the matter is open, and always notify before the affected party notices\non their own.\n\n\"always notify before the affected party notices on their own\" — being told after the fact by the affected party is the failure this prevents.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Communicate to stakeholders in their terms — non-negotiable"
+    },
+    {
+      "obligation": "Define the reversal path — the exact undo, its duration, its data loss — before touching a shared system.",
+      "lesson": "This section applies to every release without exception.\n\nDefine the reversal path before touching a shared system: the exact undo, its duration,\nand its data loss. A backup-restore path counts only if the restore has been exercised.\nIrreversible actions need a named approver and a scheduled slot.\n\nAll three parts are required before you touch the shared system: the exact undo, how long it takes, and what data it loses.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Rollback and reversibility"
+    },
+    {
+      "obligation": "Exercise the restore before counting a backup as a valid reversal path.",
+      "lesson": "This section applies to every release without exception.\n\nDefine the reversal path before touching a shared system: the exact undo, its duration,\nand its data loss. A backup-restore path counts only if the restore has been exercised.\nIrreversible actions need a named approver and a scheduled slot.\n\n\"A backup-restore path counts only if the restore has been exercised.\" An untested restore is not a rollback plan.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Rollback and reversibility"
+    },
+    {
+      "obligation": "Get a named approver and a scheduled slot before taking any irreversible action.",
+      "lesson": "This section applies to every release without exception.\n\nDefine the reversal path before touching a shared system: the exact undo, its duration,\nand its data loss. A backup-restore path counts only if the restore has been exercised.\nIrreversible actions need a named approver and a scheduled slot.\n\n\"Irreversible actions need a named approver and a scheduled slot.\" Where no reversal path exists, the controls are a person who approved it by name and a time it was booked for.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Rollback and reversibility"
+    },
+    {
+      "obligation": "Move through the environments in order, giving each stage a pass criterion and a soak period.",
+      "lesson": "Move through the environments in order and give each stage a pass criterion and a soak\nperiod. Put the change behind a flag that can be flipped off without a deploy, and\nconfirm the flip works before the first real traffic reaches it.\n\nEach stage needs both halves: a pass criterion that says whether it succeeded, and a soak period before moving on.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Staged rollout: what is required"
+    },
+    {
+      "obligation": "Put the change behind a switch that can be turned off without a redeploy.",
+      "lesson": "Move through the environments in order and give each stage a pass criterion and a soak\nperiod. Put the change behind a flag that can be flipped off without a deploy, and\nconfirm the flip works before the first real traffic reaches it.\n\nThe flag must be flippable off without a deploy — if disabling the change requires shipping code, it is not a kill switch.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Staged rollout: what is required"
+    },
+    {
+      "obligation": "Confirm the off switch actually works before any real traffic reaches the change.",
+      "lesson": "Move through the environments in order and give each stage a pass criterion and a soak\nperiod. Put the change behind a flag that can be flipped off without a deploy, and\nconfirm the flip works before the first real traffic reaches it.\n\n\"confirm the flip works before the first real traffic reaches it\" — the switch is verified in advance, not discovered to be broken during an incident.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Staged rollout: what is required"
+    },
+    {
+      "obligation": "Add the checks at the same time as the thing they watch, not after the first incident.",
+      "lesson": "Apply this before the release leaves your hands.\n\nAdd the freshness, volume and null-rate checks at the same time as the pipeline, not\nafter the first incident. Alert on the user-visible symptom (stale or wrong data) rather\nthan on an internal proxy, and route every alert to a named owner with a runbook link.\n\nThe specific checks named are freshness, volume and null-rate, and they go in with the pipeline itself. Apply this before the release leaves your hands.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Monitoring: what is required"
+    },
+    {
+      "obligation": "Alert on the user-visible symptom rather than on an internal proxy for it.",
+      "lesson": "Apply this before the release leaves your hands.\n\nAdd the freshness, volume and null-rate checks at the same time as the pipeline, not\nafter the first incident. Alert on the user-visible symptom (stale or wrong data) rather\nthan on an internal proxy, and route every alert to a named owner with a runbook link.\n\nThe user-visible symptom here is stale or wrong data; an internal proxy metric can look healthy while the output is already wrong.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Monitoring: what is required"
+    },
+    {
+      "obligation": "Route every alert to a named owner and attach a link to its runbook.",
+      "lesson": "Apply this before the release leaves your hands.\n\nAdd the freshness, volume and null-rate checks at the same time as the pipeline, not\nafter the first incident. Alert on the user-visible symptom (stale or wrong data) rather\nthan on an internal proxy, and route every alert to a named owner with a runbook link.\n\nEvery alert needs both: a named owner it routes to, and a runbook link the owner can act on.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Monitoring: what is required"
+    },
+    {
+      "obligation": "Check each input's licence terms before releasing anything derived from it.",
+      "lesson": "Apply this before the release leaves your hands.\n\nEach input's licence is checked before derived content is released — scope over\nderivatives, attribution text, embargo. Unclear terms go to legal, not to your own\njudgement.\n\nIf you cannot satisfy this, stop and escalate.\n\nThe terms to check are named: scope over derivatives, attribution text, embargo.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Licensing and compliance"
+    },
+    {
+      "obligation": "Send unclear terms to legal rather than deciding them on your own judgement.",
+      "lesson": "Apply this before the release leaves your hands.\n\nEach input's licence is checked before derived content is released — scope over\nderivatives, attribution text, embargo. Unclear terms go to legal, not to your own\njudgement.\n\nIf you cannot satisfy this, stop and escalate.\n\n\"Unclear terms go to legal, not to your own judgement.\" Ambiguity is escalated, not resolved locally.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Licensing and compliance"
+    },
+    {
+      "obligation": "Stop and escalate rather than proceeding when you cannot satisfy a required condition.",
+      "lesson": "Apply this before the release leaves your hands.\n\nEach input's licence is checked before derived content is released — scope over\nderivatives, attribution text, embargo. Unclear terms go to legal, not to your own\njudgement.\n\nIf you cannot satisfy this, stop and escalate.\n\nLicensing is one of the two sections that carry this explicit stop condition: if the licence position cannot be satisfied, the release does not proceed on your own authority.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Licensing and compliance"
+    },
+    {
+      "obligation": "Publish every point estimate with an uncertainty band, what it covers and excludes, and the dominant error term.",
+      "lesson": "Skipping this is the most common way a release goes wrong.\n\nPoint estimates travel with an uncertainty band and a note on what the band covers and\nexcludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in\nwords, not omitted.\n\nIf you cannot satisfy this, stop and escalate.\n\nAll three travel with the estimate: the band, the note on what the band covers and excludes, and the dominant error term. Skipping this is the most common way a release goes wrong.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Report uncertainty honestly for this release"
+    },
+    {
+      "obligation": "Disclose uncertainty you cannot quantify in words rather than omitting it.",
+      "lesson": "Skipping this is the most common way a release goes wrong.\n\nPoint estimates travel with an uncertainty band and a note on what the band covers and\nexcludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in\nwords, not omitted.\n\nIf you cannot satisfy this, stop and escalate.\n\n\"Unquantifiable uncertainty is disclosed in words, not omitted.\" Being unable to put a number on it is not grounds for leaving it out.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Report uncertainty honestly for this release"
+    },
+    {
+      "obligation": "Stop and escalate rather than proceeding when you cannot satisfy a required condition.",
+      "lesson": "Skipping this is the most common way a release goes wrong.\n\nPoint estimates travel with an uncertainty band and a note on what the band covers and\nexcludes, plus the dominant error term. Unquantifiable uncertainty is disclosed in\nwords, not omitted.\n\nIf you cannot satisfy this, stop and escalate.\n\nUncertainty reporting is one of the two sections that carry this explicit stop condition: if the uncertainty cannot be reported honestly, stop and escalate rather than publishing anyway.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Report uncertainty honestly for this release"
+    },
+    {
+      "obligation": "Confirm every required step is complete before finishing, working through the closing checklist item by item.",
+      "lesson": "Closing checklist:\n\n- [ ] Indicator release readiness\n- [ ] Close against an explicit definition of done\n- [ ] Communicate to stakeholders in their terms\n- [ ] Have a rollback path before you change anything\n- [ ] Roll out in stages with a kill switch\n- [ ] Instrument before you need the signal\n- [ ] Check data licensing and redistribution rights\n- [ ] Report uncertainty honestly",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

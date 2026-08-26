@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "skillmerge": {
+      "command": "python",
+      "args": ["-m", "skillmerge.server"],
+      "env": {
+        "PYTHONPATH": "src",
+        "SKILLMERGE_BUILD": "build",
+        "SKILLMERGE_BUDGET": "1500"
+      }
+    }
+  }
+}

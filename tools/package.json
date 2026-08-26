@@ -1,0 +1,10 @@
+{
+  "name": "skillmerge-tokenizer",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Token counting bridge for SkillMerge",
+  "dependencies": {
+    "@anthropic-ai/tokenizer": "^0.0.4",
+    "gpt-tokenizer": "^2.5.0"
+  }
+}

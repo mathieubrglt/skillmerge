@@ -1,0 +1,187 @@
+{
+  "skill": "client-data-request",
+  "atoms": [
+    {
+      "obligation": "Work through each section of the guidance in order, treating every section as a requirement you can be held to.",
+      "lesson": "This skill guides the analyst through a request end to end. Work the sections in order; each one names an obligation you can be held to. The eight numbered sections run: 1. Ad-hoc client data request handling, 2. Restate the request before acting on it, 3. Keep personal and client-confidential data out, 4. Check data licensing and redistribution rights, 5. Communication, 6. Units, 7. Report uncertainty honestly, 8. Timebox. Sections 2, 3 and 4 are marked \"non-negotiable\".",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Ad-hoc client data request"
+    },
+    {
+      "obligation": "Separate what the requester literally asked for from what they are trying to learn, and answer both.",
+      "lesson": "This section applies to every request without exception. Separate what the client asked for from what they are trying to learn, and answer both. The literal extract or aggregation is only half the deliverable; the underlying question is the other half.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Ad-hoc client data request handling"
+    },
+    {
+      "obligation": "Deliver the output in the format the recipient will actually open, and include a short method note in the same file.",
+      "lesson": "Deliver in the format they will actually open, include a short methodology note in the same file. Same file matters: a methodology note that travels separately from the numbers gets separated from them, and the numbers are then read without it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Ad-hoc client data request handling"
+    },
+    {
+      "obligation": "State explicitly what the data does not support so the result is not quoted beyond its range.",
+      "lesson": "State explicitly what the data does not support so it is not quoted beyond its range. This applies to every request without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Ad-hoc client data request handling"
+    },
+    {
+      "obligation": "Log every incoming request so that repeated identical requests become a standing product rather than a favour.",
+      "lesson": "Log the request so the third identical one becomes a product rather than a favour. The trigger is repetition: the third time the same ad-hoc request arrives, it should stop being handled as a one-off.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Ad-hoc client data request handling"
+    },
+    {
+      "obligation": "Record the outcome of each completed step in the working notes for the request.",
+      "lesson": "\"Record the outcome of this step in the request notes.\" This instruction is repeated verbatim as the closing line of section 1 (Ad-hoc client data request handling), section 2 (Restate the request before acting on it) and section 7 (Report uncertainty honestly for this request), so the outcome of each of those steps must be written into the request notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Ad-hoc client data request handling"
+    },
+    {
+      "obligation": "Restate the request back to the requester and have it confirmed before starting any work on it.",
+      "lesson": "Non-negotiable. Apply this before the request leaves your hands. Echo the request back (question, area, period, granularity, format, deadline) and have it confirmed first; unconfirmed granularity and period drive most rework. All six elements go in the echo: question, area, period, granularity, format, deadline.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Restate the request before acting on it — non-negotiable"
+    },
+    {
+      "obligation": "Never propagate personal or confidential fields from inputs into shared outputs at any stage of the work.",
+      "lesson": "Non-negotiable. This section applies to every request without exception. Never propagate personal or client-confidential fields into shared artefacts.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Flag and pause the work if personal or confidential fields turn up in the inputs.",
+      "lesson": "Flag and pause if they turn up in inputs. Personal or client-confidential fields appearing in an input is a stop condition, not something to strip quietly and continue past.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Publish aggregated results using identifiers that cannot be linked back to the underlying subjects.",
+      "lesson": "Publish aggregates with non-relinkable identifiers. Aggregation alone is not sufficient protection if the identifiers carried alongside it can be joined back to the source rows.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Keep personal and client-confidential data out — non-negotiable"
+    },
+    {
+      "obligation": "Confirm the redistribution terms of every input before it, or anything closely derived from it, leaves the organisation.",
+      "lesson": "Non-negotiable. Apply this before the request leaves your hands. Confirm the redistribution terms of every input before its content, or anything derived closely from it, leaves the platform. \"Derived closely from it\" is included deliberately: a tight derivative carries the same restrictions as the raw input.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Check data licensing and redistribution rights — non-negotiable"
+    },
+    {
+      "obligation": "Record for each input its licence, whether derived products are covered, any required attribution, and any embargo.",
+      "lesson": "Note the licence, whether derived products are covered, any attribution string, and any embargo. The attribution string is to be noted as a string — the exact wording that must accompany the data — not merely as a fact that attribution is required.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Check data licensing and redistribution rights — non-negotiable"
+    },
+    {
+      "obligation": "Escalate when the terms are ambiguous rather than assuming permission has been granted.",
+      "lesson": "When the terms are ambiguous, escalate rather than assuming permissive intent. Ambiguity is resolved upward, not by the analyst reading it in the most convenient direction.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Check data licensing and redistribution rights — non-negotiable"
+    },
+    {
+      "obligation": "Open every communication with the impact: who is affected, over what period, and what they should do.",
+      "lesson": "Open with impact, not mechanism: who is affected, over what period, and what they should do.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Communication: what is required"
+    },
+    {
+      "obligation": "Keep the technical explanation below the impact statement and limit it to one short paragraph.",
+      "lesson": "Keep the technical explanation below that, in one short paragraph. Mechanism goes underneath impact, and it is capped at a single short paragraph.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Communication: what is required"
+    },
+    {
+      "obligation": "Give a time for the next update whenever the situation is still moving.",
+      "lesson": "Give a next-update time whenever the situation is still moving. An unresolved situation always leaves the reader with a stated time at which they will hear more.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Communication: what is required"
+    },
+    {
+      "obligation": "Never let someone learn about a problem from their own dashboard before you have told them.",
+      "lesson": "Never let a stakeholder learn about a problem from their own dashboard first. If the problem is visible to them in the tooling, the notification has to reach them ahead of it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Communication: what is required"
+    },
+    {
+      "obligation": "State the units, spatial reference system and time zone on every numeric column and every chart axis.",
+      "lesson": "The analyst owns this step. State units, coordinate reference system and time zone on every numeric column and every chart axis. Every column and every axis — not just the ones where the unit seems ambiguous. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Units: what is required"
+    },
+    {
+      "obligation": "Use the stated default conventions for units, spatial reference and timestamps unless there is a reason not to.",
+      "lesson": "Default to SI units, EPSG:4326 for lon/lat storage, an equal- area projection for any area computation, and UTC for all timestamps. Note the split between storage and computation: EPSG:4326 is the storage CRS for lon/lat, but any area computation must be done in an equal-area projection.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Units: what is required"
+    },
+    {
+      "obligation": "Convert values to local conventions only at the presentation layer, never in stored data.",
+      "lesson": "Convert to local conventions only at the presentation layer, never in storage. Storage stays in the defaults (SI, EPSG:4326, UTC); local units and local time zones are applied when the number is displayed.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Units: what is required"
+    },
+    {
+      "obligation": "Stop and escalate when you cannot satisfy a stated requirement.",
+      "lesson": "\"If you cannot satisfy this, stop and escalate.\" This closes the units section: an inability to state units, CRS and time zone is not something to work around silently — it halts the work and goes up.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Units: what is required"
+    },
+    {
+      "obligation": "Publish an interval with every number, state which error sources it covers, and name the largest one.",
+      "lesson": "Apply this before the request leaves your hands. A number without a band is a claim you cannot support. Publish an interval, state which error sources it does and does not include, and identify the largest one. Both halves of the error-source statement are required: what the interval includes and what it does not.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Report uncertainty honestly for this request"
+    },
+    {
+      "obligation": "Write down that the uncertainty could not be quantified rather than omitting it from the result.",
+      "lesson": "If you cannot quantify the uncertainty, write that down instead of hiding it. An unquantifiable band is disclosed as unquantifiable; it is never simply left off the number.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Report uncertainty honestly for this request"
+    },
+    {
+      "obligation": "Time-box the investigation and escalate when the box expires, regardless of apparent momentum.",
+      "lesson": "Apply this before the request leaves your hands. Time-box the dig, escalate on expiry regardless of momentum. \"Regardless of momentum\" is the point: feeling close to an answer is not a reason to extend the box.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Timebox: what is required"
+    },
+    {
+      "obligation": "Hand over what you tried, what you excluded and what comes next when you escalate.",
+      "lesson": "Hand over what you tried, what you excluded and what comes next. All three parts travel with the escalation so the next person does not repeat the excluded paths.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Timebox: what is required"
+    },
+    {
+      "obligation": "Confirm every required step is complete against the closing checklist before the work is delivered.",
+      "lesson": "- [ ] Ad-hoc client data request handling\n- [ ] Restate the request before acting on it\n- [ ] Keep personal and client-confidential data out\n- [ ] Check data licensing and redistribution rights\n- [ ] Communicate to stakeholders in their terms\n- [ ] Be explicit about units, CRS and time zones\n- [ ] Report uncertainty honestly\n- [ ] Time-box investigation and escalate on the clock",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

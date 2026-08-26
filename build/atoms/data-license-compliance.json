@@ -1,0 +1,117 @@
+{
+ "skill": "data-license-compliance",
+ "atoms": [
+  {
+   "obligation": "Work through each section of the review in order, treating every one as a requirement you can be held to.",
+   "lesson": "This skill guides the reviewer through a review end to end. Work the sections in order;\neach one names an obligation you can be held to.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "Data licence and redistribution review"
+  },
+  {
+   "obligation": "Assess each input separately against the terms as signed before you rely on or reuse it.",
+   "lesson": "Skipping this is the most common way a review goes wrong.\n\nAssess each source separately: the licence text as signed (not the marketing page),\nwhether the grant covers derivative and aggregated products, attribution wording and\nwhere it must appear, territorial and sectoral restrictions, and the survival clause\nafter termination.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "1. Licence review and derivative works"
+  },
+  {
+   "obligation": "Record each assessment against the item it covers, with its date and the version of the terms reviewed.",
+   "lesson": "Record the assessment per source with its date and the contract\nversion, because vendors revise terms silently.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "1. Licence review and derivative works"
+  },
+  {
+   "obligation": "Lead with who is affected and what they should do, and put the technical explanation below that.",
+   "lesson": "Skipping this is the most common way a review goes wrong.\n\nOpen with impact, not mechanism: who is affected, over what period, and what they should\ndo. Keep the technical explanation below that, in one short paragraph.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "2. Communication: what is required"
+  },
+  {
+   "obligation": "Give a next-update time while the situation is still moving, and tell affected people before they discover it themselves.",
+   "lesson": "Give a next-\nupdate time whenever the situation is still moving, and never let a stakeholder learn\nabout a problem from their own dashboard first.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "2. Communication: what is required"
+  },
+  {
+   "obligation": "Record for every output what it was built from, when, and with which code and configuration.",
+   "lesson": "Apply this before the review leaves your hands.\n\nEvery artefact you produce must be traceable back to its inputs. Record, for each\noutput: the source dataset identifiers and versions, the acquisition window, the\nprocessing code revision (git SHA), and the configuration hash.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "3. Record provenance and lineage"
+  },
+  {
+   "obligation": "Store that record alongside the output itself rather than in a separate place that will drift.",
+   "lesson": "Store this beside the\noutput, not in a separate wiki page that will drift.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "3. Record provenance and lineage"
+  },
+  {
+   "obligation": "Withhold any output that cannot state where it came from.",
+   "lesson": "If an output cannot state where it\ncame from, treat it as unpublishable.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "3. Record provenance and lineage"
+  },
+  {
+   "obligation": "Check the terms attached to every input before releasing anything derived from it.",
+   "lesson": "The reviewer owns this step.\n\nEach input's licence is checked before derived content is released — scope over\nderivatives, attribution text, embargo.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "4. Check data licensing and redistribution rights for this review"
+  },
+  {
+   "obligation": "Escalate unclear terms to the responsible specialists instead of deciding them yourself.",
+   "lesson": "Unclear terms go to legal, not to your own\njudgement.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "4. Check data licensing and redistribution rights for this review"
+  },
+  {
+   "obligation": "Restate the request in your own words and get it confirmed before starting the work.",
+   "lesson": "The reviewer owns this step.\n\nPlay the request back in your own words: the exact question, the geography, the period,\nthe granularity, the delivery format and the deadline. Confirm the playback before doing\nthe work. Most rework traces to a granularity or period that was assumed rather than\nagreed.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "5. Restate the request before acting on it"
+  },
+  {
+   "obligation": "Keep an explicit list of assumptions and open questions, each with a named owner and its impact if wrong.",
+   "lesson": "Skipping this is the most common way a review goes wrong.\n\nMaintain an explicit assumptions-and-open-questions list: statement, owner who can\nresolve it, and impact if false. Unowned assumptions are the failure mode.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "6. Assumptions and open questions"
+  },
+  {
+   "obligation": "Never move personal or confidential detail into shared repositories, tickets, logs or working notes.",
+   "lesson": "This section applies to every review without exception.\n\nDo not move personal data or client-identifying detail into shared repositories,\ntickets, logs or analysis notebooks.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "7. Keep personal and client-confidential data out — non-negotiable"
+  },
+  {
+   "obligation": "Stop, flag it, and ask for a redacted version when such data appears in material you were given.",
+   "lesson": "If such data appears in a sample you were given,\nstop, flag it, and ask for a redacted version.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "7. Keep personal and client-confidential data out — non-negotiable"
+  },
+  {
+   "obligation": "Aggregate before sharing and prefer identifiers that cannot be linked back to a named party.",
+   "lesson": "Aggregate before sharing, and prefer\nidentifiers that cannot be re-linked to an individual or a named counterparty.",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "7. Keep personal and client-confidential data out — non-negotiable"
+  },
+  {
+   "obligation": "Confirm every required step is complete before you close the work out.",
+   "lesson": "- [ ] Licence and redistribution assessment procedure\n- [ ] Communicate to stakeholders in their terms\n- [ ] Record provenance and lineage\n- [ ] Check data licensing and redistribution rights\n- [ ] Restate the request before acting on it\n- [ ] Surface assumptions and open questions\n- [ ] Keep personal and client-confidential data out",
+   "kind": "prose",
+   "refs": [],
+   "anchor": "Closing checklist"
+  }
+ ]
+}

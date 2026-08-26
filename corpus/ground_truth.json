@@ -1,0 +1,1108 @@
+{
+  "seed": 20260825,
+  "skills": {
+    "pipeline-incident-response": {
+      "title": "Pipeline incident response",
+      "description": "Triage, contain and communicate a broken or suspect data pipeline. Use when a scheduled job fails, when served values look wrong, or when a consumer reports stale or implausible data.",
+      "actor": "on-call engineer",
+      "noun": "incident",
+      "placements": [
+        {
+          "fragment_id": "U-incident",
+          "variant": 0,
+          "section": 1,
+          "heading": "Incident and triage"
+        },
+        {
+          "fragment_id": "T-rollback",
+          "variant": 0,
+          "section": 2,
+          "heading": "Have a rollback path before you change anything"
+        },
+        {
+          "fragment_id": "C-timebox",
+          "variant": 0,
+          "section": 3,
+          "heading": "Timebox: what is required"
+        },
+        {
+          "fragment_id": "C-monitor",
+          "variant": 2,
+          "section": 4,
+          "heading": "Instrument before you need the signal"
+        },
+        {
+          "fragment_id": "T-pii",
+          "variant": 2,
+          "section": 5,
+          "heading": "Keep personal and client-confidential data out \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 0,
+          "section": 6,
+          "heading": "Definition of done: what is required"
+        },
+        {
+          "fragment_id": "C-deps",
+          "variant": 2,
+          "section": 7,
+          "heading": "Map upstream and downstream dependencies"
+        },
+        {
+          "fragment_id": "T-provenance",
+          "variant": 2,
+          "section": 8,
+          "heading": "Provenance and lineage"
+        },
+        {
+          "fragment_id": "T-stakeholder",
+          "variant": 1,
+          "section": 9,
+          "heading": "Communication: what is required"
+        }
+      ]
+    },
+    "backfill-planning": {
+      "title": "Backfill planning",
+      "description": "Plan and execute a historical reprocessing run. Use when a fix must be applied to past periods, when a new field needs populating retroactively, or when a vendor restates upstream data.",
+      "actor": "pipeline owner",
+      "noun": "backfill",
+      "placements": [
+        {
+          "fragment_id": "U-backfill",
+          "variant": 0,
+          "section": 1,
+          "heading": "Backfill sequencing and idempotency"
+        },
+        {
+          "fragment_id": "C-window",
+          "variant": 2,
+          "section": 2,
+          "heading": "Get the time-window arithmetic right"
+        },
+        {
+          "fragment_id": "T-repro",
+          "variant": 1,
+          "section": 3,
+          "heading": "Emit a reproducibility manifest"
+        },
+        {
+          "fragment_id": "C-cost",
+          "variant": 0,
+          "section": 4,
+          "heading": "Estimate compute and storage cost before running for this backfill"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 2,
+          "section": 5,
+          "heading": "Definition of done: what is required"
+        },
+        {
+          "fragment_id": "T-units",
+          "variant": 2,
+          "section": 6,
+          "heading": "Be explicit about units, CRS and time zones \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "C-baseline",
+          "variant": 0,
+          "section": 7,
+          "heading": "Measure the current state before changing it \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-rollback",
+          "variant": 0,
+          "section": 8,
+          "heading": "Have a rollback path before you change anything \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-provenance",
+          "variant": 0,
+          "section": 9,
+          "heading": "Provenance: what is required"
+        }
+      ]
+    },
+    "sensor-ingest-onboarding": {
+      "title": "Sensor feed onboarding",
+      "description": "Bring a new satellite or sensor feed into the platform. Use when evaluating a new data vendor, adding a constellation, or replacing an existing source.",
+      "actor": "ingest engineer",
+      "noun": "feed",
+      "placements": [
+        {
+          "fragment_id": "U-onboard",
+          "variant": 0,
+          "section": 1,
+          "heading": "Onboarding: what is required"
+        },
+        {
+          "fragment_id": "T-pii",
+          "variant": 1,
+          "section": 2,
+          "heading": "Keep personal and client-confidential data out for this feed"
+        },
+        {
+          "fragment_id": "T-licensing",
+          "variant": 2,
+          "section": 3,
+          "heading": "Check data licensing and redistribution rights for this feed"
+        },
+        {
+          "fragment_id": "T-assumptions",
+          "variant": 1,
+          "section": 4,
+          "heading": "Surface assumptions and open questions \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-provenance",
+          "variant": 2,
+          "section": 5,
+          "heading": "Provenance and lineage"
+        },
+        {
+          "fragment_id": "C-monitor",
+          "variant": 2,
+          "section": 6,
+          "heading": "Instrument before you need the signal for this feed"
+        },
+        {
+          "fragment_id": "C-window",
+          "variant": 1,
+          "section": 7,
+          "heading": "Time window: what is required"
+        },
+        {
+          "fragment_id": "C-cloudmask",
+          "variant": 2,
+          "section": 8,
+          "heading": "Handle cloud cover and missing observations"
+        },
+        {
+          "fragment_id": "T-units",
+          "variant": 2,
+          "section": 9,
+          "heading": "Be explicit about units, CRS and time zones for this feed"
+        }
+      ]
+    },
+    "qa-validation-report": {
+      "title": "Indicator validation report",
+      "description": "Produce a defensible validation of a derived indicator. Use when publishing accuracy claims, when a client questions a number, or before a new indicator version is released.",
+      "actor": "analyst",
+      "noun": "validation",
+      "placements": [
+        {
+          "fragment_id": "U-qa",
+          "variant": 0,
+          "section": 1,
+          "heading": "Validation report structure for a derived indicator"
+        },
+        {
+          "fragment_id": "T-units",
+          "variant": 0,
+          "section": 2,
+          "heading": "Be explicit about units, CRS and time zones"
+        },
+        {
+          "fragment_id": "C-significance",
+          "variant": 0,
+          "section": 3,
+          "heading": "Do not over-read small differences"
+        },
+        {
+          "fragment_id": "T-provenance",
+          "variant": 1,
+          "section": 4,
+          "heading": "Record provenance and lineage"
+        },
+        {
+          "fragment_id": "C-cloudmask",
+          "variant": 1,
+          "section": 5,
+          "heading": "Cloud mask: what is required"
+        },
+        {
+          "fragment_id": "T-uncertainty",
+          "variant": 2,
+          "section": 6,
+          "heading": "Report uncertainty honestly \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "C-timebox",
+          "variant": 0,
+          "section": 7,
+          "heading": "Time-box investigation and escalate on the clock"
+        },
+        {
+          "fragment_id": "T-repro",
+          "variant": 1,
+          "section": 8,
+          "heading": "Reproducibility and manifest"
+        },
+        {
+          "fragment_id": "T-assumptions",
+          "variant": 0,
+          "section": 9,
+          "heading": "Surface assumptions and open questions"
+        },
+        {
+          "fragment_id": "C-goldenset",
+          "variant": 0,
+          "section": 10,
+          "heading": "Validate against a frozen golden set for this validation"
+        }
+      ]
+    },
+    "model-retraining": {
+      "title": "Model retraining",
+      "description": "Retrain and evaluate a detection or estimation model. Use when accuracy drifts, when new labelled data arrives, or when extending a model to a new region or sensor.",
+      "actor": "ML engineer",
+      "noun": "retraining",
+      "placements": [
+        {
+          "fragment_id": "U-retrain",
+          "variant": 0,
+          "section": 1,
+          "heading": "Model retraining discipline for this retraining"
+        },
+        {
+          "fragment_id": "T-licensing",
+          "variant": 1,
+          "section": 2,
+          "heading": "Licensing: what is required"
+        },
+        {
+          "fragment_id": "C-goldenset",
+          "variant": 0,
+          "section": 3,
+          "heading": "Validate against a frozen golden set"
+        },
+        {
+          "fragment_id": "C-baseline",
+          "variant": 1,
+          "section": 4,
+          "heading": "Baseline: what is required"
+        },
+        {
+          "fragment_id": "T-uncertainty",
+          "variant": 2,
+          "section": 5,
+          "heading": "Report uncertainty honestly"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 2,
+          "section": 6,
+          "heading": "Close against an explicit definition of done"
+        },
+        {
+          "fragment_id": "C-significance",
+          "variant": 2,
+          "section": 7,
+          "heading": "Do not over-read small differences"
+        },
+        {
+          "fragment_id": "T-repro",
+          "variant": 1,
+          "section": 8,
+          "heading": "Emit a reproducibility manifest \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "C-cost",
+          "variant": 1,
+          "section": 9,
+          "heading": "Cost: what is required"
+        },
+        {
+          "fragment_id": "T-pii",
+          "variant": 2,
+          "section": 10,
+          "heading": "Keep personal and client-confidential data out \u2014 non-negotiable"
+        }
+      ]
+    },
+    "api-change-review": {
+      "title": "Public API change review",
+      "description": "Review a proposed change to a customer-facing API or data contract. Use when adding or altering endpoints, fields, or response semantics that external consumers depend on.",
+      "actor": "reviewer",
+      "noun": "change",
+      "placements": [
+        {
+          "fragment_id": "U-apireview",
+          "variant": 0,
+          "section": 1,
+          "heading": "Public API change review checklist for this change"
+        },
+        {
+          "fragment_id": "C-staged",
+          "variant": 2,
+          "section": 2,
+          "heading": "Roll out in stages with a kill switch"
+        },
+        {
+          "fragment_id": "T-assumptions",
+          "variant": 0,
+          "section": 3,
+          "heading": "Surface assumptions and open questions for this change"
+        },
+        {
+          "fragment_id": "C-schemacompat",
+          "variant": 1,
+          "section": 4,
+          "heading": "Schema and compatibility"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 2,
+          "section": 5,
+          "heading": "Definition of done and checklist"
+        },
+        {
+          "fragment_id": "T-rollback",
+          "variant": 0,
+          "section": 6,
+          "heading": "Rollback and reversibility"
+        },
+        {
+          "fragment_id": "C-deps",
+          "variant": 2,
+          "section": 7,
+          "heading": "Dependencies and blast radius"
+        }
+      ]
+    },
+    "cost-optimization": {
+      "title": "Compute and storage cost reduction",
+      "description": "Reduce infrastructure spend on data processing and storage. Use when a budget line is over, when a new large workload is proposed, or during a periodic cost review.",
+      "actor": "platform engineer",
+      "noun": "cost review",
+      "placements": [
+        {
+          "fragment_id": "U-cost",
+          "variant": 0,
+          "section": 1,
+          "heading": "Cost reduction search order"
+        },
+        {
+          "fragment_id": "C-deps",
+          "variant": 1,
+          "section": 2,
+          "heading": "Dependencies: what is required"
+        },
+        {
+          "fragment_id": "C-staged",
+          "variant": 0,
+          "section": 3,
+          "heading": "Roll out in stages with a kill switch \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "C-cost",
+          "variant": 0,
+          "section": 4,
+          "heading": "Cost and compute"
+        },
+        {
+          "fragment_id": "C-baseline",
+          "variant": 2,
+          "section": 5,
+          "heading": "Measure the current state before changing it"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 1,
+          "section": 6,
+          "heading": "Close against an explicit definition of done for this cost review"
+        },
+        {
+          "fragment_id": "T-stakeholder",
+          "variant": 0,
+          "section": 7,
+          "heading": "Communication and stakeholders"
+        }
+      ]
+    },
+    "client-data-request": {
+      "title": "Ad-hoc client data request",
+      "description": "Answer a one-off data or analysis request from a client or commercial team. Use when someone asks for an extract, a custom aggregation, or a quick answer from platform data.",
+      "actor": "analyst",
+      "noun": "request",
+      "placements": [
+        {
+          "fragment_id": "U-clientreq",
+          "variant": 0,
+          "section": 1,
+          "heading": "Ad-hoc client data request handling"
+        },
+        {
+          "fragment_id": "C-scoping",
+          "variant": 2,
+          "section": 2,
+          "heading": "Restate the request before acting on it \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-pii",
+          "variant": 2,
+          "section": 3,
+          "heading": "Keep personal and client-confidential data out \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-licensing",
+          "variant": 0,
+          "section": 4,
+          "heading": "Check data licensing and redistribution rights \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-stakeholder",
+          "variant": 0,
+          "section": 5,
+          "heading": "Communication: what is required"
+        },
+        {
+          "fragment_id": "T-units",
+          "variant": 0,
+          "section": 6,
+          "heading": "Units: what is required"
+        },
+        {
+          "fragment_id": "T-uncertainty",
+          "variant": 1,
+          "section": 7,
+          "heading": "Report uncertainty honestly for this request"
+        },
+        {
+          "fragment_id": "C-timebox",
+          "variant": 2,
+          "section": 8,
+          "heading": "Timebox: what is required"
+        }
+      ]
+    },
+    "schema-migration": {
+      "title": "Schema migration",
+      "description": "Change the shape of a stored dataset or table safely. Use when adding, renaming, retyping or removing fields in a dataset that has downstream readers.",
+      "actor": "data engineer",
+      "noun": "migration",
+      "placements": [
+        {
+          "fragment_id": "U-schema",
+          "variant": 0,
+          "section": 1,
+          "heading": "Migration and schema change"
+        },
+        {
+          "fragment_id": "C-deps",
+          "variant": 2,
+          "section": 2,
+          "heading": "Dependencies and blast radius"
+        },
+        {
+          "fragment_id": "C-staged",
+          "variant": 0,
+          "section": 3,
+          "heading": "Staged rollout and canary"
+        },
+        {
+          "fragment_id": "C-schemacompat",
+          "variant": 0,
+          "section": 4,
+          "heading": "Schema and compatibility"
+        },
+        {
+          "fragment_id": "T-repro",
+          "variant": 1,
+          "section": 5,
+          "heading": "Reproducibility: what is required"
+        },
+        {
+          "fragment_id": "T-rollback",
+          "variant": 0,
+          "section": 6,
+          "heading": "Rollback: what is required"
+        },
+        {
+          "fragment_id": "C-window",
+          "variant": 0,
+          "section": 7,
+          "heading": "Get the time-window arithmetic right \u2014 non-negotiable"
+        }
+      ]
+    },
+    "benchmark-design": {
+      "title": "Benchmark design",
+      "description": "Design an evaluation that can actually distinguish approaches. Use when comparing methods, vendors or model versions, or when defining acceptance criteria for a new capability.",
+      "actor": "researcher",
+      "noun": "benchmark",
+      "placements": [
+        {
+          "fragment_id": "U-benchmark",
+          "variant": 0,
+          "section": 1,
+          "heading": "Benchmark: what is required"
+        },
+        {
+          "fragment_id": "C-scoping",
+          "variant": 1,
+          "section": 2,
+          "heading": "Restate the request before acting on it \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-repro",
+          "variant": 0,
+          "section": 3,
+          "heading": "Emit a reproducibility manifest"
+        },
+        {
+          "fragment_id": "C-significance",
+          "variant": 2,
+          "section": 4,
+          "heading": "Statistics and significance"
+        },
+        {
+          "fragment_id": "T-assumptions",
+          "variant": 2,
+          "section": 5,
+          "heading": "Surface assumptions and open questions"
+        },
+        {
+          "fragment_id": "C-goldenset",
+          "variant": 2,
+          "section": 6,
+          "heading": "Golden set and regression"
+        },
+        {
+          "fragment_id": "T-units",
+          "variant": 1,
+          "section": 7,
+          "heading": "Units: what is required"
+        },
+        {
+          "fragment_id": "T-uncertainty",
+          "variant": 0,
+          "section": 8,
+          "heading": "Report uncertainty honestly for this benchmark"
+        }
+      ]
+    },
+    "release-readiness": {
+      "title": "Indicator release readiness",
+      "description": "Decide whether a new or updated indicator is ready to publish. Use before a version bump reaches customers, or when signing off a new product surface.",
+      "actor": "product engineer",
+      "noun": "release",
+      "placements": [
+        {
+          "fragment_id": "U-release",
+          "variant": 0,
+          "section": 1,
+          "heading": "Indicator release readiness for this release"
+        },
+        {
+          "fragment_id": "T-dod",
+          "variant": 0,
+          "section": 2,
+          "heading": "Definition of done: what is required"
+        },
+        {
+          "fragment_id": "T-stakeholder",
+          "variant": 2,
+          "section": 3,
+          "heading": "Communicate to stakeholders in their terms \u2014 non-negotiable"
+        },
+        {
+          "fragment_id": "T-rollback",
+          "variant": 1,
+          "section": 4,
+          "heading": "Rollback and reversibility"
+        },
+        {
+          "fragment_id": "C-staged",
+          "variant": 0,
+          "section": 5,
+          "heading": "Staged rollout: what is required"
+        },
+        {
+          "fragment_id": "C-monitor",
+          "variant": 0,
+          "section": 6,
+          "heading": "Monitoring: what is required"
+        },
+        {
+          "fragment_id": "T-licensing",
+          "variant": 2,
+          "section": 7,
+          "heading": "Licensing and compliance"
+        },
+        {
+          "fragment_id": "T-uncertainty",
+          "variant": 2,
+          "section": 8,
+          "heading": "Report uncertainty honestly for this release"
+        }
+      ]
+    },
+    "data-license-compliance": {
+      "title": "Data licence and redistribution review",
+      "description": "Determine what may be published from a licensed input. Use before releasing derived products, sharing extracts externally, or signing a new data agreement.",
+      "actor": "reviewer",
+      "noun": "review",
+      "placements": [
+        {
+          "fragment_id": "U-license",
+          "variant": 0,
+          "section": 1,
+          "heading": "Licence review and derivative works"
+        },
+        {
+          "fragment_id": "T-stakeholder",
+          "variant": 0,
+          "section": 2,
+          "heading": "Communication: what is required"
+        },
+        {
+          "fragment_id": "T-provenance",
+          "variant": 0,
+          "section": 3,
+          "heading": "Record provenance and lineage"
+        },
+        {
+          "fragment_id": "T-licensing",
+          "variant": 2,
+          "section": 4,
+          "heading": "Check data licensing and redistribution rights for this review"
+        },
+        {
+          "fragment_id": "C-scoping",
+          "variant": 0,
+          "section": 5,
+          "heading": "Restate the request before acting on it"
+        },
+        {
+          "fragment_id": "T-assumptions",
+          "variant": 1,
+          "section": 6,
+          "heading": "Assumptions and open questions"
+        },
+        {
+          "fragment_id": "T-pii",
+          "variant": 0,
+          "section": 7,
+          "heading": "Keep personal and client-confidential data out \u2014 non-negotiable"
+        }
+      ]
+    }
+  },
+  "fragments": {
+    "T-provenance": {
+      "kind": "transverse",
+      "title": "Record provenance and lineage",
+      "tags": [
+        "provenance",
+        "lineage",
+        "audit",
+        "traceability",
+        "data-quality"
+      ],
+      "n_variants": 3
+    },
+    "T-repro": {
+      "kind": "transverse",
+      "title": "Emit a reproducibility manifest",
+      "tags": [
+        "reproducibility",
+        "manifest",
+        "determinism",
+        "environment",
+        "rerun"
+      ],
+      "n_variants": 3
+    },
+    "T-units": {
+      "kind": "transverse",
+      "title": "Be explicit about units, CRS and time zones",
+      "tags": [
+        "units",
+        "crs",
+        "timezone",
+        "geospatial",
+        "conventions",
+        "normalization"
+      ],
+      "n_variants": 3
+    },
+    "T-uncertainty": {
+      "kind": "transverse",
+      "title": "Report uncertainty honestly",
+      "tags": [
+        "uncertainty",
+        "confidence-interval",
+        "error-bars",
+        "statistics",
+        "caveats"
+      ],
+      "n_variants": 3
+    },
+    "T-stakeholder": {
+      "kind": "transverse",
+      "title": "Communicate to stakeholders in their terms",
+      "tags": [
+        "communication",
+        "stakeholders",
+        "summary",
+        "clients",
+        "reporting"
+      ],
+      "n_variants": 3
+    },
+    "T-dod": {
+      "kind": "transverse",
+      "title": "Close against an explicit definition of done",
+      "tags": [
+        "definition-of-done",
+        "checklist",
+        "completion",
+        "verification",
+        "handover"
+      ],
+      "n_variants": 3
+    },
+    "T-rollback": {
+      "kind": "transverse",
+      "title": "Have a rollback path before you change anything",
+      "tags": [
+        "rollback",
+        "reversibility",
+        "risk",
+        "safety",
+        "change-management"
+      ],
+      "n_variants": 3
+    },
+    "T-licensing": {
+      "kind": "transverse",
+      "title": "Check data licensing and redistribution rights",
+      "tags": [
+        "licensing",
+        "compliance",
+        "redistribution",
+        "legal",
+        "terms-of-use"
+      ],
+      "n_variants": 3
+    },
+    "T-pii": {
+      "kind": "transverse",
+      "title": "Keep personal and client-confidential data out",
+      "tags": [
+        "pii",
+        "confidentiality",
+        "privacy",
+        "security",
+        "data-handling"
+      ],
+      "n_variants": 3
+    },
+    "T-assumptions": {
+      "kind": "transverse",
+      "title": "Surface assumptions and open questions",
+      "tags": [
+        "assumptions",
+        "open-questions",
+        "ambiguity",
+        "scoping",
+        "risk"
+      ],
+      "n_variants": 3
+    },
+    "C-window": {
+      "kind": "cluster",
+      "title": "Get the time-window arithmetic right",
+      "tags": [
+        "time-window",
+        "backfill",
+        "boundaries",
+        "off-by-one",
+        "temporal"
+      ],
+      "n_variants": 3
+    },
+    "C-cloudmask": {
+      "kind": "cluster",
+      "title": "Handle cloud cover and missing observations",
+      "tags": [
+        "cloud-mask",
+        "missing-data",
+        "gaps",
+        "satellite",
+        "coverage"
+      ],
+      "n_variants": 3
+    },
+    "C-cost": {
+      "kind": "cluster",
+      "title": "Estimate compute and storage cost before running",
+      "tags": [
+        "cost",
+        "compute",
+        "storage",
+        "budget",
+        "estimation",
+        "egress"
+      ],
+      "n_variants": 3
+    },
+    "C-schemacompat": {
+      "kind": "cluster",
+      "title": "Preserve schema and API compatibility",
+      "tags": [
+        "schema",
+        "compatibility",
+        "versioning",
+        "api",
+        "contract",
+        "breaking-change"
+      ],
+      "n_variants": 3
+    },
+    "C-significance": {
+      "kind": "cluster",
+      "title": "Do not over-read small differences",
+      "tags": [
+        "statistics",
+        "significance",
+        "sample-size",
+        "noise",
+        "comparison"
+      ],
+      "n_variants": 3
+    },
+    "C-goldenset": {
+      "kind": "cluster",
+      "title": "Validate against a frozen golden set",
+      "tags": [
+        "golden-set",
+        "regression",
+        "validation",
+        "fixtures",
+        "ground-truth"
+      ],
+      "n_variants": 3
+    },
+    "C-monitor": {
+      "kind": "cluster",
+      "title": "Instrument before you need the signal",
+      "tags": [
+        "monitoring",
+        "alerting",
+        "observability",
+        "metrics",
+        "sla"
+      ],
+      "n_variants": 3
+    },
+    "C-scoping": {
+      "kind": "cluster",
+      "title": "Restate the request before acting on it",
+      "tags": [
+        "scoping",
+        "requirements",
+        "clarification",
+        "intake",
+        "expectations"
+      ],
+      "n_variants": 3
+    },
+    "C-staged": {
+      "kind": "cluster",
+      "title": "Roll out in stages with a kill switch",
+      "tags": [
+        "staged-rollout",
+        "canary",
+        "feature-flag",
+        "kill-switch",
+        "deployment"
+      ],
+      "n_variants": 3
+    },
+    "C-baseline": {
+      "kind": "cluster",
+      "title": "Measure the current state before changing it",
+      "tags": [
+        "baseline",
+        "measurement",
+        "before-after",
+        "profiling",
+        "evidence"
+      ],
+      "n_variants": 3
+    },
+    "C-deps": {
+      "kind": "cluster",
+      "title": "Map upstream and downstream dependencies",
+      "tags": [
+        "dependencies",
+        "blast-radius",
+        "consumers",
+        "upstream",
+        "impact-analysis"
+      ],
+      "n_variants": 3
+    },
+    "C-timebox": {
+      "kind": "cluster",
+      "title": "Time-box investigation and escalate on the clock",
+      "tags": [
+        "timebox",
+        "escalation",
+        "triage",
+        "prioritisation",
+        "stuck"
+      ],
+      "n_variants": 3
+    },
+    "U-incident": {
+      "kind": "unique",
+      "title": "Pipeline incident triage sequence",
+      "tags": [
+        "incident",
+        "triage",
+        "severity",
+        "outage",
+        "pipeline"
+      ],
+      "n_variants": 1
+    },
+    "U-backfill": {
+      "kind": "unique",
+      "title": "Backfill sequencing and idempotency",
+      "tags": [
+        "backfill",
+        "idempotency",
+        "reprocessing",
+        "historical",
+        "ordering"
+      ],
+      "n_variants": 1
+    },
+    "U-onboard": {
+      "kind": "unique",
+      "title": "New sensor feed onboarding checks",
+      "tags": [
+        "onboarding",
+        "sensor",
+        "new-source",
+        "ingest",
+        "characterisation"
+      ],
+      "n_variants": 1
+    },
+    "U-qa": {
+      "kind": "unique",
+      "title": "Validation report structure for a derived indicator",
+      "tags": [
+        "validation",
+        "qa-report",
+        "indicator",
+        "evidence",
+        "accuracy"
+      ],
+      "n_variants": 1
+    },
+    "U-retrain": {
+      "kind": "unique",
+      "title": "Model retraining discipline",
+      "tags": [
+        "retraining",
+        "model",
+        "drift",
+        "training-data",
+        "leakage"
+      ],
+      "n_variants": 1
+    },
+    "U-apireview": {
+      "kind": "unique",
+      "title": "Public API change review checklist",
+      "tags": [
+        "api-review",
+        "contract",
+        "pagination",
+        "errors",
+        "public-interface"
+      ],
+      "n_variants": 1
+    },
+    "U-cost": {
+      "kind": "unique",
+      "title": "Cost reduction search order",
+      "tags": [
+        "cost-reduction",
+        "optimisation",
+        "waste",
+        "rightsizing",
+        "retention"
+      ],
+      "n_variants": 1
+    },
+    "U-clientreq": {
+      "kind": "unique",
+      "title": "Ad-hoc client data request handling",
+      "tags": [
+        "client-request",
+        "delivery",
+        "ad-hoc",
+        "turnaround",
+        "scope"
+      ],
+      "n_variants": 1
+    },
+    "U-schema": {
+      "kind": "unique",
+      "title": "Schema migration execution",
+      "tags": [
+        "migration",
+        "schema-change",
+        "expand-contract",
+        "dual-write",
+        "cutover"
+      ],
+      "n_variants": 1
+    },
+    "U-benchmark": {
+      "kind": "unique",
+      "title": "Benchmark design for an indicator",
+      "tags": [
+        "benchmark",
+        "evaluation-design",
+        "metric",
+        "task-suite",
+        "protocol"
+      ],
+      "n_variants": 1
+    },
+    "U-release": {
+      "kind": "unique",
+      "title": "Indicator release readiness",
+      "tags": [
+        "release",
+        "readiness",
+        "launch",
+        "versioning",
+        "announcement"
+      ],
+      "n_variants": 1
+    },
+    "U-license": {
+      "kind": "unique",
+      "title": "Licence and redistribution assessment procedure",
+      "tags": [
+        "licence-review",
+        "derivative-works",
+        "attribution",
+        "contracts",
+        "assessment"
+      ],
+      "n_variants": 1
+    }
+  }
+}

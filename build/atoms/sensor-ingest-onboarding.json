@@ -1,0 +1,159 @@
+{
+  "skill": "sensor-ingest-onboarding",
+  "atoms": [
+    {
+      "obligation": "Work the required steps in order and treat each one as a commitment you can be held to.",
+      "lesson": "This skill guides the ingest engineer through a feed end to end. Work the sections in order; each one names an obligation you can be held to. The sections are: onboarding checks, keeping personal and client-confidential data out, licensing and redistribution rights, surfacing assumptions and open questions, provenance and lineage, instrumentation, the time window, cloud cover and missing observations, and units/CRS/time zones.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Sensor feed onboarding"
+    },
+    {
+      "obligation": "Characterise a new source's real behaviour and limitations yourself before trusting it for any downstream work.",
+      "lesson": "Skipping this is the most common way a feed goes wrong.\n\nCharacterise the feed before trusting it: revisit interval and actual latency distribution (not the advertised one), native resolution and resampling behaviour, radiometric calibration and known artefacts, the vendor's own quality flags, and their restatement policy.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Onboarding: what is required"
+    },
+    {
+      "obligation": "Run the new source in parallel with the incumbent and quantify the difference before switching over.",
+      "lesson": "Run a parallel period against the incumbent source and quantify the level shift before any switchover. Skipping this is the most common way a feed goes wrong — a silent level shift between the old and new source is otherwise discovered only after the switch.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Onboarding: what is required"
+    },
+    {
+      "obligation": "Record the outcome of each completed step in the written record for the work.",
+      "lesson": "\"Record the outcome of this step in the feed notes.\" This closing instruction is repeated verbatim at the end of the onboarding checks (section 1), the personal and client-confidential data section (section 2) and the data licensing and redistribution rights section (section 3): the feed notes are where the outcome of each of those steps is written down.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Onboarding: what is required"
+    },
+    {
+      "obligation": "Keep personal and client-identifying detail out of shared repositories, tickets, logs and working notes.",
+      "lesson": "Personal data and client-identifying detail stay out of shared repos, tickets, logs and notebooks. Record the outcome of this step in the feed notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Keep personal and client-confidential data out for this feed"
+    },
+    {
+      "obligation": "Stop and request a redacted copy when supplied material contains personal or client-identifying detail.",
+      "lesson": "On encountering it in a supplied sample, halt and request a redacted copy. That is, personal data or client-identifying detail found inside a vendor-supplied sample stops the work until a redacted copy arrives; it is not worked around in place.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Keep personal and client-confidential data out for this feed"
+    },
+    {
+      "obligation": "Share aggregates only, and use identifiers that cannot be re-linked to individuals or clients.",
+      "lesson": "Share aggregates, and use identifiers that cannot be re-linked. Personal data and client-identifying detail stay out of shared repos, tickets, logs and notebooks, so anything that leaves must be aggregated and keyed on identifiers with no path back to the original subject.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Keep personal and client-confidential data out for this feed"
+    },
+    {
+      "obligation": "Check each input's licence terms before releasing anything derived from it.",
+      "lesson": "Each input's licence is checked before derived content is released — scope over derivatives, attribution text, embargo. Record the outcome of this step in the feed notes.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Check data licensing and redistribution rights for this feed"
+    },
+    {
+      "obligation": "Refer unclear licence terms to legal rather than deciding them on your own judgement.",
+      "lesson": "Unclear terms go to legal, not to your own judgement. The three things being checked — scope over derivatives, attribution text, embargo — are exactly the places where terms tend to be ambiguous, and ambiguity there is a legal question, not an engineering one.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Check data licensing and redistribution rights for this feed"
+    },
+    {
+      "obligation": "Maintain an explicit list of assumptions and open questions, each with a named owner and impact.",
+      "lesson": "Surface assumptions and open questions — non-negotiable. The ingest engineer owns this step.\n\nMaintain an explicit assumptions-and-open-questions list: statement, owner who can resolve it, and impact if false. Unowned assumptions are the failure mode.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Surface assumptions and open questions — non-negotiable"
+    },
+    {
+      "obligation": "Attach a record of origin to every output and keep it beside the artefact.",
+      "lesson": "Skipping this is the most common way a feed goes wrong.\n\nAttach a lineage record to every output: input dataset versions, coverage window, code revision, config hash. Co-locate it with the artefact so the two cannot drift apart.\n\nIf you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Provenance and lineage"
+    },
+    {
+      "obligation": "Do not release any output whose origin cannot be reconstructed by someone else later.",
+      "lesson": "Outputs without a reconstructable origin do not leave the team. Reconstructable means the attached lineage record carries the input dataset versions, coverage window, code revision and config hash. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Provenance and lineage"
+    },
+    {
+      "obligation": "Ship monitoring for freshness, volume and missing values together with the pipeline itself.",
+      "lesson": "Instrument before you need the signal. Apply this before the feed leaves your hands.\n\nMonitors for freshness, volume and null rate go in with the pipeline.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Instrument before you need the signal for this feed"
+    },
+    {
+      "obligation": "Make alerts fire on symptoms users would notice, and give each an owner and runbook.",
+      "lesson": "Alerts fire on symptoms users would notice and carry an owner plus a runbook. Apply this before the feed leaves your hands — the instrumentation is part of the delivery, not a follow-up.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Instrument before you need the signal for this feed"
+    },
+    {
+      "obligation": "Use half-open intervals consistently across every place a range appears, and record the convention explicitly.",
+      "lesson": "Apply this before the feed leaves your hands.\n\nUse half-open intervals [start, end) consistently across filenames, partitions, queries and API calls, and record the convention explicitly.\n\nIf you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Time window: what is required"
+    },
+    {
+      "obligation": "Hand-check the first and last boundary of a range against the job's actual output.",
+      "lesson": "Hand-check the first and last partition against the job's output; boundary errors dominate temporal bugs. This is the check on the half-open [start, end) convention actually holding across filenames, partitions, queries and API calls. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Time window: what is required"
+    },
+    {
+      "obligation": "Distinguish a missing observation from an observed zero, and carry the counts that prove which.",
+      "lesson": "This section applies to every feed without exception.\n\nSeparate absence of signal from absence of observation: carry per-value counts and cloud fraction, apply the cloud threshold, flag interpolated points.\n\nIf you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Handle cloud cover and missing observations"
+    },
+    {
+      "obligation": "Publish coverage and completeness prominently alongside the results rather than burying them.",
+      "lesson": "Publish coverage prominently. This section applies to every feed without exception: a value that is low because nothing was observed must be distinguishable by the reader from a value that is low because the signal was low, which is why per-value counts, cloud fraction and interpolation flags travel with the output. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Handle cloud cover and missing observations"
+    },
+    {
+      "obligation": "Annotate units, coordinate reference and time zone everywhere a value appears.",
+      "lesson": "The ingest engineer owns this step.\n\nAnnotate units, CRS and time zone everywhere.\n\nIf you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Be explicit about units, CRS and time zones for this feed"
+    },
+    {
+      "obligation": "Store values in the agreed canonical units, reference frame and time standard, never local ones.",
+      "lesson": "Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. The ingest engineer owns this step. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Be explicit about units, CRS and time zones for this feed"
+    },
+    {
+      "obligation": "Confine locale-specific formatting to the presentation layer alone, never to stored or exchanged data.",
+      "lesson": "Local formats belong to the presentation layer alone. Storage is SI, EPSG:4326 for coordinates, equal-area for area maths, UTC for time. If you cannot satisfy this, stop and escalate.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "9. Be explicit about units, CRS and time zones for this feed"
+    },
+    {
+      "obligation": "Confirm every required step is complete before considering the work finished.",
+      "lesson": "- [ ] New sensor feed onboarding checks\n- [ ] Keep personal and client-confidential data out\n- [ ] Check data licensing and redistribution rights\n- [ ] Surface assumptions and open questions\n- [ ] Record provenance and lineage\n- [ ] Instrument before you need the signal\n- [ ] Get the time-window arithmetic right\n- [ ] Handle cloud cover and missing observations\n- [ ] Be explicit about units, CRS and time zones",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+ "signal": "top_skill_bm25",
+ "floor": 8.99,
+ "conf_hi": 20.58,
+ "conf_lo": 15.11,
+ "positives": 180,
+ "negatives": 15,
+ "negatives_caught": 14
+}

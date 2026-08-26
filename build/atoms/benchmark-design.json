@@ -1,0 +1,173 @@
+{
+  "skill": "benchmark-design",
+  "atoms": [
+    {
+      "obligation": "Work through each section of this guidance in order, treating every section as an obligation you can be held to.",
+      "lesson": "This skill guides the researcher through a benchmark end to end. Work the sections in order; each one names an obligation you can be held to.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Benchmark design"
+    },
+    {
+      "obligation": "Design the evaluation around the decision it informs so that a result can actually change what you do.",
+      "lesson": "This section applies to every benchmark without exception.\n\nDesign the benchmark around the decision it informs. A benchmark you cannot fail teaches nothing.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Fix the success metric and the acceptance threshold before you see any results.",
+      "lesson": "Fix the metric and the acceptance threshold before seeing any results. This section applies to every benchmark without exception. A benchmark you cannot fail teaches nothing.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Include negative and adversarial cases in the test set rather than only the happy path.",
+      "lesson": "Include negative and adversarial cases rather than only the happy path. This section applies to every benchmark without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Hold out a set that nobody tunes against, and keep it untouched.",
+      "lesson": "Hold out a set nobody tunes against. This section applies to every benchmark without exception. A benchmark you cannot fail teaches nothing.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Write down in advance what result would make you abandon the approach.",
+      "lesson": "Write down what result would make you abandon the approach. A benchmark you cannot fail teaches nothing. This section applies to every benchmark without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Stop and escalate when you cannot satisfy a mandatory requirement, rather than proceeding without it.",
+      "lesson": "If you cannot satisfy this, stop and escalate. \"This\" is the whole of section 1, which applies to every benchmark without exception: designing the benchmark around the decision it informs, fixing the metric and the acceptance threshold before seeing any results, including negative and adversarial cases, holding out a set nobody tunes against, and writing down what result would make you abandon the approach.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "1. Benchmark: what is required"
+    },
+    {
+      "obligation": "Restate the request and obtain confirmation before you start work on it.",
+      "lesson": "This section is marked non-negotiable. Restate the ask — question, geography, period, granularity, format, deadline — and get confirmation before starting. Assumed granularity and assumed period are the usual causes of rework.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Restate the request before acting on it — non-negotiable"
+    },
+    {
+      "obligation": "Stop and escalate when you cannot satisfy a mandatory requirement, rather than proceeding without it.",
+      "lesson": "If you cannot satisfy this, stop and escalate. Here \"this\" is restating the ask — question, geography, period, granularity, format, deadline — and getting confirmation before starting.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "2. Restate the request before acting on it — non-negotiable"
+    },
+    {
+      "obligation": "Write a manifest that lets someone else re-run the work from scratch.",
+      "lesson": "This section applies to every benchmark without exception.\n\nWrite a manifest that lets someone else re-run the work from scratch: the exact command line, the container image digest, pinned dependency versions, random seeds, and the wall-clock window of the run.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Emit a reproducibility manifest"
+    },
+    {
+      "obligation": "Verify reproducibility by re-running once in a clean environment before you call the work done.",
+      "lesson": "Verify the manifest by re-running once in a clean environment before you call the work done. The manifest must contain the exact command line, the container image digest, pinned dependency versions, random seeds, and the wall-clock window of the run. This section applies to every benchmark without exception.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Emit a reproducibility manifest"
+    },
+    {
+      "obligation": "Record the outcome of this step in the written notes for the work.",
+      "lesson": "Record the outcome of this step in the benchmark notes. The step is emitting and verifying the reproducibility manifest (exact command line, container image digest, pinned dependency versions, random seeds, wall-clock window), re-run once in a clean environment.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "3. Emit a reproducibility manifest"
+    },
+    {
+      "obligation": "Compare any claimed effect against the noise floor before reporting it as real.",
+      "lesson": "Skipping this is the most common way a benchmark goes wrong.\n\nCompare against the noise floor before claiming an effect: variance across runs, paired arms, a resampling check, and n reported next to every mean.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Statistics and significance"
+    },
+    {
+      "obligation": "Report the number of observations next to every mean you publish.",
+      "lesson": "n reported next to every mean. This sits alongside the rest of the noise-floor comparison: variance across runs, paired arms, and a resampling check. Skipping this is the most common way a benchmark goes wrong.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "4. Statistics and significance"
+    },
+    {
+      "obligation": "List every load-bearing assumption and open question with a named owner and a blast radius.",
+      "lesson": "The researcher owns this step.\n\nList every load-bearing assumption and unresolved question with an owner and a blast radius. Anything unowned is a latent defect.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Surface assumptions and open questions"
+    },
+    {
+      "obligation": "Record the outcome of this step in the written notes for the work.",
+      "lesson": "Record the outcome of this step in the benchmark notes. The step is listing every load-bearing assumption and unresolved question with an owner and a blast radius; anything unowned is a latent defect. The researcher owns this step.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "5. Surface assumptions and open questions"
+    },
+    {
+      "obligation": "Diff every change against a frozen, version-controlled reference set before accepting it.",
+      "lesson": "Diff every change against a frozen, code-versioned golden set.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Golden set and regression"
+    },
+    {
+      "obligation": "Make each update to the frozen reference set an isolated commit carrying its justification.",
+      "lesson": "Golden updates are isolated commits carrying their justification. The golden set itself is frozen and code-versioned, and every change is diffed against it.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "6. Golden set and regression"
+    },
+    {
+      "obligation": "Never leave units, reference frames or time zones implied; label them on every numeric field and axis.",
+      "lesson": "Skipping this is the most common way a benchmark goes wrong.\n\nUnits, CRS and time zone are never implied. Label them on each numeric field and axis.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Units: what is required"
+    },
+    {
+      "obligation": "Store values in canonical units and convert or localise only for display.",
+      "lesson": "Store in SI, keep lon/lat in EPSG:4326, reproject to an equal-area CRS before computing areas, and persist timestamps in UTC; localise only for display. Skipping this is the most common way a benchmark goes wrong.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Units: what is required"
+    },
+    {
+      "obligation": "Record the outcome of this step in the written notes for the work.",
+      "lesson": "Record the outcome of this step in the benchmark notes. The step is making units, CRS and time zone explicit: label them on each numeric field and axis, store in SI, keep lon/lat in EPSG:4326, reproject to an equal-area CRS before computing areas, and persist timestamps in UTC.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "7. Units: what is required"
+    },
+    {
+      "obligation": "Never publish a point estimate alone; give an interval, say what it covers, and name the dominant error source.",
+      "lesson": "Skipping this is the most common way a benchmark goes wrong.\n\nNever publish a point estimate alone. Give an interval, say what it covers (sampling error, revision risk, sensor gaps), and name the dominant error source.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Report uncertainty honestly for this benchmark"
+    },
+    {
+      "obligation": "State explicitly when uncertainty cannot be quantified rather than omitting it.",
+      "lesson": "Where the uncertainty is not quantifiable, say so explicitly rather than omitting it — a silent point estimate reads as certainty you do not have.",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "8. Report uncertainty honestly for this benchmark"
+    },
+    {
+      "obligation": "Verify every item on the closing checklist before you consider the work complete.",
+      "lesson": "- [ ] Benchmark design for an indicator\n- [ ] Restate the request before acting on it\n- [ ] Emit a reproducibility manifest\n- [ ] Do not over-read small differences\n- [ ] Surface assumptions and open questions\n- [ ] Validate against a frozen golden set\n- [ ] Be explicit about units, CRS and time zones\n- [ ] Report uncertainty honestly",
+      "kind": "prose",
+      "refs": [],
+      "anchor": "Closing checklist"
+    }
+  ]
+}

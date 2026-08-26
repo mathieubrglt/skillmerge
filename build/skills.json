@@ -1,0 +1,98 @@
+[
+ {
+  "name": "api-change-review",
+  "dir": "corpus/api-change-review",
+  "description": "Review a proposed change to a customer-facing API or data contract. Use when adding or altering endpoints, fields, or response semantics that external consumers depend on.",
+  "sections": 9,
+  "assets": 0,
+  "sha256": "2159e45205f40a75067ed788664f9ac7bec7a1782c6fc4c0bfb4175fd8f9ffe0"
+ },
+ {
+  "name": "backfill-planning",
+  "dir": "corpus/backfill-planning",
+  "description": "Plan and execute a historical reprocessing run. Use when a fix must be applied to past periods, when a new field needs populating retroactively, or when a vendor restates upstream data.",
+  "sections": 11,
+  "assets": 0,
+  "sha256": "e71fd5b336f141a6f4de111499196de8e2236cc8290f7d8721fc53babee2ea29"
+ },
+ {
+  "name": "benchmark-design",
+  "dir": "corpus/benchmark-design",
+  "description": "Design an evaluation that can actually distinguish approaches. Use when comparing methods, vendors or model versions, or when defining acceptance criteria for a new capability.",
+  "sections": 10,
+  "assets": 0,
+  "sha256": "7b5a894f95c992fba50db074cdc9472284d765dd39719f1619ff863e73420818"
+ },
+ {
+  "name": "client-data-request",
+  "dir": "corpus/client-data-request",
+  "description": "Answer a one-off data or analysis request from a client or commercial team. Use when someone asks for an extract, a custom aggregation, or a quick answer from platform data.",
+  "sections": 10,
+  "assets": 0,
+  "sha256": "49a0349febd678414e9fae52e359d5d27e5836a27a2d9c87b73ae666a7e4b2b9"
+ },
+ {
+  "name": "cost-optimization",
+  "dir": "corpus/cost-optimization",
+  "description": "Reduce infrastructure spend on data processing and storage. Use when a budget line is over, when a new large workload is proposed, or during a periodic cost review.",
+  "sections": 9,
+  "assets": 0,
+  "sha256": "62c11988a460da562cd5661af5c7d06db3876e3f152e91b1eaeddddbd2d4dad6"
+ },
+ {
+  "name": "data-license-compliance",
+  "dir": "corpus/data-license-compliance",
+  "description": "Determine what may be published from a licensed input. Use before releasing derived products, sharing extracts externally, or signing a new data agreement.",
+  "sections": 9,
+  "assets": 0,
+  "sha256": "c85feb2c7e5362e1580b5686dfe32499847ba9152a6f10f1c104edef81afdad5"
+ },
+ {
+  "name": "model-retraining",
+  "dir": "corpus/model-retraining",
+  "description": "Retrain and evaluate a detection or estimation model. Use when accuracy drifts, when new labelled data arrives, or when extending a model to a new region or sensor.",
+  "sections": 12,
+  "assets": 0,
+  "sha256": "7a7b51d170a59d82e361a46bf7c7467050307558a88b3481227d7d379dcf4a38"
+ },
+ {
+  "name": "pipeline-incident-response",
+  "dir": "corpus/pipeline-incident-response",
+  "description": "Triage, contain and communicate a broken or suspect data pipeline. Use when a scheduled job fails, when served values look wrong, or when a consumer reports stale or implausible data.",
+  "sections": 11,
+  "assets": 0,
+  "sha256": "b5a76167415d7ad295808d7d3d0ea2c2516410ed1abfdeebe6744bed03192e1d"
+ },
+ {
+  "name": "qa-validation-report",
+  "dir": "corpus/qa-validation-report",
+  "description": "Produce a defensible validation of a derived indicator. Use when publishing accuracy claims, when a client questions a number, or before a new indicator version is released.",
+  "sections": 12,
+  "assets": 0,
+  "sha256": "8088c471dcabb99e1d59446f067a230465d417f8aac6ab83bfa756a70b759401"
+ },
+ {
+  "name": "release-readiness",
+  "dir": "corpus/release-readiness",
+  "description": "Decide whether a new or updated indicator is ready to publish. Use before a version bump reaches customers, or when signing off a new product surface.",
+  "sections": 10,
+  "assets": 0,
+  "sha256": "e69135c12ffc1a1e0bb8fa3e0fde0d1e55c430a489477bd5e262a1c9871b1999"
+ },
+ {
+  "name": "schema-migration",
+  "dir": "corpus/schema-migration",
+  "description": "Change the shape of a stored dataset or table safely. Use when adding, renaming, retyping or removing fields in a dataset that has downstream readers.",
+  "sections": 9,
+  "assets": 0,
+  "sha256": "d27018ba3d2c8a5b34641f2dbb9a6841ab50b2cc0b9a2285dc26aae59eec42cb"
+ },
+ {
+  "name": "sensor-ingest-onboarding",
+  "dir": "corpus/sensor-ingest-onboarding",
+  "description": "Bring a new satellite or sensor feed into the platform. Use when evaluating a new data vendor, adding a constellation, or replacing an existing source.",
+  "sections": 11,
+  "assets": 0,
+  "sha256": "7e0aad3d4162a02f67250cfd44636abe2225c0d2046a2a0bbe3b060a6e768ba9"
+ }
+]

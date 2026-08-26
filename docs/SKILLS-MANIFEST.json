@@ -1,0 +1,414 @@
+{
+ "note": "Skills used by the production study in the paper. Their text is not redistributed here; this manifest records which documents were read and their exact content hash so a reader with the same installation can confirm they are looking at the same corpus.",
+ "read_on": "2026-08-26",
+ "skills": 45,
+ "licensed_skills": 17,
+ "proprietary_marked": 6,
+ "entries": [
+  {
+   "name": "architecture",
+   "relative_dir": "architecture",
+   "sha256": "de7db3170a3ae1a894c70ef6cb555fe15618ed9b9674d20895eda3d2a0a5f9a2",
+   "bytes": 2410,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "code-review",
+   "relative_dir": "code-review",
+   "sha256": "6303932f1b301c614a6f5a0099cd87a19e1cd1b7cbfa1a1e11e996edbca6426b",
+   "bytes": 4285,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "debug",
+   "relative_dir": "debug",
+   "sha256": "e50bb92cbcb2715139f3a3cb9ff282a8f0f9ae794f8f35d81338654e2601d32a",
+   "bytes": 4074,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "deploy-checklist",
+   "relative_dir": "deploy-checklist",
+   "sha256": "85ca53dc471970e3e12c36ec814ebf5f6cb9419016c55adb05ff34789bae3be9",
+   "bytes": 2389,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "documentation",
+   "relative_dir": "documentation",
+   "sha256": "1d469418f786a05be83d2a05f04d68788aeed584d13863a650f5ad73c6c4cf50",
+   "bytes": 1507,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "incident-response",
+   "relative_dir": "incident-response",
+   "sha256": "9eaa7a974c90395ac7116e82710f74546f38e69f735d78f684ee13fd79646e9a",
+   "bytes": 5669,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "standup",
+   "relative_dir": "standup",
+   "sha256": "598d9082631326ee810056c787188ee021c6325f990989732ba178ea111adf45",
+   "bytes": 3315,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "system-design",
+   "relative_dir": "system-design",
+   "sha256": "8f28eca99f2208872fc2483fcc93326b628f4f73116e91309a95e05da86a0ab5",
+   "bytes": 1310,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "tech-debt",
+   "relative_dir": "tech-debt",
+   "sha256": "ed3b4b1450c0fd9b8dad17313b5a4fafd8e6947d380b79b36a2e8259f3b1df0f",
+   "bytes": 1458,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "testing-strategy",
+   "relative_dir": "testing-strategy",
+   "sha256": "5c5e95830754bbdd838213fa05fc8f07523f591fd558fd3c86031ffd479f7a9e",
+   "bytes": 1279,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "engineering-plugin"
+  },
+  {
+   "name": "docx",
+   "relative_dir": "docx",
+   "sha256": "8017469ea95fb7d28225c62daf8e2f3492a7b516fc64c18c28977cbf8980b7fe",
+   "bytes": 6911,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 59,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "file-reading",
+   "relative_dir": "file-reading",
+   "sha256": "01ccda8f3014a3199e9668cd862391db5c41500f1821e60f013812dedf4dec88",
+   "bytes": 13415,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 0,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "frontend-design",
+   "relative_dir": "frontend-design",
+   "sha256": "464641c1450357485b50652e8f5bd783f30c585da6688677c6ad531122760bd1",
+   "bytes": 8381,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "pdf-reading",
+   "relative_dir": "pdf-reading",
+   "sha256": "e2081f071b4f56fb0fd994dad13c3b7b1dc35d7f3655707ae38ccaf230b787b6",
+   "bytes": 11374,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 0,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "pdf",
+   "relative_dir": "pdf",
+   "sha256": "9f78b8359fbd4943ad260a7a1e436e5a96503406d6c34e99f69223d647d85b9c",
+   "bytes": 8072,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 8,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "pptx",
+   "relative_dir": "pptx",
+   "sha256": "472a2605de27c43179a5d434313633c1ec73c64105c9b729f321506e3411d2c0",
+   "bytes": 20983,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 54,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "product-self-knowledge",
+   "relative_dir": "product-self-knowledge",
+   "sha256": "216f66560c9f1088fb6cd589a1d0f089da5fb38318750ef09b24f1f0ec3c1125",
+   "bytes": 2605,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "xlsx",
+   "relative_dir": "xlsx",
+   "sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+   "bytes": 8598,
+   "declared_license": "Proprietary. LICENSE.txt has complete terms",
+   "auxiliary_files": 51,
+   "source": "claude-public-skills"
+  },
+  {
+   "name": "algorithmic-art",
+   "relative_dir": "algorithmic-art",
+   "sha256": "3bc4092c09804853186524c826bc0621b940bb6122c05b84496dff95388e6eef",
+   "bytes": 19769,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 2,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "benepass-reimbursement",
+   "relative_dir": "benepass-reimbursement",
+   "sha256": "8bb4ac08bb9969e48d5ea7f7844c57fd7f369cac89e155a72fdb66e08f08b3d0",
+   "bytes": 6230,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "brand-guidelines",
+   "relative_dir": "brand-guidelines",
+   "sha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+   "bytes": 2235,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "call-to-book",
+   "relative_dir": "call-to-book",
+   "sha256": "6caa80913d6bdea2907b20b2a51c0f5ffe48b3a76ac17f2ad700083a387c5ebd",
+   "bytes": 4141,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "cancel-unsubscribe",
+   "relative_dir": "cancel-unsubscribe",
+   "sha256": "b2cb790a01d02ddceeb2fa04cee2b4c7abb86f20eee0013249948ce01bba27e2",
+   "bytes": 5788,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "canvas-design",
+   "relative_dir": "canvas-design",
+   "sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b",
+   "bytes": 11939,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "doc-coauthoring",
+   "relative_dir": "doc-coauthoring",
+   "sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4",
+   "bytes": 15815,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "event-planning",
+   "relative_dir": "event-planning",
+   "sha256": "2219d71d1b058d53ec093e5ce356b890f5e0e73e71cbf261cf7dc4bc4d7bfce6",
+   "bytes": 4680,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "file-expenses",
+   "relative_dir": "file-expenses",
+   "sha256": "433ff85e9487084da539a4f012005dae82da13fe9bcd1932b95b228b6dd5a031",
+   "bytes": 3365,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "file-form",
+   "relative_dir": "file-form",
+   "sha256": "b1721d9d64cdb88ab2b4cc2ca5754468513dfda64095449377d8204545ee942c",
+   "bytes": 3465,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "financial-calculator",
+   "relative_dir": "financial-calculator",
+   "sha256": "f84d10c66cc58ae7d133e71b1c0dbc2295b55fb9df2886beef57d86d37ad1197",
+   "bytes": 4324,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "grocery-shopping",
+   "relative_dir": "grocery-shopping",
+   "sha256": "170a576c36079a987b9d773fbcd749fd8b84be6104f88a0c35ce841110793056",
+   "bytes": 3012,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "hire-help",
+   "relative_dir": "hire-help",
+   "sha256": "84c9809f6cc72a31e57437cee4676bd34656f606b176501c54c6655d6e8b6936",
+   "bytes": 3757,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "import-memory",
+   "relative_dir": "import-memory",
+   "sha256": "5179b0780b7025c93271c181636a23acc8d05cad3b20584639cbaf1cf9c3b07a",
+   "bytes": 10689,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "internal-comms",
+   "relative_dir": "internal-comms",
+   "sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475",
+   "bytes": 1511,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 4,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "learn",
+   "relative_dir": "learn",
+   "sha256": "dd79b135afec2994f53065805d6dbca70b5c7175109a656503416c62f2da1201",
+   "bytes": 13448,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "mcp-builder",
+   "relative_dir": "mcp-builder",
+   "sha256": "0f4592dcb53cf2b5d6b7febee6b4152018b565551a1c29e3c612f57b218ab295",
+   "bytes": 9092,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 4,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "meal-delivery",
+   "relative_dir": "meal-delivery",
+   "sha256": "93aab7102cddd757fa476df8899d2abe90f0ea42a10d531f5bff32b3b9666b9b",
+   "bytes": 2867,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "morning",
+   "relative_dir": "morning",
+   "sha256": "a7c4dbcb745799736991b027cceae39aae4880cc00ff43871ae5e87b38023bdd",
+   "bytes": 18163,
+   "declared_license": null,
+   "auxiliary_files": 2,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "paint",
+   "relative_dir": "paint",
+   "sha256": "ebdf18262b1dd3264a6e8c96a8bdf46f0a93e4d5fbfc4eaf47cdc68f2c20c237",
+   "bytes": 3243,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 1,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "prescription-refill",
+   "relative_dir": "prescription-refill",
+   "sha256": "aab9c7a86b6128ddf4c872c5c8fce587900949e4605c91577aab0ccbdb76f74d",
+   "bytes": 6279,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "return-refund",
+   "relative_dir": "return-refund",
+   "sha256": "2d19f133875cf5fa57ba02ea1342ce07d4f856e0190247ce248cdcc4b11e7f18",
+   "bytes": 3725,
+   "declared_license": null,
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "setup-writing-style",
+   "relative_dir": "setup-writing-style",
+   "sha256": "bf230573de994546a3729be75f44f35285cd8d149f1ab9bc456b0cb32204f7fc",
+   "bytes": 42544,
+   "declared_license": null,
+   "auxiliary_files": 1,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "skill-creator",
+   "relative_dir": "skill-creator",
+   "sha256": "42765c880e446a83c85f7852fc77b43ecd46c76ca219d68051799ac7425e6943",
+   "bytes": 33351,
+   "declared_license": null,
+   "auxiliary_files": 11,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "slack-gif-creator",
+   "relative_dir": "slack-gif-creator",
+   "sha256": "2efca615ce55a3edd8fc05c779068a8085816617991987e446606403cd3abb22",
+   "bytes": 7841,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "theme-factory",
+   "relative_dir": "theme-factory",
+   "sha256": "c35893e221e28895c52143cc11bf30e41a44817796b39d4b15727dadc9796552",
+   "bytes": 3124,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 0,
+   "source": "claude-example-skills"
+  },
+  {
+   "name": "web-artifacts-builder",
+   "relative_dir": "web-artifacts-builder",
+   "sha256": "81c5002c6643b0de7b8710b00e7a9038daa6fb9b68d59870ee6adb12da8d10f8",
+   "bytes": 3087,
+   "declared_license": "Complete terms in LICENSE.txt",
+   "auxiliary_files": 3,
+   "source": "claude-example-skills"
+  }
+ ]
+}

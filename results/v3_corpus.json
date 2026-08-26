@@ -1,0 +1,20 @@
+{
+ "atoms": 1134,
+ "skills": 45,
+ "obligation_tokens": 20311,
+ "lesson_tokens": 90726,
+ "obligation_median": 18.0,
+ "lesson_median": 63.0,
+ "pinned": 393,
+ "pinned_share": 0.34656084656084657,
+ "atomised_tokens": 111037,
+ "source_tokens": 85905,
+ "expansion_ratio": 1.292555730167045,
+ "units": 872,
+ "merged_units": 137,
+ "lessons_in_merged": 348,
+ "max_support": 10,
+ "refs_kept": 135,
+ "refs_dropped": 110,
+ "obligation_share_of_atomised": 0.18292100831254446
+}

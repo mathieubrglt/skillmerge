@@ -1,0 +1,44 @@
+Third-party material
+====================
+
+This repository does not redistribute any skill it did not author.
+
+What is here
+------------
+
+corpus/            Twelve skills written for this project as a controlled test corpus, with
+                   redundancy planted by construction. Authored by the repository owner and
+                   covered by the MIT License, like the rest of the repository. This is also
+                   the corpus the demo index is built from.
+
+build/             A demo index built from corpus/ only.
+
+results/           Machine-readable results: scores, token counts, statistics. Numbers and
+                   condition labels, no skill text.
+
+paper/             The article. CC BY 4.0; see LICENSE-PAPER.
+
+What is deliberately absent
+---------------------------
+
+The production study in the paper used a 45-skill library that ships with Anthropic's Claude
+products. Seventeen of those skills carry their own license header; six are marked
+"Proprietary. LICENSE.txt has complete terms". Those documents belong to their authors and are
+not ours to publish, and neither are works derived closely from them: the atoms produced by the
+refactoring step reproduce their lessons verbatim by design, and the experiment prompts embed
+whole skill documents inline.
+
+So the following are not in this repository:
+
+  - the text of any skill from that library
+  - the atoms refactored from those skills
+  - the agent prompts and generated deliverables from the production study, which embed them
+
+What is here instead is everything needed to rebuild them locally from your own installation:
+docs/SKILLS-MANIFEST.json lists every skill used, with the SHA-256 of the SKILL.md the study
+read, so you can confirm you are looking at the same documents. `skillmerge discover` and
+`skillmerge jobs` then regenerate the refactoring prompts, and `skillmerge build` produces the
+index. See docs/reproducing.md.
+
+If you maintain a skill library of your own, point the pipeline at it. Nothing in the method
+depends on the particular corpus.
