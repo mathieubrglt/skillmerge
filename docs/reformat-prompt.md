@@ -28,5 +28,5 @@ Rules:
   - kind is "pinned" if the lesson contains a fenced block, a table, a shell/python invocation or a
     file path; otherwise "prose".
   - refs lists any files the lesson points at, exactly as written in the source (e.g.
-    "scripts/thumbnail.py"). Empty list if none.
+    "scripts/check.py"). Empty list if none.
   - anchor is the heading the material came from, verbatim.
