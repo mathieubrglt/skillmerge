@@ -131,8 +131,59 @@ chk("s3 useful F",6.75,E3['F_v3']['overall'],0.02); chk("s3 useful G",7.33,E3['G
 chk("s3 useful delta",0.583,json.load(open('results/v3_lessons_experiment.json'))['contrasts']['overall:G_lessons-F_v3']['delta'],0.002)
 o=json.load(open('results/v3_lessons_experiment.json'))['contrasts']['overall:F_v3-C_composed']
 chk("s3 useful F-C",-1.000,o['delta'],0.002); chk("s3 useful F-C p",0.008,o['p'],0.004)
+
+# ---- scaling section -------------------------------------------------------------
+SC=json.load(open('results/scale_analysis.json')); SR=json.load(open('results/scale_routing.json'))
+SK=json.load(open('results/scale_cost.json')); E4=json.load(open('results/scale504_experiment.json'))['summary']
+chk("distractor skills",459,SR['distractors'],0)
+chk("scale library",504,SR['distractors']+SR['real'],0)
+rt={r['n']:r for r in SR['rows']}
+for n,(f1,sk,pu) in {45:(0.673,3.2,1.000),100:(0.668,2.8,0.928),200:(0.608,2.5,0.835),
+                     300:(0.610,2.4,0.808),400:(0.614,2.3,0.822),504:(0.614,2.3,0.790)}.items():
+    chk(f"scale n={n} F1",f1,rt[n]['F1'],0.002)
+    chk(f"scale n={n} skills/req",sk,rt[n]['skills_per_req'],0.06)
+    chk(f"scale n={n} purity",pu,rt[n]['lesson_purity'],0.002)
+for n,(u,m) in {45:(872,137),100:(1081,134),200:(1445,164),300:(1809,198),400:(2156,239),504:(2524,284)}.items():
+    chk(f"scale n={n} units",u,rt[n]['units'],0); chk(f"scale n={n} merged",m,rt[n]['merged'],0)
+chk("false abstain always zero",0,max(r['false_abstain'] for r in SR['rows']),0)
+chk("routing recall flat 100+",0.667,min(r['R'] for r in SR['rows'] if r['n']>=100),0.002)
+chk("merge exponent",1.53,SC['merge_fit']['exponent'],0.005)
+chk("merge fit r2",0.999,SC['merge_fit']['r2'],0.001)
+chk("lessons exponent",1.60,SC['lessons_exponent'],0.005)
+chk("merged per skill at 45",3.04,SC['merge_curve'][-1]['merged_per_skill'],0.01)
+chk("merged per skill at 500",11.2,SC['merge_fit']['predictions']['500']/500,0.05)
+chk("description median",60,SC['description_tokens']['median'],0)
+chk("compose tool tokens",97,SC['compose_tool_tokens'],0)
+cost={r['n']:r for r in SK['rows']}
+for n,(w,ratio) in {10:(6194,4.4),45:(8294,5.9),100:(11594,8.2),250:(20594,14.6),
+                    500:(35594,25.3),1000:(65594,46.6)}.items():
+    chk(f"cost n={n} whole",w,cost[n]['whole_total'],1)
+    chk(f"cost n={n} ratio",ratio,cost[n]['ratio'],0.05)
+chk("skillmerge total",1406,cost[500]['sm_total'],1)
+for c,v in (("B_concat",0.919),("H_routed",0.870),("G_lessons",0.820),("J_scale",0.830)):
+    chk(f"scale rubric {c}",v,E4[c]['rubric'])
+for c,v in (("B_concat",0.885),("H_routed",0.865),("G_lessons",0.883),("J_scale",0.867)):
+    chk(f"scale pract {c}",v,E4[c]['task_rubric'])
+for c,v in (("B_concat",0.952),("H_routed",0.875),("G_lessons",0.756),("J_scale",0.794)):
+    chk(f"scale guid {c}",v,E4[c]['skill_rubric'])
+for c,v in (("B_concat",2414),("H_routed",5594),("G_lessons",1309),("J_scale",1193)):
+    chk(f"scale ctx {c}",v,E4[c]['ctx'],1)
+S4=json.load(open('results/stats_all.json'))['study4_scale']['contrasts']
+def c4(pair,d,lo,hi,p,ph):
+    r=[x for x in S4 if x['pair']==pair][0]
+    chk(f"s4 {pair} d",d,r['delta']); chk(f"s4 {pair} lo",lo,r['lo']); chk(f"s4 {pair} hi",hi,r['hi'])
+    chk(f"s4 {pair} p",p,r['p'],0.0005); chk(f"s4 {pair} pHolm",ph,r['p_holm'],0.0005)
+c4('J_scale-G_lessons',0.010,-0.042,0.074,0.9492,0.9492)
+c4('J_scale-H_routed',-0.040,-0.099,0.039,0.0742,0.1484)
+c4('G_lessons-H_routed',-0.050,-0.076,-0.025,0.0049,0.0195)
+c4('H_routed-B_concat',-0.049,-0.099,-0.013,0.0176,0.0527)
+c4('J_scale-B_concat',-0.089,-0.124,-0.052,0.0020,0.0098)
+mx=max(r['ctx_tokens'] for r in json.load(open('v2/runs/manifest.json'))['runs'] if r['cond']=='H_routed')
+chk("worst routed task tokens",18581,mx,1)
+chk("scale agreement",0.951,json.load(open('results/scale504_experiment.json'))['agreement']['exact'],0.002)
+
 # cross-study
-chk("total deliverables",132,48+84,0)   # 48 in study 1; 7 conditions x 12 tasks in studies 2 and 3
+chk("total deliverables",156,48+108,0)   # 48 in study 1; 9 conditions x 12 tasks after
 chk("saving range low",0.46,1-E3['G_lessons']['ctx']/E3['B_concat']['ctx'],0.01)
 chk("saving range high",0.60,1-E2['C_composed']['ctx']/E2['B_concat']['ctx'],0.01)
 print("\n%d failures"%len(fails)); sys.exit(1 if fails else 0)

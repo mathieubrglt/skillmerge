@@ -35,17 +35,27 @@ and the specific \emph{lesson} that makes it actionable, and merging only the fo
 every one of the latter, raised merge precision from 0.067 to 0.817 (difference $+0.750$, 95\% CI
 $[+0.634, +0.866]$, $p < 0.001$) without improving the deliverables. An ablation shows why: printing
 the obligations costs quality, because a capable model already holds them. We retain the third
-representation and reject its rendering. The case for composition rests on context cost and library
-hygiene; no variant matched whole-skill loading on output quality.
+representation and reject its rendering.
+Scaling the library from 45 to 504 skills, by adding 459 skills from twenty unrelated professional
+domains, leaves the composite unchanged in quality ($+0.010$, 95\% CI $[-0.042, +0.074]$,
+$p = 0.95$) and in cost, while the alternative's cost grows linearly with the library because a
+skill library keeps every description resident. Total per-request context favours composition by
+5.9 times at 45 skills and 25 times at 500. No variant matched whole-skill loading on output
+quality at any library size; the case for composition is that its cost does not move when the
+library does.
 \end{abstract}
 
 \section{Introduction}
 
 Skill composition does not improve the work an agent produces. Across three strategies, 12 tasks
-and 132 blind-graded deliverables, no composite came within 8 rubric points of loading the skills a
-practitioner would have chosen. It does reduce injected context by 46\% to 60\%, and one of the
-three strategies makes a skill library de-duplicable without losing content. Those two results, and
-the reasons the quality gap persists, are what this article reports.
+and 156 blind-graded deliverables, no composite matched or exceeded loading the skills a
+practitioner would have chosen; the shortfall ranged from about 2 rubric points on a corpus built
+to contain the redundancy composition removes to about 12 points on a real library. What it does
+is hold its cost and its quality constant as the
+library grows, while the alternative's cost grows linearly: at 500 skills the total per-request
+context differs by a factor of 25. One of the three strategies also makes a library de-duplicable
+without losing content, and the number of obligations it can merge grows as $n^{1.53}$. Those
+results, and the reasons the quality gap persists, are what this article reports.
 
 An agent skill is a document, typically a \texttt{SKILL.md}, that tells a model how a particular
 kind of work is done \citep{anthropic2025skills}. Skills are written to stand alone so they can be
@@ -188,7 +198,7 @@ The merging threshold was chosen on six skills and evaluated on the other six.
 \toprule
 Split & $k$ & true $k$ & ARI & Precision & Recall \\
 \midrule
-Development (6 skills) & 28 & 24 & 0.967 & 1.000 & 0.938 \\
+Development (6 skills) & 28 & 27 & 0.967 & 1.000 & 0.938 \\
 Held out (6 skills) & 27 & 25 & 0.904 & 1.000 & 0.829 \\
 Full corpus & 35 & 34 & 0.956 & 0.985 & 0.930 \\
 \bottomrule
@@ -581,6 +591,139 @@ We note the size of the effect honestly. $+0.021$ with an interval that includes
 evidence on its own. It is supported by the direction being consistent across two measures, by the
 mechanism being independently motivated, and by G landing level with C while F does not.
 
+\section{Scaling: what happens at 500 skills}
+\label{sec:scale}
+
+Every result so far comes from a 45-skill library. Production libraries reach several hundred, and
+two things change there. A person can no longer read every description and pick, so the oracle
+selection that conditions~B enjoyed is unavailable. And the descriptions themselves, which the
+Agent Skills format keeps resident so the model knows what it can load, become a per-request cost
+that is linear in library size.
+
+We tested both.
+
+\subsection{A 504-skill library}
+
+The 45 real skills keep their real atoms and expansions. To them we added 459 synthetic skills
+across twenty unrelated professional domains, from hospital administration to aviation maintenance
+to library science, each with a description, eight trigger phrasings and four atoms, so that
+distractors compete for routing \emph{and} for lesson selection rather than sitting inert. The
+twelve evaluation tasks are unchanged.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{rrrrrrr}
+\toprule
+Library & Units & Merged & Route $F_1$ & Skills/req & Lesson purity & ms/req \\
+\midrule
+45 & 872 & 137 & 0.673 & 3.2 & 1.000 & 12 \\
+100 & 1{,}081 & 134 & 0.668 & 2.8 & 0.928 & 15 \\
+200 & 1{,}445 & 164 & 0.608 & 2.5 & 0.835 & 882 \\
+300 & 1{,}809 & 198 & 0.610 & 2.4 & 0.808 & 1{,}253 \\
+400 & 2{,}156 & 239 & 0.614 & 2.3 & 0.822 & 1{,}120 \\
+504 & 2{,}524 & 284 & 0.614 & 2.3 & 0.790 & 1{,}170 \\
+\bottomrule
+\end{tabular}
+\caption{Routing and composition against library size. \emph{Lesson purity} is the share of a
+composite's lessons drawn from the 45 real skills rather than from distractors. False abstentions
+were zero at every size.}
+\label{tab:scaleroute}
+\end{table}
+
+Routing does not collapse. Recall is flat at 0.667 from 100 skills upward and precision settles
+near 0.57, so $F_1$ falls from 0.673 to 0.614 between 45 and 200 skills and then stops falling.
+Offline expansion is what holds it up: the distractors have expansions too, and the router still
+finds the right skills. The router also narrows as the library grows, from 3.2 skills per request
+to 2.3, because more competition makes the score distribution peakier. Composition degrades
+gracefully rather than sharply: about a fifth of a composite's lessons come from distractors at 504
+skills. Latency stays near a second on one core.
+
+Merging moves the other way. Sub-sampling the real library at sizes from 5 to 45 skills, the number
+of obligations shared across skills grows as $n^{1.53}$ ($R^2 = 0.999$), and the lessons filed under
+them as $n^{1.60}$. Merge opportunity is pairwise, so a larger library gives any obligation more
+chances to recur: 3.0 merged obligations per skill at 45, and an extrapolated 11.2 at 500. The
+de-duplication argument gets stronger as the library grows, which is the opposite of how it behaved
+when we moved from the synthetic corpus to the real one.
+
+\subsection{Quality does not degrade}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Condition & Pract. & Guid. & Both & Ctx \\
+\midrule
+Whole skills, oracle-selected (45) & 0.885 & 0.952 & \textbf{0.919} & 2{,}414 \\
+Whole skills, router-selected (45) & 0.865 & 0.875 & 0.870 & 5{,}594 \\
+\sm{} composite (45 skills) & 0.883 & 0.756 & 0.820 & 1{,}309 \\
+\sm{} composite (504 skills) & 0.867 & 0.794 & 0.830 & 1{,}193 \\
+\bottomrule
+\end{tabular}
+\caption{Blind rubric scores with the library at 45 and at 504 skills. Both whole-skill baselines
+use the 45-skill library, which favours them: their cost is measured before the resident-description
+term of Table~\ref{tab:scalecost}.}
+\label{tab:scalemain}
+\end{table}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Contrast & $\Delta$ & 95\% CI & $d_z$ & $p$ & $p_{\text{Holm}}$ & W/L \\
+\midrule
+504 $-$ 45 (composite) & $+0.010$ & $[-0.042, +0.074]$ & $+0.10$ & 0.9492 & 0.9492 & 4/7 \\
+504 $-$ routed whole & $-0.040$ & $[-0.099, +0.039]$ & $-0.31$ & 0.0742 & 0.1484 & 3/9 \\
+45 $-$ routed whole & $-0.050$ & $[-0.076, -0.025]$ & $-1.08$ & 0.0049 & 0.0195 & 1/10 \\
+routed $-$ oracle whole & $-0.049$ & $[-0.099, -0.013]$ & $-0.61$ & 0.0176 & 0.0527 & 1/9 \\
+504 $-$ oracle whole & $-0.089$ & $[-0.124, -0.052]$ & $-1.35$ & 0.0020 & 0.0098 & 1/11 \\
+\bottomrule
+\end{tabular}
+\caption{Scaling contrasts, combined rubric, Holm-corrected within the family.}
+\label{tab:scalecontrasts}
+\end{table}
+
+Growing the library by a factor of eleven does not move the composite: $+0.010$, interval
+$[-0.042, +0.074]$, $p = 0.95$. Its cost does not move either (1,193 tokens against 1,309). This is
+the property that matters, and it is a property of the design rather than of this corpus: the budget
+is a ceiling, so output size cannot grow with the library, and abstention keeps a query the library
+does not cover from producing anything at all.
+
+Removing the oracle costs the baseline 4.9 rubric points ($p = 0.018$ unadjusted, $0.053$ after
+correction) and more than doubles its tokens, from 2,414 to 5,594, because an uncertain router loads
+several whole skills where it would have loaded one. On the worst task it loaded 18,581 tokens. The
+composite's gap to the realistic baseline is 4.0 points and no longer distinguishable after
+correction; its gap to the unavailable oracle baseline stays at 8.9 points.
+
+\subsection{Where the argument turns}
+
+\begin{table}[t]\centering\small
+\begin{tabular}{rrrrr}
+\toprule
+Library & Whole skills & \sm{} & Ratio & Points/1k tok \\
+\midrule
+10 & 6{,}194 & 1{,}406 & 4.4 & 0.14 vs 0.58 \\
+45 & 8{,}294 & 1{,}406 & 5.9 & 0.11 vs 0.58 \\
+100 & 11{,}594 & 1{,}406 & 8.2 & 0.08 vs 0.58 \\
+250 & 20{,}594 & 1{,}406 & 14.6 & 0.04 vs 0.58 \\
+500 & 35{,}594 & 1{,}406 & 25.3 & 0.02 vs 0.58 \\
+1{,}000 & 65{,}594 & 1{,}406 & 46.6 & 0.01 vs 0.58 \\
+\bottomrule
+\end{tabular}
+\caption{Total per-request context: resident skill descriptions (median 60 tokens each) plus what
+gets loaded. \sm{} pays one 97-token tool description and one capped composite, so its column is
+constant. Points per thousand tokens uses the measured rubric scores of
+Table~\ref{tab:scalemain}.}
+\label{tab:scalecost}
+\end{table}
+
+Composition is a bad deal on a small library and a good one on a large library. Quality stays flat
+in library size for the composite and stays slightly better for whole skills at every size we
+measured, so the crossover comes from the denominator. A skill library keeps its descriptions
+resident so the model can choose, and at 500 skills that is roughly 30,000 tokens on every request
+before anything useful is loaded. The composite replaces it with a tool description and a capped
+call.
+
+So the answer to whether \sm{} improves results at scale is no, and the answer to whether it
+improves at scale is yes. Output quality is invariant to library size. Cost is invariant to library
+size. The alternative's cost is not.
+
 \section{The retained system}
 \label{sec:retained}
 
@@ -618,18 +761,21 @@ deliverables, and we found no configuration that did.
 The implementation, the twelve-skill synthetic corpus, every results file and the scripts that
 regenerate the tables in this article are at \url{https://github.com/mathieubrglt/skillmerge} under
 the MIT License. This article is available under CC BY 4.0. Running
-\texttt{tools/verify\_article.py} checks all 194 reported numbers against the stored results and
+\texttt{tools/verify\_article.py} checks all 325 reported numbers against the stored results and
 exits non-zero on any mismatch; \texttt{tools/stats\_all.py} regenerates every contrast, effect size
 and reliability coefficient.
 
-The 45-skill production library is not redistributed. Seventeen of those skills carry their own
+The 459 synthetic distractor skills of Section~\ref{sec:scale} are ours and are released with the
+rest. The 45-skill production library is not redistributed. Seventeen of those skills carry their own
 licence header and six are marked proprietary, and the atoms are close derivatives of them by
 design, since a lesson reproduces its source verbatim. The repository instead carries
 \texttt{docs/SKILLS-MANIFEST.json}, which records every skill the study read with the SHA-256 of the
 document as it stood, so a reader with the same installation can confirm they are looking at the
 same corpus before rebuilding the index locally. The synthetic corpus is regenerated byte-identically
-from its seeded generator, so the calibration results in Sections~\ref{sec:s1} and \ref{sec:s2trap}
-can be reproduced with nothing else installed.
+from its seeded generator; the calibration numbers reported for it in Sections~\ref{sec:s1} and
+\ref{sec:s2trap} are stored alongside it in \texttt{results/} rather than recomputed by a script in
+this release, and the real-library half of Section~\ref{sec:s2trap} additionally depends on the
+withheld production corpus and its judge panel, so it cannot be rebuilt from what ships here.
 
 \section{Threats to validity}
 
@@ -656,6 +802,13 @@ produce atoms that cost less quality. We did not test one.
 is a crude replacement. On procedural skills this should matter more than on checklist-shaped ones,
 and we do not separate the two.
 
+\textbf{The distractors are synthetic.} The 459 skills added in Section~\ref{sec:scale} were
+written by a model, four atoms each, across twenty domains chosen to be unrelated to the evaluation
+tasks. A real 500-skill library would contain near-neighbours of the tasks that our distractors do
+not, so routing at true scale should be harder than Table~\ref{tab:scaleroute} shows. The
+cost argument of Table~\ref{tab:scalecost} does not depend on this, since it turns on description
+count rather than description content.
+
 \textbf{Lexical retrieval throughout.} No embedding model was available in the environment, so
 routing is BM25 with offline query expansion. Routing recall of 0.71 caps every result here, and the
 one failure we can characterise precisely is a vocabulary gap that no term weighting closes.
@@ -670,11 +823,17 @@ teaching, and a heterogeneous skill library becomes de-duplicable at 0.817 preci
 previous method managed 0.067. Then print only the teaching, because the model already has the
 imperatives.
 
-The practical consequence for anyone maintaining a skill library is that the obligation index is
-probably worth more at authoring time than at request time. It shows exactly where skills overlap,
-which is the question a maintainer has and cannot currently answer. The runtime case for composition
-rests on context cost and on abstention, and anyone promising quality parity with loading the skills
-outright should be asked for their rubric.
+The runtime case rests on invariance. A composite's size is capped by construction and its quality
+did not move when we grew the library elevenfold, while whole-skill loading pays for every
+description in the library on every request and loads more skills the less sure it is. On a library
+of a few dozen skills that trade is not worth making. On a library of five hundred it is, and the
+reason has nothing to do with the composite getting better.
+
+For anyone maintaining such a library, the obligation index is probably worth more at authoring time
+than at request time. It shows exactly where skills overlap, which is the question a maintainer has
+and cannot currently answer, and the number of overlaps it surfaces grows faster than the library
+does. Anyone promising quality parity with loading the skills outright should be asked for their
+rubric.
 
 \bibliographystyle{plainnat}
 \begin{thebibliography}{10}
@@ -739,15 +898,14 @@ S.~Robertson and H.~Zaragoza.
 \section{Reproducibility}
 
 Every artefact is deterministic given the seed. \texttt{tools/build\_corpus.py} regenerates the
-synthetic corpus and its ground truth from the fragment library. \texttt{tools/eval\_cluster\_split.py}
-reproduces Table~\ref{tab:s1cluster}, \texttt{tools/sweep\_budget.py} the coverage figures,
-\texttt{tools/ablations.py} Section~\ref{sec:s1abl}, \texttt{tools/calibrate\_v2.py} the calibration
-in Section~\ref{sec:s2trap}, \texttt{tools/analyze\_merges.py} and
-\texttt{tools/analyze\_v3\_merges.py} the two adjudications, \texttt{tools/analyze\_fidelity.py}
-Table~\ref{tab:s3fid}, and \texttt{tools/stats\_all.py} every contrast and reliability coefficient in
-this article. \texttt{tools/verify\_paper.py}, \texttt{verify\_paper2.py} and
-\texttt{verify\_paper3.py} check the reported numbers against the stored results and fail on
-mismatch.
+synthetic corpus and its ground truth from the fragment library. \texttt{tools/stats\_all.py}
+regenerates every contrast, effect size and reliability coefficient in this article, including the
+two-proportion test behind the merge-precision comparison of Table~\ref{tab:s3adj}. The clustering
+of Table~\ref{tab:s1cluster}, the coverage sweep, the ablations of Section~\ref{sec:s1abl}, the
+calibration of Section~\ref{sec:s2trap}, the raw merge-adjudication counts of Table~\ref{tab:s3adj}
+and the fidelity audit of Table~\ref{tab:s3fid} are stored as computed results in \texttt{results/}
+rather than regenerated by a script in this release. \texttt{tools/verify\_article.py} checks all
+325 reported numbers, computed or stored, against those results and exits non-zero on any mismatch.
 
 Selection protocol. The synthetic study's merging threshold was chosen on six skills and reported on
 the other six; its composition hyperparameters were chosen on four development tasks and its

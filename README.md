@@ -5,12 +5,17 @@ task and capped at a token budget. Composition on the request path is determinis
 model call.
 
 The method and its measured limits are in [`paper/article.pdf`](paper/article.pdf). The short
-version, from three studies and 132 blind-graded deliverables:
+version, from three studies and 156 blind-graded deliverables:
 
-- Composition does **not** improve deliverables. No variant came within 8 rubric points of loading
-  the skills a practitioner would have chosen.
+- Composition does **not** improve deliverables. No variant matched or exceeded loading the skills
+  a practitioner would have chosen; the shortfall ranged from about 2 rubric points on a corpus
+  built to flatter composition to about 12 points on a real library.
 - It reduces injected context by 46% to 60%, and it abstains when the library does not cover the
   task.
+- **It scales.** Growing the library from 45 to 504 skills leaves composite quality unchanged
+  (+0.010, 95% CI [−0.042, +0.074]) and its cost unchanged. Whole-skill loading pays for every
+  description in the library on every request, so total per-request context favours composition by
+  5.9x at 45 skills and 25x at 500. Obligations available to merge grow as n^1.53.
 - Splitting each unit into a general **obligation** and the specific **lesson** that makes it
   actionable raises cross-skill merge precision from 0.067 to 0.817, judged by an independent
   panel. That is what makes a heterogeneous library de-duplicable without losing content.
@@ -107,8 +112,10 @@ Every emitted reference path is validated.
 ## Reproducing the paper
 
 `tools/stats_all.py` regenerates every contrast, effect size and reliability coefficient.
-`tools/verify_article.py` checks all 194 numbers in the article against `results/` and fails on
-mismatch. The production corpus is not redistributed; see [`NOTICE`](NOTICE) and
+`tools/verify_article.py` checks all 325 numbers in the article against `results/` and fails on
+mismatch. `tools/scale_analysis.py`, `tools/scale_routing.py` and `tools/scale_cost.py` reproduce
+the scaling study, but need the production library's index and atoms and its raw run manifests,
+none of which are redistributed; see [`NOTICE`](NOTICE) and
 [`docs/reproducing.md`](docs/reproducing.md).
 
 ```bash

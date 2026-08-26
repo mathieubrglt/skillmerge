@@ -140,34 +140,69 @@ study("study2_real", "results/v2_experiment.json",
       ["A_none","B_concat","C_composed","D_random","E_matched"],
       [("A_none","C_composed"),("B_concat","C_composed"),("D_random","C_composed"),
        ("C_composed","E_matched"),("B_concat","E_matched"),("A_none","B_concat")])
+study("study4_scale", "results/scale504_experiment.json",
+      ["B_concat","G_lessons","H_routed","J_scale"],
+      [("G_lessons","J_scale"),("H_routed","J_scale"),("B_concat","J_scale"),
+       ("H_routed","G_lessons"),("B_concat","G_lessons"),("B_concat","H_routed")])
 study("study3_atoms", "results/v3_lessons_experiment.json",
       ["B_concat","C_composed","F_v3","G_lessons"],
       [("F_v3","G_lessons"),("C_composed","G_lessons"),("C_composed","F_v3"),
        ("B_concat","G_lessons"),("B_concat","C_composed")])
 
-# reliability from the raw grading files of each study
-def reliability(name, panel_files, key_file, conds, rubrics=None):
-    import glob, os
-    key = json.load(open(key_file))
-    pairs = []
-    for tag in sorted({k.split('_')[0] for k in key}):
-        pass
-    return pairs
-
-# Panel reliability is recomputed from the raw grading files when they are present. They embed
-# skill text for the production studies, so they are not redistributed; the coefficients are then
-# read back from the stored results.
-import os
-prev = json.load(open('results/stats_all.json')) if os.path.exists('results/stats_all.json') else {}
 print("\n=== grader reliability ===")
-for nm in ("study1_synthetic", "study2_real", "study3_atoms"):
-    r = (prev.get(nm) or {}).get('reliability')
-    if r:
-        OUT[nm]['reliability'] = r
-        print(f"{nm:20s} n={r['items']:5d} exact={r['exact']:.3f}  "
-              f"weighted kappa={r['kappa_qw']:.3f}  Krippendorff alpha={r['alpha']:.3f}")
-    else:
-        print(f"{nm:20s} raw grading files not present; see results/stats_all.json")
+import glob, os, sys
+sys.path.insert(0,'v2/eval'); sys.path.insert(0,'eval')
+def rel_v1():
+    from tasks import TASKS
+    key = json.load(open('grading/key.json')); got = {}
+    for panel in (1,2):
+        for t in TASKS:
+            p = f"grading/P{panel}_{t['id']}.json"
+            if not os.path.exists(p): continue
+            g = json.load(open(p))
+            for lab, cond in key[f"P{panel}_{t['id']}"].items():
+                if lab in g:
+                    sc = g[lab].get('scores', [])
+                    sc = [min(2, max(0, int(x))) for x in (list(sc)+[0]*len(t['rubric']))[:len(t['rubric'])]]
+                    got[(panel, t['id'], cond)] = sc
+    return [(a, b) for (t, c) in {(k[1], k[2]) for k in got}
+            for a, b in zip(got.get((1, t, c), []), got.get((2, t, c), []))]
+def rel_v(keyfile, tag):
+    from tasks2 import TASKS2
+    key = json.load(open(keyfile)); got = {}
+    for panel in (1, 2):
+        for t in TASKS2:
+            p = f"v2/grading/{tag}{panel}_{t['id']}.json"
+            if not os.path.exists(p): continue
+            g = json.load(open(p))
+            na = len(json.load(open(f"v2/rubrics/{t['id']}_rubric_task.json"))['criteria'])
+            nb = len(json.load(open(f"v2/rubrics/{t['id']}_rubric_skill.json"))['criteria'])
+            for lab, cond in key[f"{tag}{panel}_{t['id']}"].items():
+                if lab not in g: continue
+                fix = lambda v, n: [min(2, max(0, int(x))) for x in (list(v)+[0]*n)[:n]]
+                got[(panel, t['id'], cond)] = fix(g[lab].get('a', []), na) + fix(g[lab].get('b', []), nb)
+    return [(a, b) for (t, c) in {(k[1], k[2]) for k in got}
+            for a, b in zip(got.get((1, t, c), []), got.get((2, t, c), []))]
+
+# The per-item grading transcripts these recompute from embed real skill text and are not
+# redistributed (see NOTICE); when they are absent, fall back to the reliability figures already
+# stored in results/stats_all.json rather than crash.
+try:
+    for nm, pr in (("study1_synthetic", rel_v1()),
+                   ("study2_real", rel_v('v2/grading/key2.json', 'Q')),
+                   ("study3_atoms", rel_v('v2/grading/key4.json', 'S'))):
+        ex = sum(1 for a, b in pr if a == b) / len(pr)
+        kw = weighted_kappa(pr); ka = krippendorff_ordinal(pr)
+        OUT[nm]['reliability'] = dict(items=len(pr), exact=ex, kappa_qw=kw, alpha=ka)
+        print(f"{nm:20s} n={len(pr):5d} exact={ex:.3f}  weighted kappa={kw:.3f}  Krippendorff alpha={ka:.3f}")
+except (ModuleNotFoundError, FileNotFoundError) as e:
+    print(f"grading transcripts not in this release ({e}); reusing stored reliability from results/stats_all.json")
+    stored = json.load(open('results/stats_all.json')) if os.path.exists('results/stats_all.json') else {}
+    for nm in ("study1_synthetic", "study2_real", "study3_atoms"):
+        if nm in stored and 'reliability' in stored[nm]:
+            OUT[nm]['reliability'] = stored[nm]['reliability']
+            r = stored[nm]['reliability']
+            print(f"{nm:20s} n={r['items']:5d} exact={r['exact']:.3f}  weighted kappa={r['kappa_qw']:.3f}  Krippendorff alpha={r['alpha']:.3f}  (stored)")
 
 M2 = json.load(open('results/v2_merge_validation.json'))
 M3 = json.load(open('results/v3_merge_validation.json'))

@@ -1,0 +1,134 @@
+{
+ "description_tokens": {
+  "n": 45,
+  "total": 3456,
+  "median": 60,
+  "mean": 76.8,
+  "p90": 165
+ },
+ "compose_tool_tokens": 97,
+ "resident_curve": [
+  {
+   "n": 10,
+   "resident": 600,
+   "compose": 97,
+   "ratio": 6.185567010309279
+  },
+  {
+   "n": 45,
+   "resident": 2700,
+   "compose": 97,
+   "ratio": 27.835051546391753
+  },
+  {
+   "n": 100,
+   "resident": 6000,
+   "compose": 97,
+   "ratio": 61.855670103092784
+  },
+  {
+   "n": 250,
+   "resident": 15000,
+   "compose": 97,
+   "ratio": 154.63917525773195
+  },
+  {
+   "n": 500,
+   "resident": 30000,
+   "compose": 97,
+   "ratio": 309.2783505154639
+  },
+  {
+   "n": 1000,
+   "resident": 60000,
+   "compose": 97,
+   "ratio": 618.5567010309278
+  }
+ ],
+ "merge_curve": [
+  {
+   "n": 5,
+   "atoms": 134.25,
+   "units": 121.875,
+   "merged": 4.75,
+   "lessons": 10.875,
+   "merged_per_skill": 0.95
+  },
+  {
+   "n": 10,
+   "atoms": 293.5,
+   "units": 262.5,
+   "merged": 13.625,
+   "lessons": 29.875,
+   "merged_per_skill": 1.3625
+  },
+  {
+   "n": 15,
+   "atoms": 388,
+   "units": 331.875,
+   "merged": 27,
+   "lessons": 62.25,
+   "merged_per_skill": 1.8
+  },
+  {
+   "n": 20,
+   "atoms": 478.5,
+   "units": 398.875,
+   "merged": 38.125,
+   "lessons": 93.5,
+   "merged_per_skill": 1.90625
+  },
+  {
+   "n": 25,
+   "atoms": 643.625,
+   "units": 529.25,
+   "merged": 55.25,
+   "lessons": 138.375,
+   "merged_per_skill": 2.21
+  },
+  {
+   "n": 30,
+   "atoms": 801.75,
+   "units": 648.875,
+   "merged": 79.25,
+   "lessons": 194.375,
+   "merged_per_skill": 2.6416666666666666
+  },
+  {
+   "n": 35,
+   "atoms": 815.75,
+   "units": 633.25,
+   "merged": 92,
+   "lessons": 238.5,
+   "merged_per_skill": 2.6285714285714286
+  },
+  {
+   "n": 40,
+   "atoms": 1007.75,
+   "units": 781.25,
+   "merged": 116.5,
+   "lessons": 295.25,
+   "merged_per_skill": 2.9125
+  },
+  {
+   "n": 45,
+   "atoms": 1134,
+   "units": 872,
+   "merged": 137,
+   "lessons": 348,
+   "merged_per_skill": 3.0444444444444443
+  }
+ ],
+ "merge_fit": {
+  "coef": 0.40307575647656996,
+  "exponent": 1.534390965874663,
+  "r2": 0.9989883747797591,
+  "predictions": {
+   "100": 472.2463494949549,
+   "250": 1926.478487590756,
+   "500": 5580.355535026986,
+   "1000": 16164.399497785364
+  }
+ },
+ "lessons_exponent": 1.6023561550083896
+}

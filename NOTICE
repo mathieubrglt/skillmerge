@@ -42,3 +42,6 @@ index. See docs/reproducing.md.
 
 If you maintain a skill library of your own, point the pipeline at it. Nothing in the method
 depends on the particular corpus.
+
+scale/             459 synthetic distractor skills across twenty professional domains, written for
+                   the scaling study. Ours, MIT-licensed like the rest.
