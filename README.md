@@ -1,5 +1,7 @@
 # SkillMerge
 
+![SkillMerge](assets/skillmerge.jpg)
+
 Index a library of Agent Skills once. Return, per request, a single composite skill scoped to one
 task and capped at a token budget. Composition on the request path is deterministic and makes no
 model call.
